@@ -13,3 +13,6 @@ Thumbs.db
 originales/
 *.HEIC
 *.heic
+
+# Version antigua de un solo archivo, sustituida por index.html + estilo.css + guion.js
+boda-ricardo-luisa.html
