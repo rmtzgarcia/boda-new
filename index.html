@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  RICARDO & LUISA — 2 de abril de 2027 — Finca La Victoria, Subachoque
+  ============================================================================
+  CÓMO EDITAR ESTA PÁGINA
+  ----------------------------------------------------------------------------
+  0. ESTE archivo (index.html) contiene los TEXTOS. Es el que se edita para
+     cambiar lo que dice la web. Los otros dos son de apoyo:
+        estilo.css → colores, tipografías y espacios (el aspecto)
+        guion.js   → carrusel, cuenta regresiva, música y envío del RSVP
+     Si solo quieres corregir un texto, no necesitas abrirlos.
+  1. Antes de editar, lee CLAUDE.md: resume qué está terminado y qué falta.
+  2. Los datos que debes confirmar están marcados con la clase "ph"
+     (placeholder). Búscalos con Ctrl+F escribiendo:  class="ph"
+     En pantalla se ven con un subrayado punteado dorado.
+  3. Para quitar el resaltado cuando ya tengas los datos finales, borra la
+     palabra  ph  de la etiqueta, o busca en el CSS la regla  .ph  y ponle
+     border-bottom: none;
+  4. El aviso "Versión borrador" de arriba se elimina borrando el bloque
+     <div class="draft-banner"> ... </div>
+  5. FORMULARIO RSVP — ⚠ FALTA CONECTARLO. Las respuestas van a un Google
+     Form oculto, pero hay que rellenar antes las variables GFORM y CAMPOS
+     en el bloque "ENVÍO DEL RSVP" del JavaScript, al final del archivo.
+     Ahí mismo están las instrucciones paso a paso. Mientras estén vacías,
+     el formulario avisa al visitante de que aún no está conectado.
+  6. Colores: edítalos en el bloque  :root  al inicio del CSS.
+  7. MÚSICA — «Asilo», Jorge Drexler & Mon Laferte, vía reproductor oficial
+     de Spotify. No hay que alojar ningún archivo ni gestionar derechos.
+     El botón flotante de abajo a la derecha abre el reproductor; el
+     visitante pulsa play (Spotify no permite arranque automático).
+     Para cambiar de canción: variable SPOTIFY en el JavaScript del final.
+  8. FOTOS — el carrusel de la portada usa la subcarpeta  fotos/ .
+     ⚠ Guarda siempre esa carpeta JUNTO a este archivo HTML.
+  ============================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricardo &amp; Luisa · 2 de abril de 2027 · Subachoque, Colombia</title>
+<meta name="description" content="Nos casamos el 2 de abril de 2027 en la Finca La Victoria, Subachoque, Colombia. Toda la información para organizar tu viaje.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<!--
+  ═══════════════════════ MÚSICA: «ASILO» ═══════════════════════
+  Reproductor oficial de Spotify. No hay que alojar ningún archivo y la
+  reproducción le cuenta al artista, así que no hay problema de derechos.
+  El visitante pulsa play: Spotify no permite el arranque automático.
+
+  Un solo clic en la clave de sol (abajo a la derecha) arranca la canción:
+  usamos la API oficial de embeds de Spotify, que permite controlar la
+  reproducción desde la página. El mismo botón pausa y reanuda.
+
+  OJO: quien no tenga sesión de Spotify abierta en su navegador oirá solo
+  un fragmento de unos 30 segundos. Es una limitación de Spotify para
+  oyentes anónimos, no del código.
+
+  Para cambiar de canción: sustituye el ID  5r0yIwEKbqZL96FRmOLYkG  en la
+  variable SPOTIFY del JavaScript. El ID está en la URL de cualquier
+  canción de Spotify, después de  /track/
+-->
+<button id="musica" data-tip="Nuestra canción" aria-label="Reproducir nuestra canción" aria-pressed="false">
+  <svg class="ic-nota" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </svg>
+  <svg class="ic-pausa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/>
+  </svg>
+</button>
+
+<div id="panel-musica" hidden>
+  <div class="pm-cab">
+    <span>Nuestra canción</span>
+    <button id="pm-cerrar" aria-label="Cerrar el reproductor">&times;</button>
+  </div>
+  <div id="pm-caja"><div id="pm-marco"></div></div>
+  <p class="pm-pie">«Asilo» · Jorge Drexler &amp; Mon Laferte</p>
+</div>
+
+<!-- ═══════════ AVISO EDITABLE (bórralo cuando publiques) ═══════════ -->
+<div class="draft-banner" id="draft">
+  <button onclick="document.getElementById('draft').remove()" aria-label="Cerrar">&times;</button>
+  <b>Versión borrador.</b> Los datos por confirmar están <span style="border-bottom:1.5px dotted #E3B08A">subrayados en punteado</span>. Instrucciones de edición en el comentario al inicio del archivo HTML.
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#inicio" class="nav-mono">R &amp; L</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="links">
+      <li><a href="#lugar">El lugar</a></li>
+      <li><a href="#programa">Programa</a></li>
+      <li><a href="#codigo">Vestuario</a></li>
+      <li><a href="#viaje">Cómo llegar</a></li>
+      <li><a href="#hospedaje">Hospedaje</a></li>
+      <li><a href="#colombia">Colombia</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+      <li><a href="#rsvp" class="nav-cta">Confirmar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="inicio">
+  <div class="wrap hero-in">
+   <div class="hero-grid">
+
+    <div class="hero-texto">
+      <span class="eyebrow">Nos casamos</span>
+      <h1 class="names">Ricardo<span class="amp">&amp;</span>Luisa</h1>
+      <div class="franja" aria-hidden="true">
+        <i style="background:var(--p-terracota)"></i>
+        <i style="background:var(--p-naranja)"></i>
+        <i style="background:var(--p-ladrillo)"></i>
+        <i style="background:var(--p-oliva)"></i>
+        <i style="background:var(--p-bosque)"></i>
+      </div>
+
+      <div class="hero-rule">
+        <i></i>
+        <svg class="sprig" viewBox="0 0 120 40" style="width:52px" aria-hidden="true">
+          <path d="M10 20 H110"/>
+          <ellipse cx="30" cy="13" rx="9" ry="5" transform="rotate(-22 30 13)"/>
+          <ellipse cx="30" cy="27" rx="9" ry="5" transform="rotate(22 30 27)"/>
+          <ellipse cx="52" cy="11" rx="10" ry="5.5" transform="rotate(-20 52 11)"/>
+          <ellipse cx="52" cy="29" rx="10" ry="5.5" transform="rotate(20 52 29)"/>
+          <ellipse cx="76" cy="13" rx="9" ry="5" transform="rotate(-22 76 13)"/>
+          <ellipse cx="76" cy="27" rx="9" ry="5" transform="rotate(22 76 27)"/>
+        </svg>
+        <i></i>
+      </div>
+
+      <div class="hero-meta">
+        <span>Viernes 2 de abril de 2027</span>
+        <span class="hero-place">Finca La Victoria &middot; Subachoque, Colombia</span>
+      </div>
+
+      <div class="count" id="count" aria-label="Cuenta regresiva">
+        <div><b id="c-d">—</b><small>Días</small></div>
+        <div><b id="c-h">—</b><small>Horas</small></div>
+        <div><b id="c-m">—</b><small>Minutos</small></div>
+        <div><b id="c-s">—</b><small>Segundos</small></div>
+      </div>
+
+      <div class="btn-row">
+        <a href="#rsvp" class="btn">Confirmar asistencia</a>
+        <a href="#viaje" class="btn btn-ghost">Planear mi viaje</a>
+      </div>
+    </div>
+
+    <!--
+      ═══ CARRUSEL ═══
+      Las fotos viven en la subcarpeta  fotos/  junto a este HTML.
+      Para añadir o quitar una, copia o borra un bloque <figure> entero:
+      los puntos de navegación se generan solos según cuántas haya.
+      Si una cara queda cortada, ajusta  object-position  de esa imagen
+      (primer valor = horizontal, segundo = vertical; 50% 50% es el centro).
+      Los pies de foto están marcados como editables: cámbialos o bórralos.
+    -->
+    <div class="carrusel" id="carrusel">
+      <div class="marco" id="marco">
+        <figure class="act">
+          <img src="fotos/foto-1.jpg" alt="Ricardo y Luisa sentados sobre un jeep Willys rojo en el Valle de Cocora"
+               style="object-position:50% 30%" width="900" height="1200">
+          <figcaption class="ph">Valle de Cocora, Colombia</figcaption>
+        </figure>
+        <figure>
+          <img src="fotos/foto-2.jpg" alt="Ricardo y Luisa en el mirador del parque nacional del Teide"
+               style="object-position:62% 50%" width="1200" height="900" loading="lazy">
+          <figcaption class="ph">Parque Nacional del Teide</figcaption>
+        </figure>
+        <figure>
+          <img src="fotos/foto-3.jpg" alt="Ricardo y Luisa con la camiseta de España frente al estadio olímpico de Berlín"
+               style="object-position:55% 50%" width="1200" height="900" loading="lazy">
+          <figcaption class="ph">Berlín, Eurocopa 2024</figcaption>
+        </figure>
+      </div>
+      <button class="car-nav car-prev" id="car-prev" aria-label="Foto anterior">&#8249;</button>
+      <button class="car-nav car-next" id="car-next" aria-label="Foto siguiente">&#8250;</button>
+      <div class="car-dots" id="car-dots" role="tablist" aria-label="Elegir foto"></div>
+    </div>
+
+   </div>
+  </div>
+</header>
+
+<!-- ═══════════ BIENVENIDA ═══════════ -->
+<section id="bienvenida">
+  <div class="wrap narrow rv" style="text-align:center">
+    <span class="eyebrow">Bienvenidos</span>
+    <p class="lead">Muchos de ustedes van a cruzar medio continente —o un océano— para acompañarnos. Esta página existe para que ese viaje sea lo más fácil posible: fechas, transporte, dónde dormir, qué empacar y todo lo que necesitan saber sobre Colombia.</p>
+    <p style="margin-top:1.6rem">Nos casamos en la sabana de Bogotá, a 2.660 metros de altura, entre montañas verdes y aire frío. Es un lugar precioso y también un poco inesperado para quien imagina Colombia como puro calor. Lean la sección de <a href="#codigo">clima y vestuario</a> antes de empacar. Hablamos en serio con lo del abrigo.</p>
+    <p style="margin-top:1.4rem"><em>Con cariño,</em><br><span style="font-family:var(--serif);font-size:1.5rem;color:var(--bosque)">Ricardo &amp; Luisa</span></p>
+  </div>
+</section>
+
+<!-- ═══════════ EL LUGAR ═══════════ -->
+<section id="lugar">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Cuándo y dónde</span>
+      <h2>Finca La Victoria</h2>
+      <p>Subachoque, Cundinamarca — a unos 45 km al noroccidente de Bogotá, en plena sabana.</p>
+    </div>
+
+    <div class="feature rv">
+      <div class="frame">
+        <svg viewBox="0 0 240 190" style="width:100%;max-width:280px" aria-hidden="true">
+          <g fill="none" stroke="#75834E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 152 C50 132 74 138 104 120 C132 104 158 110 188 96 C206 88 218 84 228 82" opacity=".65"/>
+            <path d="M14 168 C56 152 86 158 118 142 C148 128 178 132 228 116" opacity=".45"/>
+            <path d="M52 118 L96 84 L140 118" />
+            <path d="M64 118 V160 H128 V118"/>
+            <path d="M88 160 V134 H106 V160"/>
+            <path d="M74 128 h12 v11 h-12 z"/>
+            <path d="M110 128 h12 v11 h-12 z"/>
+            <path d="M96 84 V70"/>
+            <path d="M160 160 V116"/><path d="M160 128 l16-14"/><path d="M160 140 l-15-13"/>
+            <path d="M196 160 V126"/><path d="M196 136 l13-12"/>
+          </g>
+          <g fill="#C2C9A4" opacity=".8">
+            <ellipse cx="178" cy="110" rx="16" ry="9" transform="rotate(-28 178 110)"/>
+            <ellipse cx="143" cy="123" rx="14" ry="8" transform="rotate(28 143 123)"/>
+            <ellipse cx="210" cy="120" rx="13" ry="7.5" transform="rotate(-30 210 120)"/>
+            <circle cx="96" cy="66" r="4"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h3>Una finca de la sabana</h3>
+        <p>La ceremonia y la fiesta serán en el mismo lugar, así que no tendrán que moverse durante el día. Los jardines son extensos y el terreno es de <strong>pasto natural, con desniveles suaves</strong> — importante a la hora de escoger zapatos.</p>
+        <dl class="rows" style="margin-top:26px">
+          <div class="row"><dt>Dirección</dt><dd class="ph">Finca La Victoria, vereda [confirmar], vía Subachoque – El Rosal, Km [X], Subachoque, Cundinamarca</dd></div>
+          <div class="row"><dt>Mapa</dt><dd><a class="ph" href="https://www.google.com/maps/search/Subachoque+Cundinamarca" target="_blank" rel="noopener">Abrir ubicación exacta en Google Maps</a> <span style="font-size:.82rem;color:var(--salvia)">(pegar el enlace definitivo del pin)</span></dd></div>
+          <div class="row"><dt>Desde el aeropuerto</dt><dd>El Dorado (BOG) → Subachoque: <strong>≈ 45 km</strong>, entre <strong>1 h y 1 h 45 min</strong> según el tráfico de salida de Bogotá.</dd></div>
+          <div class="row"><dt>Altitud</dt><dd>2.663 m sobre el nivel del mar. Prácticamente la misma que Bogotá.</dd></div>
+          <div class="row"><dt>Parqueadero</dt><dd class="ph">Sí, gratuito dentro de la finca — capacidad aprox. [X] vehículos.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROGRAMA ═══════════ -->
+<section id="programa">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Tres días</span>
+      <h2>El programa</h2>
+      <p>La boda es el viernes, pero armamos un fin de semana completo. Vengan con calma: vale la pena llegar al menos un día antes para aclimatarse a la altura.</p>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Jueves 1 de abril</h3><span>Llegada &middot; Opcional</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">6:00 p.m.</span><span class="evento">Cóctel de bienvenida</span><p class="det ph">Lugar por confirmar (Subachoque pueblo / hotel sede). Informal, para saludarnos sin prisa antes del día grande. Vengan abrigados: a esa hora ya hace frío.</p></li>
+      </ul>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Viernes 2 de abril</h3><span>El día de la boda</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">1:30 p.m.</span><span class="evento">Transporte desde Bogotá</span><p class="det ph">Buses privados salen de [punto de encuentro: hotel sede / Zona T]. Puntualidad estricta — el trayecto es de más de una hora.</p></li>
+        <li><span class="hora ph">3:00 p.m.</span><span class="evento">Llegada a la finca</span><p class="det">Recepción, bebida de bienvenida y tiempo para instalarse.</p></li>
+        <li><span class="hora ph">4:00 p.m.</span><span class="evento">Ceremonia</span><p class="det ph">Al aire libre, en el jardín. Por favor estar sentados 20 minutos antes.</p></li>
+        <li><span class="hora ph">5:00 p.m.</span><span class="evento">Cóctel y fotos</span><p class="det">Pasabocas, música en vivo y el atardecer sobre la sabana.</p></li>
+        <li><span class="hora ph">7:30 p.m.</span><span class="evento">Cena</span><p class="det ph">Cena servida bajo carpa con calefacción. Menú de tres tiempos con opciones vegetarianas.</p></li>
+        <li><span class="hora ph">10:00 p.m.</span><span class="evento">Fiesta</span><p class="det">Hora loca, DJ y lo que resulte. Habrá bebidas calientes para los valientes que salgan al jardín.</p></li>
+        <li><span class="hora ph">3:00 a.m.</span><span class="evento">Último transporte de regreso</span><p class="det ph">Buses de vuelta a Bogotá a las [1:00 a.m.] y [3:00 a.m.].</p></li>
+      </ul>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Sábado 3 de abril</h3><span>Despedida &middot; Opcional</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">11:00 a.m.</span><span class="evento">Brunch de recuperación</span><p class="det ph">Lugar por confirmar. Vengan como puedan. Café colombiano en cantidades industriales, garantizado.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DRESS CODE Y CLIMA ═══════════ -->
+<section id="codigo">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Qué ponerse</span>
+      <h2>Vestuario y clima</h2>
+      <p>La regla de oro: <strong>elegante, pero preparado para el frío y para el pasto</strong>. La sabana de Bogotá engaña — sol fuerte al mediodía, 8 °C a medianoche.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">Código</span>
+        <h4>Formal de campo</h4>
+        <p>Traje o cóctel, sin ser de gala. Ellos: traje completo, corbata opcional. Ellas: vestido largo o midi.</p>
+        <p style="margin-top:.7rem"><strong>Por favor eviten el blanco y el marfil.</strong></p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Importante</span>
+        <h4>Zapatos</h4>
+        <p>La ceremonia es sobre pasto y el terreno tiene desniveles. Tacón ancho, plataforma o block heel. Los tacones de aguja se hunden — está comprobado.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Imprescindible</span>
+        <h4>Abrigo</h4>
+        <p>De día 18–20 °C; al caer el sol baja a 6–9 °C. Traigan pashmina, chal, blazer o abrigo de verdad. No es un detalle: van a usarlo.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Abril</span>
+        <h4>Temporada de lluvias</h4>
+        <p>Abril es de los meses más lluviosos en la sabana. Suelen ser aguaceros cortos de tarde. Hay plan B bajo carpa, pero un paraguas plegable en la maleta no sobra.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Sol andino</span>
+        <h4>Protector solar</h4>
+        <p>A 2.660 m el sol quema mucho más rápido aunque no haga calor. Bloqueador y gafas, incluso con cielo nublado.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Extra</span>
+        <h4>Cambio de zapatos</h4>
+        <p>Si quieren bailar hasta el final, traigan un par plano de repuesto en el carro o en el bus. Nadie los va a juzgar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIAJE ═══════════ -->
+<section id="viaje">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Cómo llegar</span>
+      <h2>El viaje a Colombia</h2>
+      <p>Todo pasa por Bogotá. Desde ahí son poco más de 60 minutos hasta Subachoque.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="ico">✈</span>
+        <h4>Vuelos</h4>
+        <p>El aeropuerto es <strong>El Dorado (BOG)</strong>, en Bogotá. Es el hub más grande de la región y tiene vuelos directos desde Madrid, Miami, Nueva York, Ciudad de México, São Paulo, Buenos Aires, Santiago, Lima, Panamá y varias ciudades más.</p>
+        <ul>
+          <li><strong>Reserven pronto:</strong> abril arranca con temporada alta en Colombia.</li>
+          <li>Semana Santa 2027 es del <strong>22 al 28 de marzo</strong>. Volar justo esos días cuesta bastante más; llegar del 29 en adelante suele ser más barato.</li>
+          <li>Si vienen de Europa, la mayoría de vuelos aterrizan de noche. Consideren dormir en Bogotá la primera noche.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🛂</span>
+        <h4>Entrada al país</h4>
+        <ul>
+          <li>Ciudadanos de la mayoría de países de Europa y América Latina, además de EE. UU., Canadá, Reino Unido y Australia, <strong>no necesitan visa</strong> para estancias turísticas de hasta 90 días.</li>
+          <li><strong>Check-Mig obligatorio para todos:</strong> formulario digital gratuito que se llena en línea dentro de las 24 horas previas al vuelo, en <a href="https://apps.migracioncolombia.gov.co/pre-registro/public/preregistro.jsf" target="_blank" rel="noopener">apps.migracioncolombia.gov.co</a>.</li>
+          <li>Pasaporte con <strong>vigencia mínima de 6 meses</strong> desde la fecha de salida.</li>
+          <li>Verifiquen su caso concreto en la web oficial de <a href="https://www.migracioncolombia.gov.co/" target="_blank" rel="noopener">Migración Colombia</a> — las reglas cambian.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚌</span>
+        <h4>Transporte a la finca</h4>
+        <p>El día de la boda habrá <strong>buses privados</strong> de ida y vuelta desde Bogotá. Es la opción más cómoda y la que recomendamos: pueden brindar sin preocuparse.</p>
+        <p class="ph" style="margin-top:.7rem">Punto de salida: [hotel sede / dirección]. Si van a usar el bus, indíquenlo al confirmar en el apartado <em>«¿Algo más que debamos saber?»</em>.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚗</span>
+        <h4>Si prefieren manejar</h4>
+        <ul>
+          <li>La ruta habitual desde Bogotá es por la <strong>Calle 80 (vía Medellín)</strong> hasta El Rosal y de ahí a Subachoque.</li>
+          <li>Alquiler de auto en el aeropuerto: hay agencias internacionales, pero manejar en Bogotá es exigente. Solo si tienen experiencia.</li>
+          <li>Bogotá aplica <strong>pico y placa</strong> (restricción vehicular por número de placa en días hábiles). Consúltenlo antes de moverse en semana.</li>
+          <li>Waze y Google Maps funcionan bien; la señal es irregular en algunos tramos rurales — descarguen el mapa sin conexión.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚕</span>
+        <h4>Taxis y apps</h4>
+        <p>En Bogotá funcionan Uber, DiDi, Cabify e InDrive, además de los taxis oficiales del aeropuerto. Un traslado El Dorado → norte de Bogotá cuesta aprox. <span class="ph">COP 45.000–80.000</span>.</p>
+        <p style="margin-top:.7rem">Hasta Subachoque, un taxi o traslado privado ronda los <span class="ph">COP 180.000–260.000</span>. Pídanlo con anticipación; en el pueblo no hay taxis esperando.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🕐</span>
+        <h4>Horario y jet lag</h4>
+        <ul>
+          <li>Colombia está en <strong>UTC−5</strong> todo el año, sin cambio de hora.</li>
+          <li>Desde España son <strong>7 horas menos</strong> (en horario de verano europeo).</li>
+          <li>Desde Ciudad de México, 1 hora más; desde Nueva York, la misma hora en verano.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOSPEDAJE ═══════════ -->
+<section id="hospedaje">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Dónde dormir</span>
+      <h2>Hospedaje</h2>
+      <p>Tres opciones según lo que busquen. Reserven pronto: Subachoque es un pueblo pequeño y la oferta cercana se agota rápido.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">Opción 1</span>
+        <h4>Subachoque y alrededores</h4>
+        <p>Hoteles boutique, hosterías y casas de campo en el pueblo o en la vereda. Lo más cerca de la finca (5–20 min) y lo más bonito, pero con pocas habitaciones.</p>
+        <p class="ph" style="margin-top:.8rem"><strong>Bloqueo de habitaciones:</strong> [nombre del hotel] — código <strong>BODARL2027</strong> — reservar antes del [fecha límite]. Tarifa aprox. [COP 350.000–550.000] por noche.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Opción 2</span>
+        <h4>Chía, Tabio y Tenjo</h4>
+        <p>Pueblos de la sabana a 25–45 minutos de la finca. Buena relación calidad-precio, restaurantes agradables y ambiente de campo. Ideal si alquilan carro.</p>
+        <p class="ph" style="margin-top:.8rem">Sugerencias: [hotel A], [hotel B]. Rango aprox. [COP 250.000–450.000] por noche.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Opción 3</span>
+        <h4>Bogotá</h4>
+        <p>Más lejos (1 h – 1 h 45) pero con toda la oferta de restaurantes, museos y vida de ciudad. Los buses de la boda salen desde aquí. Recomendamos las zonas de <strong>Usaquén</strong>, <strong>Zona G / Chicó</strong> o <strong>Parque de la 93</strong>: seguras, caminables y bien conectadas.</p>
+        <p class="ph" style="margin-top:.8rem"><strong>Hotel sede:</strong> [nombre] — punto de salida de los buses. Tarifa negociada [COP X] con el código [XXX].</p>
+      </div>
+    </div>
+
+    <div class="rv" style="margin-top:34px;padding:24px 26px;border-left:2px solid var(--p-vino);background:rgba(90,18,38,.05)">
+      <p style="font-size:.94rem"><strong>Consejo:</strong> si vienen en grupo o en familia, Airbnb funciona muy bien en la sabana — hay fincas completas por precios razonables. Y si se quedan en Bogotá, elijan hotel en el <em>norte</em> de la ciudad: acorta el trayecto a Subachoque y evita el peor tráfico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COLOMBIA PRÁCTICA ═══════════ -->
+<section id="colombia">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Antes de viajar</span>
+      <h2>Colombia práctica</h2>
+      <p>Lo que nos hubiera gustado saber en nuestro primer viaje.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="ico">⛰</span>
+        <h4>La altura</h4>
+        <p>Bogotá y Subachoque están a unos <strong>2.650 m</strong>. Algunas personas sienten <em>soroche</em>: dolor de cabeza, cansancio o falta de aire los primeros días.</p>
+        <ul>
+          <li>Lleguen 1–2 días antes si pueden.</li>
+          <li>Tomen mucha agua.</li>
+          <li>Vayan suave con el alcohol el primer día — pega el doble.</li>
+          <li>Un aguadepanela con limón o un té de coca ayudan.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">💵</span>
+        <h4>Dinero</h4>
+        <p>La moneda es el <strong>peso colombiano (COP)</strong>. En agosto de 2026 la tasa rondaba <strong>1 USD ≈ 3.150 COP</strong> y <strong>1 EUR ≈ 3.600 COP</strong>; confírmenlo cerca del viaje porque fluctúa.</p>
+        <ul>
+          <li>Tarjeta aceptada casi en todas partes en Bogotá.</li>
+          <li>Lleven algo de efectivo para pueblos, taxis y propinas.</li>
+          <li>Retiren en cajeros de bancos (Bancolombia, Davivienda, BBVA), no en los de la calle.</li>
+          <li>Eviten cambiar dinero en el aeropuerto: tasa mala.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🍽</span>
+        <h4>Propinas</h4>
+        <p>En restaurantes se acostumbra una <strong>propina voluntaria del 10 %</strong>. Se la sumarán a la cuenta y les preguntarán "¿desea incluir el servicio?". Pueden decir que no sin problema.</p>
+        <p style="margin-top:.7rem">A los taxistas no se les da propina; se redondea hacia arriba.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🔌</span>
+        <h4>Enchufes y voltaje</h4>
+        <p><strong>110 V, 60 Hz</strong>, con enchufe tipo A/B (el mismo de Estados Unidos, dos patas planas).</p>
+        <p style="margin-top:.7rem">Quienes vengan de Europa o Latinoamérica con enchufe redondo necesitan <strong>adaptador</strong>. Casi todos los cargadores modernos aceptan 110–240 V, pero revisen los aparatos de pelo antes de quemarlos.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">📱</span>
+        <h4>Teléfono e internet</h4>
+        <p>Los operadores son Claro, Movistar, Tigo y WOM. Una SIM prepago con datos cuesta poco y se consigue en el aeropuerto o en cualquier centro comercial (necesitan pasaporte).</p>
+        <p style="margin-top:.7rem">Alternativa más simple: una <strong>eSIM</strong> comprada antes de viajar. WhatsApp es el canal de comunicación por defecto en Colombia, para todo.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚰</span>
+        <h4>Agua y comida</h4>
+        <p>El agua de la llave en Bogotá <strong>es potable</strong> y de muy buena calidad. En zonas rurales, mejor embotellada.</p>
+        <p style="margin-top:.7rem">Prueben sin miedo: ajiaco, changua, arepas de choclo, empanadas, lechona, y frutas que probablemente no conocen (lulo, feijoa, granadilla, mangostino).</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🛡</span>
+        <h4>Seguridad</h4>
+        <p>Bogotá se disfruta mucho con sentido común de ciudad grande. Subachoque y los pueblos de la sabana son tranquilos. Emergencias: <strong>123</strong>.</p>
+        <p style="margin-top:.7rem">Les dejamos <a href="#consejos">cuatro consejos concretos</a> más abajo — vale la pena leerlos antes de viajar.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">💊</span>
+        <h4>Salud y vacunas</h4>
+        <p>No se exige ninguna vacuna para entrar a Bogotá ni a la sabana. <strong>La fiebre amarilla sí se recomienda</strong> (y a veces se exige) si extienden el viaje a la Amazonía, el Tayrona o la Sierra Nevada — aplicar mínimo 10 días antes.</p>
+        <p style="margin-top:.7rem">Traigan seguro médico de viaje. Las farmacias (droguerías) son abundantes y baratas.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🗣</span>
+        <h4>Idioma y trato</h4>
+        <p>Todo será en español, así que no hay barrera para ustedes. El español bogotano es claro y pausado — de los más fáciles de entender.</p>
+        <p style="margin-top:.7rem">Se usa mucho el <strong>usted</strong> incluso entre amigos, y "¿qué más?" significa "¿cómo estás?". Si les dicen "regáleme un tinto", les están pidiendo un café negro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CUATRO CONSEJOS (contenido del flyer impreso) ═══════════ -->
+<section id="consejos">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Tips básicos</span>
+      <h2>Cuatro cositas de nada</h2>
+      <p>Para que llegues tranquilo, te muevas como local y solo te lleves buenos recuerdos.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 16v-3.2l1.9-4.4A2 2 0 0 1 6.7 7h10.6a2 2 0 0 1 1.8 1.4L21 12.8V16"/><path d="M3 16h18"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/><path d="M9.5 4.6h5"/>
+          </svg>
+        </span>
+        <h4>Pide el carro, no lo pares</h4>
+        <p>Nada de taxis levantados en la calle: usa siempre tu app (Uber, DiDi o Cabify) y antes de subirte confirma que la placa y el modelo coincidan con los de la pantalla.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.6 5.4h2.8"/><path d="M11 18.4h2"/>
+          </svg>
+        </span>
+        <h4>El celular, en el bolsillo</h4>
+        <p>No camines con el teléfono en la mano. <em style="color:var(--oro)">Tenemos atletas de alto rendimiento</em> capaces de llevárselo sin que te des cuenta. Si tienes que mirar el mapa, presta atención.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9.2 18V5.6L19 3.4v12"/><path d="M9.2 9.4 19 7.2"/><circle cx="6.4" cy="18.4" r="2.8"/><circle cx="16.2" cy="15.8" r="2.8"/>
+          </svg>
+        </span>
+        <h4>De fiesta, siempre en manada</h4>
+        <p>Sal y regresa con tu grupo, y no dejes tu trago solo. Ojo con los desconocidos demasiado encantadores: <em style="color:var(--oro)">alguno querrá robarte algo más que el corazón…</em></p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12.4 3H20a1 1 0 0 1 1 1v7.6a1 1 0 0 1-.3.7l-8.4 8.4a1 1 0 0 1-1.4 0l-7.6-7.6a1 1 0 0 1 0-1.4l8.4-8.4a1 1 0 0 1 .7-.3Z"/><circle cx="16.8" cy="7.2" r="1.3"/>
+          </svg>
+        </span>
+        <h4>Pregunta el precio primero</h4>
+        <p>En tiendas, mercados y puestos de comida, pregunta cuánto cuesta antes de pedir o comprar. Así no hay sorpresas y todos quedamos contentos.</p>
+      </div>
+    </div>
+
+    <div class="dicho rv">
+      <p class="previa">Y como decimos por aquí</p>
+      <strong>No dar papaya</strong>
+      <em>Es decir: no ponérselo fácil a nadie.</em>
+    </div>
+
+    <p class="despedida rv">Te esperamos allá para bailar al son de una cumbia, comernos un buen chicharroncito con patacón y, claro, brindar con un aguardientico.</p>
+
+    <p class="rv" style="text-align:center;margin-top:26px">
+      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost">Ver la versión imprimible</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ EXTENDER EL VIAJE ═══════════ -->
+<section id="extender">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Ya que están acá</span>
+      <h2>Extiendan el viaje</h2>
+      <p>Volaron muchas horas. Sería una lástima ver solo la sabana.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">1 día</span>
+        <h4>Cerca de Bogotá</h4>
+        <ul>
+          <li><strong>Catedral de Sal de Zipaquirá</strong> — una catedral dentro de una mina de sal, a 40 min de Subachoque.</li>
+          <li><strong>Laguna de Guatavita</strong> — el origen de la leyenda de El Dorado.</li>
+          <li><strong>Monserrate</strong> — Bogotá entera a 3.150 m.</li>
+          <li><strong>La Candelaria y el Museo del Oro</strong> — el centro histórico.</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="tag">2–3 días</span>
+        <h4>Escapadas</h4>
+        <ul>
+          <li><strong>Villa de Leyva</strong> — pueblo colonial de piedra blanca, 4 h en carro.</li>
+          <li><strong>Barichara</strong> — probablemente el pueblo más bonito de Colombia.</li>
+          <li><strong>Eje Cafetero</strong> — fincas de café y el valle de palmas de Cocora.</li>
+          <li><strong>Medellín y Guatapé</strong> — 1 h de vuelo.</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="tag">4+ días</span>
+        <h4>Al calor</h4>
+        <ul>
+          <li><strong>Cartagena</strong> — ciudad amurallada en el Caribe, 1 h 30 de vuelo.</li>
+          <li><strong>Santa Marta y el Tayrona</strong> — selva y playa.</li>
+          <li><strong>San Andrés</strong> — el mar de los siete colores.</li>
+          <li><strong>Amazonas (Leticia)</strong> — otro planeta.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rv" style="text-align:center;margin-top:30px;font-size:.94rem;color:var(--salvia)">Si quieren, escríbannos y les damos recomendaciones concretas según lo que les guste.</p>
+  </div>
+</section>
+
+<!-- ═══════════ REGALOS ═══════════ -->
+<section id="regalos">
+  <div class="wrap narrow rv" style="text-align:center">
+    <span class="eyebrow">Con cariño</span>
+    <h2>Regalos</h2>
+    <svg class="sprig" viewBox="0 0 120 40" style="margin:22px auto" aria-hidden="true">
+      <path d="M10 20 H110"/>
+      <ellipse cx="35" cy="12" rx="10" ry="5.5" transform="rotate(-22 35 12)"/>
+      <ellipse cx="35" cy="28" rx="10" ry="5.5" transform="rotate(22 35 28)"/>
+      <ellipse cx="60" cy="10" rx="11" ry="6" transform="rotate(-20 60 10)"/>
+      <ellipse cx="60" cy="30" rx="11" ry="6" transform="rotate(20 60 30)"/>
+      <ellipse cx="85" cy="12" rx="10" ry="5.5" transform="rotate(-22 85 12)"/>
+      <ellipse cx="85" cy="28" rx="10" ry="5.5" transform="rotate(22 85 28)"/>
+    </svg>
+    <p class="lead">Que vengan desde tan lejos ya es el regalo. En serio.</p>
+    <p style="margin-top:1.2rem">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que dejamos estas opciones:</p>
+    <div class="grid g2" style="margin-top:30px;text-align:left">
+      <div class="card">
+        <h4>Aporte a la luna de miel</h4>
+        <p class="ph">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
+      </div>
+      <div class="card">
+        <h4>Lista de regalos</h4>
+        <p class="ph">Disponible en [enlace a la mesa de regalos]. Enviamos todo a una dirección en Colombia, así no cargan nada en el vuelo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Dudas</span>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+
+    <div class="faq rv">
+      <details>
+        <summary>¿Puedo llevar acompañante?</summary>
+        <div class="ans">La invitación indica el número de puestos reservados a su nombre. Si su invitación incluye acompañante, aparecerá especificado. Por temas de aforo no podemos añadir puestos adicionales — gracias por entenderlo.</div>
+      </details>
+      <details>
+        <summary>¿Habrá niños?</summary>
+        <div class="ans ph">[Elegir una opción] Sí, los niños son bienvenidos y tendremos zona de juegos con cuidadoras a partir de las 6:00 p.m. / La celebración es solo para adultos; con gusto les ayudamos a contactar una niñera de confianza en Bogotá.</div>
+      </details>
+      <details>
+        <summary>Tengo alergias o dieta especial. ¿Qué hago?</summary>
+        <div class="ans">Indíquenlo en el formulario de confirmación. Habrá opciones vegetarianas y podemos gestionar menús sin gluten, veganos o sin lactosa si lo sabemos con anticipación.</div>
+      </details>
+      <details>
+        <summary>¿Cuándo debo confirmar?</summary>
+        <div class="ans ph">Antes del <strong>[2 de enero de 2027]</strong>. Como muchos vienen de fuera, entre más pronto confirmen, mejor podemos organizar transporte y hospedaje.</div>
+      </details>
+      <details>
+        <summary>¿Hace tanto frío como dicen?</summary>
+        <div class="ans">Sí. Es la duda que más nos han preguntado. Subachoque está a 2.663 m y de noche baja a 6–9 °C. No es frío extremo, pero si vienen esperando el Caribe la van a pasar mal. Abrigo, siempre.</div>
+      </details>
+      <details>
+        <summary>¿Puedo tomar fotos durante la ceremonia?</summary>
+        <div class="ans ph">Les pedimos guardar los celulares durante la ceremonia — queremos verles la cara, no las pantallas. Tenemos fotógrafo profesional y compartiremos todas las fotos después. En la fiesta, fotografíen todo lo que quieran y súbanlo con <strong>#RicardoYLuisa2027</strong>.</div>
+      </details>
+      <details>
+        <summary>¿Cómo funciona el transporte de regreso si me quedo hasta el final?</summary>
+        <div class="ans ph">Habrá dos buses de vuelta a Bogotá, a la [1:00 a.m.] y a las [3:00 a.m.]. Si quieren reservar puesto, díganlo al confirmar en el apartado <em>«¿Algo más que debamos saber?»</em> y lo apuntamos.</div>
+      </details>
+      <details>
+        <summary>¿Necesito hablar inglés en Colombia?</summary>
+        <div class="ans">No hace falta — y como todos ustedes hablan español, no habrá ninguna barrera. Fuera de hoteles y zonas turísticas, el inglés no es común, pero para ustedes eso es irrelevante.</div>
+      </details>
+      <details>
+        <summary>¿A quién escribo si tengo una duda que no está acá?</summary>
+        <div class="ans ph">A nuestra wedding planner, <strong>[Nombre]</strong>: WhatsApp <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">+57 XXX XXX XXXX</a> · <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a>. Responde en horario de Colombia (UTC−5).</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RSVP ═══════════ -->
+<section id="rsvp">
+  <div class="wrap narrow">
+    <div class="rsvp-box rv">
+      <div style="text-align:center">
+        <span class="eyebrow">Los esperamos</span>
+        <h2 style="margin-bottom:.6rem">Confirma tu asistencia</h2>
+        <p class="ph" style="color:var(--salvia-claro)">Por favor confirma antes del <strong style="color:#E3B08A">2 de enero de 2027</strong>.</p>
+      </div>
+
+      <!--
+        Las respuestas se envían a un Google Form oculto y caen en su hoja de
+        cálculo. La configuración está al final del archivo, en el bloque
+        "ENVÍO DEL RSVP": ahí van la URL del formulario y los identificadores
+        de cada campo. Hasta que se rellenen, el formulario avisa de que
+        todavía no está conectado en lugar de fingir que ha enviado.
+      -->
+      <form id="rsvp-form" class="form-grid" novalidate>
+        <!-- trampa antispam: invisible para las personas, la rellenan los robots -->
+        <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off"
+               aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <div class="field">
+          <label for="f-nombre">Nombre y apellido</label>
+          <input id="f-nombre" name="nombre" type="text" placeholder="Como aparece en la invitación" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Correo electrónico</label>
+          <input id="f-email" name="email" type="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="field">
+          <label for="f-asiste">¿Nos acompañas?</label>
+          <select id="f-asiste" name="asiste" required>
+            <option value="">Selecciona…</option>
+            <option>Sí, allí estaré</option>
+            <option>Sí, con acompañante</option>
+            <option>Lamentablemente no puedo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-personas">Número de personas</label>
+          <select id="f-personas" name="personas">
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-pais">¿Desde dónde viajas?</label>
+          <input id="f-pais" name="pais" type="text" placeholder="Ciudad y país">
+        </div>
+        <div class="field">
+          <label for="f-dieta">Alergias o restricciones alimentarias</label>
+          <input id="f-dieta" name="dieta" type="text" placeholder="Vegetariano, sin gluten, alergias…">
+        </div>
+        <div class="field full">
+          <label for="f-nota">¿Algo más que debamos saber?</label>
+          <textarea id="f-nota" name="nota" placeholder="Canción que no puede faltar, movilidad reducida, fecha de llegada…"></textarea>
+        </div>
+        <div class="field full" style="align-items:center;margin-top:8px">
+          <button type="submit" class="btn btn-light">Enviar confirmación</button>
+          <p class="note ph" style="text-align:center">¿Prefieres escribirnos? <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
+        </div>
+      </form>
+      <div id="rsvp-msg" role="status"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="paleta" aria-hidden="true">
+    <i style="background:var(--p-terracota)"></i>
+    <i style="background:var(--p-naranja)"></i>
+    <i style="background:var(--p-ladrillo)"></i>
+    <i style="background:var(--p-oliva)"></i>
+    <i style="background:var(--p-bosque)"></i>
+    <i style="background:var(--p-vino)"></i>
+  </div>
+  <div class="wrap">
+    <div class="mono">R &amp; L</div>
+    <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)">2 de abril de 2027</p>
+    <p>Finca La Victoria &middot; Subachoque, Cundinamarca &middot; Colombia</p>
+    <p class="ph" style="margin-top:20px">Organización: <strong style="color:#E3B08A">[Nombre de la wedding planner]</strong><br>
+      <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp +57 XXX XXX XXXX</a> &middot;
+      <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a></p>
+    <p class="fine">#RicardoYLuisa2027</p>
+  </div>
+</footer>
+
+<script src="guion.js"></script>
+
+<!--
+  API de embeds de Spotify: es lo que permite arrancar la canción desde el
+  botón. Va DESPUÉS del script de arriba a propósito: ese script define la
+  función  window.onSpotifyIframeApiReady  que Spotify llama al cargarse.
+  Si se pusiera antes, Spotify podría llamarla antes de que exista.
+-->
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>

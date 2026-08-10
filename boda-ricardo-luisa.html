@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  RICARDO & LUISA — 2 de abril de 2027 — Finca La Victoria, Subachoque
+  ============================================================================
+  CÓMO EDITAR ESTA PÁGINA
+  ----------------------------------------------------------------------------
+  1. Todo está en este único archivo. Ábrelo con cualquier editor de texto.
+  2. Los datos que debes confirmar están marcados con la clase "ph"
+     (placeholder). Búscalos con Ctrl+F escribiendo:  class="ph"
+     En pantalla se ven con un subrayado punteado dorado.
+  3. Para quitar el resaltado cuando ya tengas los datos finales, borra la
+     palabra  ph  de la etiqueta, o busca en el CSS la regla  .ph  y ponle
+     border-bottom: none;
+  4. El aviso "Versión borrador" de arriba se elimina borrando el bloque
+     <div class="draft-banner"> ... </div>
+  5. FORMULARIO RSVP — ⚠ FALTA CONECTARLO. Las respuestas van a un Google
+     Form oculto, pero hay que rellenar antes las variables GFORM y CAMPOS
+     en el bloque "ENVÍO DEL RSVP" del JavaScript, al final del archivo.
+     Ahí mismo están las instrucciones paso a paso. Mientras estén vacías,
+     el formulario avisa al visitante de que aún no está conectado.
+  6. Colores: edítalos en el bloque  :root  al inicio del CSS.
+  7. MÚSICA — «Asilo», Jorge Drexler & Mon Laferte, vía reproductor oficial
+     de Spotify. No hay que alojar ningún archivo ni gestionar derechos.
+     El botón flotante de abajo a la derecha abre el reproductor; el
+     visitante pulsa play (Spotify no permite arranque automático).
+     Para cambiar de canción: variable SPOTIFY en el JavaScript del final.
+  8. FOTOS — el carrusel de la portada usa la subcarpeta  fotos/ .
+     ⚠ Guarda siempre esa carpeta JUNTO a este archivo HTML.
+  ============================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricardo &amp; Luisa · 2 de abril de 2027 · Subachoque, Colombia</title>
+<meta name="description" content="Nos casamos el 2 de abril de 2027 en la Finca La Victoria, Subachoque, Colombia. Toda la información para organizar tu viaje.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<style>
+/* ═══════════════ BASE ═══════════════ */
+:root{
+  /* ── PALETA (moodboard: tierras, oliva y bosque) ─────────────────
+     Cambia estos ocho valores y toda la página cambia con ellos.     */
+  --p-marfil     :#FDFAF3;   /* fondo principal, muy claro          */
+  --p-crema      :#F6F0D9;   /* crema amarillenta, secciones alternas*/
+  --p-terracota  :#D9A27C;   /* terracota claro                     */
+  --p-naranja    :#C4551F;   /* naranja quemado — acento principal  */
+  --p-ladrillo   :#8C3A2C;   /* rojo ladrillo                       */
+  --p-oliva      :#75834E;   /* verde oliva                         */
+  --p-bosque     :#2A4F3A;   /* verde bosque oscuro                 */
+  --p-vino       :#5A1226;   /* burdeos profundo — acento puntual   */
+
+  /* ── ROLES (lo que usa el resto del CSS) ── */
+  --crema       :var(--p-marfil);
+  --crema-2     :var(--p-crema);
+  --salvia      :var(--p-oliva);
+  --salvia-claro:#C2C9A4;
+  --bosque      :var(--p-bosque);
+  --tinta       :#1D3628;
+  --texto       :#4F5A47;
+  --oro         :var(--p-naranja);
+
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --max:1100px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{
+  background:var(--crema);
+  color:var(--texto);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--bosque);text-decoration:none;border-bottom:1px solid var(--salvia-claro);transition:.25s}
+a:hover{color:var(--oro);border-color:var(--oro)}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;color:var(--bosque);line-height:1.2}
+h2{font-size:clamp(2.1rem,4.6vw,3.2rem);letter-spacing:.01em}
+h3{font-size:1.55rem;margin-bottom:.35rem}
+h4{font-size:1.18rem;font-family:var(--sans);font-weight:500;letter-spacing:.02em}
+p{margin-bottom:1rem}
+p:last-child{margin-bottom:0}
+strong{font-weight:500;color:var(--bosque)}
+
+.eyebrow{
+  font-family:var(--sans);font-size:.72rem;font-weight:400;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--salvia);
+  margin-bottom:1rem;display:block;
+}
+.lead{font-family:var(--serif);font-size:1.35rem;line-height:1.65;color:var(--bosque);font-weight:300}
+
+/* placeholder marker */
+.ph{
+  border-bottom:1.5px dotted var(--oro);
+  background:linear-gradient(transparent 72%,rgba(196,85,31,.13) 72%);
+}
+
+/* ═══════════════ LAYOUT ═══════════════ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.narrow{max-width:760px}
+section{padding:clamp(64px,9vw,110px) 0;position:relative}
+section:nth-of-type(even){background:var(--crema-2)}
+.sec-head{text-align:center;margin-bottom:clamp(38px,5vw,58px)}
+.sec-head p{max-width:620px;margin:1.1rem auto 0}
+
+/* ═══════════════ NAV ═══════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  background:rgba(253,250,243,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;transition:.35s;
+}
+nav.solid{border-bottom-color:rgba(117,131,78,.28);box-shadow:0 2px 24px rgba(29,54,40,.05)}
+.nav-in{max-width:1240px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.nav-mono{font-family:var(--serif);font-size:1.35rem;letter-spacing:.14em;color:var(--bosque);border:none}
+.nav-links{display:flex;gap:26px;list-style:none;align-items:center}
+.nav-links a{
+  font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--texto);border:none;padding:6px 0;position:relative;
+}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:2px;width:0;height:1px;background:var(--oro);transition:.3s}
+.nav-links a:hover{color:var(--bosque)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  font-size:.7rem!important;letter-spacing:.19em;padding:9px 20px!important;
+  border:1px solid var(--salvia)!important;border-radius:2px;color:var(--bosque)!important;
+}
+.nav-cta:hover{background:var(--bosque);color:var(--crema)!important;border-color:var(--bosque)!important}
+.nav-cta::after{display:none}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--bosque);transition:.3s}
+.burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+@media(max-width:940px){
+  .burger{display:flex}
+  .nav-links{
+    position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;
+    background:var(--crema);border-bottom:1px solid rgba(117,131,78,.3);
+    max-height:0;overflow:hidden;transition:max-height .4s ease;
+  }
+  .nav-links.show{max-height:80vh;overflow-y:auto}
+  .nav-links li{width:100%;text-align:center;border-top:1px solid rgba(117,131,78,.16)}
+  .nav-links a{display:block;padding:15px 0;font-size:.75rem}
+  .nav-cta{margin:14px auto;display:inline-block!important;padding:11px 26px!important}
+}
+
+/* ═══════════════ BANNER BORRADOR ═══════════════ */
+.draft-banner{
+  position:fixed;bottom:16px;left:16px;z-index:70;max-width:280px;
+  background:var(--bosque);color:var(--crema-2);font-size:.72rem;line-height:1.55;
+  padding:13px 40px 13px 16px;border-radius:3px;box-shadow:0 6px 26px rgba(29,54,40,.28);
+}
+.draft-banner b{color:#E3B08A;font-weight:500}
+.draft-banner button{
+  position:absolute;top:6px;right:8px;background:none;border:none;color:var(--salvia-claro);
+  font-size:1.15rem;cursor:pointer;line-height:1;padding:4px;
+}
+@media(max-width:640px){.draft-banner{display:none}}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{
+  position:relative;min-height:100vh;padding:110px 0 60px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;background:var(--crema);overflow:hidden;
+}
+.hero::before,.hero::after{
+  content:'';position:absolute;width:min(46vw,520px);height:min(46vw,520px);
+  border-radius:50%;filter:blur(8px);opacity:.32;pointer-events:none;
+}
+.hero::before{top:-14%;right:-12%;background:radial-gradient(circle,var(--salvia-claro),transparent 68%)}
+.hero::after{bottom:-16%;left:-12%;background:radial-gradient(circle,#E5B991,transparent 68%)}
+.hero-in{position:relative;z-index:2;width:100%}
+.hero-grid{
+  display:grid;grid-template-columns:1.02fr .98fr;
+  gap:clamp(34px,5vw,72px);align-items:center;text-align:left;
+}
+.hero .eyebrow{margin-bottom:1.4rem}
+.names{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(3.1rem,7.2vw,5.9rem);line-height:.98;color:var(--bosque);
+  letter-spacing:.01em;margin-bottom:.15em;
+}
+.names .amp{font-style:italic;color:var(--oro);font-size:.62em;display:inline-block;vertical-align:.12em;margin:0 .12em}
+.hero-rule{display:flex;align-items:center;gap:16px;margin:26px 0 24px}
+.hero-rule i{display:block;height:1px;width:min(90px,16vw);background:var(--salvia-claro)}
+.hero-meta{
+  font-family:var(--sans);font-size:clamp(.76rem,1.5vw,.88rem);
+  letter-spacing:.28em;text-transform:uppercase;color:var(--texto);
+}
+.hero-meta span{display:block;margin:.45rem 0}
+.hero-place{font-family:var(--serif);text-transform:none;letter-spacing:.02em;font-size:1.45rem;color:var(--bosque);margin-top:1.1rem!important}
+
+/* ═══════════════ CARRUSEL DE FOTOS ═══════════════ */
+.carrusel{position:relative;width:100%;max-width:520px;margin-left:auto}
+/* bloque de color desplazado detrás, guiño al moodboard */
+.carrusel::before{
+  content:'';position:absolute;inset:26px -22px -22px 26px;
+  background:var(--p-oliva);opacity:.9;border-radius:3px;z-index:0;
+}
+.carrusel::after{
+  content:'';position:absolute;inset:-20px 30px 34px -24px;
+  background:var(--p-terracota);opacity:.55;border-radius:3px;z-index:0;
+}
+.marco{
+  position:relative;z-index:1;aspect-ratio:1/1;overflow:hidden;border-radius:3px;
+  background:var(--p-crema);box-shadow:0 16px 44px rgba(29,54,40,.16);
+}
+.marco figure{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.1s ease}
+.marco figure.act{opacity:1}
+.marco img{width:100%;height:100%;object-fit:cover;display:block}
+.marco figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:34px 16px 13px;
+  font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(transparent,rgba(29,54,40,.75));
+}
+/* flechas */
+.car-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:38px;height:38px;border-radius:50%;cursor:pointer;
+  background:rgba(253,250,243,.85);border:1px solid rgba(117,131,78,.4);
+  color:var(--bosque);font-size:1rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:.3s;
+}
+.carrusel:hover .car-nav,.car-nav:focus-visible{opacity:1}
+.car-nav:hover{background:var(--crema);border-color:var(--oro)}
+.car-prev{left:12px}
+.car-next{right:12px}
+/* puntos */
+.car-dots{display:flex;gap:9px;justify-content:center;margin-top:26px;position:relative;z-index:2}
+.car-dots button{
+  width:7px;height:7px;padding:0;border-radius:50%;cursor:pointer;
+  background:transparent;border:1px solid var(--salvia);transition:.3s;
+}
+.car-dots button[aria-current="true"]{background:var(--oro);border-color:var(--oro);transform:scale(1.35)}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;text-align:center;gap:44px}
+  .hero-rule{justify-content:center}
+  .carrusel{margin:0 auto;max-width:400px}
+  .carrusel::before{inset:20px -16px -16px 20px}
+  .carrusel::after{inset:-14px 22px 26px -18px}
+  .car-nav{opacity:1;width:34px;height:34px}
+  .names{font-size:clamp(3.2rem,12vw,5rem)}
+}
+@media(prefers-reduced-motion:reduce){.marco figure{transition:none}}
+
+/* botones */
+.btn{
+  display:inline-block;font-family:var(--sans);font-size:.74rem;font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;padding:15px 38px;border-radius:2px;
+  border:1px solid var(--bosque);background:var(--bosque);color:var(--crema);
+  cursor:pointer;transition:.3s;
+}
+.btn:hover{background:transparent;color:var(--bosque);border-color:var(--bosque)}
+.btn-ghost{background:transparent;color:var(--bosque);border-color:var(--salvia)}
+.btn-ghost:hover{background:var(--bosque);color:var(--crema);border-color:var(--bosque)}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+
+/* ═══════════════ COUNTDOWN ═══════════════ */
+.count{display:flex;justify-content:center;gap:clamp(16px,4.5vw,46px);margin-top:44px;flex-wrap:wrap}
+.count div{min-width:64px}
+.count b{
+  display:block;font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.1rem,5.4vw,3.1rem);color:var(--bosque);line-height:1;
+}
+.count small{
+  display:block;margin-top:8px;font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--salvia);
+}
+
+/* ═══════════════ SPRIG (divisor) ═══════════════ */
+.sprig{display:block;margin:0 auto;width:96px;height:auto;opacity:.55}
+.sprig path,.sprig line{stroke:var(--salvia);fill:none;stroke-width:1.1;stroke-linecap:round}
+.sprig ellipse{fill:var(--salvia-claro);opacity:.75}
+
+/* ═══════════════ CARDS / GRID ═══════════════ */
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+.card{
+  background:var(--crema);border:1px solid rgba(117,131,78,.28);
+  border-radius:3px;padding:30px 28px;transition:.35s;
+}
+section:nth-of-type(even) .card{background:#FEFBF2}
+.card:hover{border-color:var(--salvia);transform:translateY(-3px);box-shadow:0 12px 34px rgba(29,54,40,.07)}
+.card .ico{color:var(--oro);margin-bottom:14px;display:block}
+.card h4{margin-bottom:.5rem}
+.card p,.card ul{font-size:.94rem}
+.card ul{list-style:none;margin-top:.4rem}
+.card ul li{padding-left:16px;position:relative;margin-bottom:.35rem}
+.card ul li::before{content:'';position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--salvia-claro)}
+
+.tag{
+  display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--p-ladrillo);border:1px solid rgba(140,58,44,.4);border-radius:999px;
+  padding:3px 11px;margin-bottom:12px;background:rgba(217,162,124,.12);
+}
+
+/* ═══════════════ TIMELINE ═══════════════ */
+.day{margin-bottom:52px}
+.day:last-child{margin-bottom:0}
+.day-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(117,131,78,.3)}
+.day-head h3{margin:0}
+.day-head span{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--salvia)}
+.tl{list-style:none;border-left:1px solid rgba(117,131,78,.42);margin-left:8px}
+.tl li{position:relative;padding:0 0 26px 30px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{
+  content:'';position:absolute;left:-4.5px;top:9px;width:8px;height:8px;
+  border-radius:50%;background:var(--crema);border:1.5px solid var(--salvia);
+}
+section:nth-of-type(even) .tl li::before{background:var(--crema-2)}
+.tl .hora{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);display:block;margin-bottom:2px}
+.tl .evento{font-family:var(--serif);font-size:1.28rem;color:var(--bosque);display:block;line-height:1.3}
+.tl .det{font-size:.9rem;margin-top:.25rem}
+
+/* ═══════════════ FEATURE (dos columnas) ═══════════════ */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+@media(max-width:820px){.feature{grid-template-columns:1fr}}
+.frame{
+  border:1px solid rgba(117,131,78,.4);border-radius:3px;padding:34px;
+  background:linear-gradient(160deg,#F7F1DC,#EADFC4);
+  display:flex;align-items:center;justify-content:center;min-height:290px;
+}
+
+/* ═══════════════ INFO ROWS ═══════════════ */
+.rows{border-top:1px solid rgba(117,131,78,.28)}
+.row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(117,131,78,.28)}
+.row dt{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--salvia);padding-top:5px}
+.row dd{font-size:.96rem}
+@media(max-width:640px){.row{grid-template-columns:1fr;gap:6px}}
+
+/* ═══════════════ FAQ ═══════════════ */
+.faq{border-top:1px solid rgba(117,131,78,.3)}
+.faq details{border-bottom:1px solid rgba(117,131,78,.3)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:22px 40px 22px 0;position:relative;
+  font-family:var(--serif);font-size:1.22rem;color:var(--bosque);
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:'+';position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  font-family:var(--sans);font-weight:300;font-size:1.4rem;color:var(--oro);transition:.3s;
+}
+.faq details[open] summary::after{content:'–'}
+.faq .ans{padding:0 8px 24px 0;font-size:.96rem}
+
+/* ═══════════════ RSVP ═══════════════ */
+.rsvp-box{
+  background:var(--bosque);color:var(--crema-2);border-radius:4px;
+  padding:clamp(34px,5vw,58px);
+}
+.rsvp-box h2,.rsvp-box h3,.rsvp-box h4{color:var(--crema)}
+.rsvp-box .eyebrow{color:var(--salvia-claro)}
+.rsvp-box a{color:#E3B08A;border-color:rgba(227,176,138,.45)}
+.rsvp-box a:hover{color:#fff;border-color:#fff}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column}
+.field.full{grid-column:1/-1}
+.field label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--salvia-claro);margin-bottom:8px}
+.field input,.field select,.field textarea{
+  font-family:var(--sans);font-size:.95rem;font-weight:300;color:var(--crema);
+  background:rgba(253,250,243,.07);border:1px solid rgba(194,201,164,.35);
+  border-radius:2px;padding:13px 14px;transition:.25s;
+}
+.field textarea{resize:vertical;min-height:92px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#E3B08A;background:rgba(253,250,243,.12)}
+.field select option{background:var(--bosque);color:var(--crema)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(246,240,217,.42)}
+.btn-light{background:var(--crema);color:var(--bosque);border-color:var(--crema)}
+.btn-light:hover{background:transparent;color:var(--crema);border-color:var(--crema)}
+.note{font-size:.78rem;color:var(--salvia-claro);margin-top:16px}
+#rsvp-msg{display:none;margin-top:20px;padding:14px 16px;border:1px solid #E3B08A;border-radius:2px;font-size:.9rem;color:#E3B08A}
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer{background:var(--tinta);color:var(--salvia-claro);text-align:center;padding:64px 0 46px;position:relative}
+/* franja con la paleta cromática de la boda */
+.paleta{display:flex;height:5px;width:100%;position:absolute;top:0;left:0}
+.paleta i{flex:1}
+.franja{display:flex;height:4px;width:min(340px,72%);margin:28px 0 0;border-radius:2px;overflow:hidden}
+.franja i{flex:1}
+.hero-texto .count,.hero-texto .btn-row{justify-content:flex-start}
+@media(max-width:900px){
+  .franja{margin:28px auto 0}
+  .hero-texto .count,.hero-texto .btn-row{justify-content:center}
+}
+footer .mono{font-family:var(--serif);font-size:2.4rem;color:var(--crema);letter-spacing:.1em;margin-bottom:.4rem}
+footer p{font-size:.86rem;margin-bottom:.5rem}
+footer a{color:#E3B08A;border-color:rgba(227,176,138,.4)}
+footer .fine{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(194,201,164,.6);margin-top:26px}
+
+/* ═══════════════ CONTROL DE MÚSICA ═══════════════ */
+#musica{
+  position:fixed;right:20px;bottom:20px;z-index:150;
+  width:50px;height:50px;border-radius:50%;cursor:pointer;
+  background:rgba(253,250,243,.94);backdrop-filter:blur(8px);
+  border:1px solid var(--salvia);color:var(--bosque);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(29,54,40,.12);transition:.3s;
+  animation:latido 2.6s ease-in-out 3;
+}
+#musica svg{width:19px;height:19px}
+#musica .ic-pausa{display:none}
+#musica.sonando .ic-nota{display:none}
+#musica.sonando .ic-pausa{display:block}
+#musica.sonando{border-color:var(--oro);color:var(--oro);animation:none}
+#musica.cargando{opacity:.55;cursor:progress}
+#musica:hover{border-color:var(--oro);color:var(--oro);transform:scale(1.07);animation:none}
+/* aro que late despacio mientras suena */
+#musica.sonando::before{
+  content:'';position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid rgba(196,85,31,.55);animation:onda 2.2s ease-out infinite;
+}
+@keyframes onda{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.45);opacity:0}}
+#musica::after{
+  content:attr(data-tip);position:absolute;right:60px;white-space:nowrap;
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--crema);
+  background:var(--bosque);padding:6px 11px;border-radius:2px;
+  opacity:0;transform:translateX(6px);transition:.3s;pointer-events:none;
+}
+#musica:hover::after{opacity:1;transform:none}
+@keyframes latido{
+  0%,100%{box-shadow:0 4px 18px rgba(29,54,40,.12),0 0 0 0 rgba(196,85,31,.45)}
+  55%{box-shadow:0 4px 18px rgba(29,54,40,.12),0 0 0 14px rgba(196,85,31,0)}
+}
+
+/* panel con el reproductor de Spotify */
+#panel-musica{
+  position:fixed;right:20px;bottom:82px;z-index:150;width:min(340px,calc(100vw - 40px));
+  background:var(--crema);border:1px solid rgba(117,131,78,.35);border-radius:4px;
+  box-shadow:0 14px 44px rgba(29,54,40,.22);padding:14px 14px 12px;
+  opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;
+}
+#panel-musica.abierto{opacity:1;transform:none}
+.pm-cab{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.pm-cab span{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--salvia)}
+#pm-cerrar{background:none;border:none;color:var(--salvia);font-size:1.3rem;line-height:1;cursor:pointer;padding:0 2px;transition:.25s}
+#pm-cerrar:hover{color:var(--oro)}
+#pm-caja{min-height:152px;border-radius:12px;overflow:hidden;background:var(--crema-2)}
+#pm-caja iframe{display:block;border:0;width:100%;height:152px}
+.pm-pie{font-size:.72rem;color:var(--texto);margin:10px 2px 0!important;text-align:center}
+@media(max-width:640px){
+  #musica{right:14px;bottom:14px;width:44px;height:44px}
+  #musica::after{display:none}
+  #panel-musica{right:14px;left:14px;bottom:70px;width:auto}
+}
+@media(prefers-reduced-motion:reduce){#musica{animation:none}#panel-musica{transition:none}}
+
+/* ═══════════════ FRANJA DEL DICHO ═══════════════ */
+.dicho{
+  background:var(--bosque);text-align:center;border-radius:4px;
+  padding:clamp(28px,5vw,40px) 26px;margin-top:clamp(34px,5vw,48px);
+}
+.dicho .previa{
+  font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--salvia-claro);margin-bottom:.5rem;
+}
+.dicho strong{
+  display:block;font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(2.2rem,6vw,3.2rem);line-height:1.1;color:#E3B08A;margin-bottom:.5rem;
+}
+.dicho em{font-style:normal;font-size:.9rem;color:var(--salvia-claro)}
+.despedida{
+  text-align:center;max-width:52ch;margin:clamp(30px,4vw,42px) auto 0;
+  font-family:var(--serif);font-size:1.3rem;line-height:1.6;color:var(--bosque);
+}
+
+/* ═══════════════ REVEAL ═══════════════ */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ═══════════════ PRINT ═══════════════ */
+@media print{
+  nav,.draft-banner,.btn-row,.count,#rsvp-form,#entrada,#musica{display:none!important}
+  body{background:#fff;font-size:11pt}
+  section{padding:22px 0;background:#fff!important;page-break-inside:avoid}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!--
+  ═══════════════════════ MÚSICA: «ASILO» ═══════════════════════
+  Reproductor oficial de Spotify. No hay que alojar ningún archivo y la
+  reproducción le cuenta al artista, así que no hay problema de derechos.
+  El visitante pulsa play: Spotify no permite el arranque automático.
+
+  Un solo clic en la clave de sol (abajo a la derecha) arranca la canción:
+  usamos la API oficial de embeds de Spotify, que permite controlar la
+  reproducción desde la página. El mismo botón pausa y reanuda.
+
+  OJO: quien no tenga sesión de Spotify abierta en su navegador oirá solo
+  un fragmento de unos 30 segundos. Es una limitación de Spotify para
+  oyentes anónimos, no del código.
+
+  Para cambiar de canción: sustituye el ID  5r0yIwEKbqZL96FRmOLYkG  en la
+  variable SPOTIFY del JavaScript. El ID está en la URL de cualquier
+  canción de Spotify, después de  /track/
+-->
+<button id="musica" data-tip="Nuestra canción" aria-label="Reproducir nuestra canción" aria-pressed="false">
+  <svg class="ic-nota" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </svg>
+  <svg class="ic-pausa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/>
+  </svg>
+</button>
+
+<div id="panel-musica" hidden>
+  <div class="pm-cab">
+    <span>Nuestra canción</span>
+    <button id="pm-cerrar" aria-label="Cerrar el reproductor">&times;</button>
+  </div>
+  <div id="pm-caja"><div id="pm-marco"></div></div>
+  <p class="pm-pie">«Asilo» · Jorge Drexler &amp; Mon Laferte</p>
+</div>
+
+<!-- ═══════════ AVISO EDITABLE (bórralo cuando publiques) ═══════════ -->
+<div class="draft-banner" id="draft">
+  <button onclick="document.getElementById('draft').remove()" aria-label="Cerrar">&times;</button>
+  <b>Versión borrador.</b> Los datos por confirmar están <span style="border-bottom:1.5px dotted #E3B08A">subrayados en punteado</span>. Instrucciones de edición en el comentario al inicio del archivo HTML.
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#inicio" class="nav-mono">R &amp; L</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="links">
+      <li><a href="#lugar">El lugar</a></li>
+      <li><a href="#programa">Programa</a></li>
+      <li><a href="#codigo">Vestuario</a></li>
+      <li><a href="#viaje">Cómo llegar</a></li>
+      <li><a href="#hospedaje">Hospedaje</a></li>
+      <li><a href="#colombia">Colombia</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+      <li><a href="#rsvp" class="nav-cta">Confirmar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="inicio">
+  <div class="wrap hero-in">
+   <div class="hero-grid">
+
+    <div class="hero-texto">
+      <span class="eyebrow">Nos casamos</span>
+      <h1 class="names">Ricardo<span class="amp">&amp;</span>Luisa</h1>
+      <div class="franja" aria-hidden="true">
+        <i style="background:var(--p-terracota)"></i>
+        <i style="background:var(--p-naranja)"></i>
+        <i style="background:var(--p-ladrillo)"></i>
+        <i style="background:var(--p-oliva)"></i>
+        <i style="background:var(--p-bosque)"></i>
+      </div>
+
+      <div class="hero-rule">
+        <i></i>
+        <svg class="sprig" viewBox="0 0 120 40" style="width:52px" aria-hidden="true">
+          <path d="M10 20 H110"/>
+          <ellipse cx="30" cy="13" rx="9" ry="5" transform="rotate(-22 30 13)"/>
+          <ellipse cx="30" cy="27" rx="9" ry="5" transform="rotate(22 30 27)"/>
+          <ellipse cx="52" cy="11" rx="10" ry="5.5" transform="rotate(-20 52 11)"/>
+          <ellipse cx="52" cy="29" rx="10" ry="5.5" transform="rotate(20 52 29)"/>
+          <ellipse cx="76" cy="13" rx="9" ry="5" transform="rotate(-22 76 13)"/>
+          <ellipse cx="76" cy="27" rx="9" ry="5" transform="rotate(22 76 27)"/>
+        </svg>
+        <i></i>
+      </div>
+
+      <div class="hero-meta">
+        <span>Viernes 2 de abril de 2027</span>
+        <span class="hero-place">Finca La Victoria &middot; Subachoque, Colombia</span>
+      </div>
+
+      <div class="count" id="count" aria-label="Cuenta regresiva">
+        <div><b id="c-d">—</b><small>Días</small></div>
+        <div><b id="c-h">—</b><small>Horas</small></div>
+        <div><b id="c-m">—</b><small>Minutos</small></div>
+        <div><b id="c-s">—</b><small>Segundos</small></div>
+      </div>
+
+      <div class="btn-row">
+        <a href="#rsvp" class="btn">Confirmar asistencia</a>
+        <a href="#viaje" class="btn btn-ghost">Planear mi viaje</a>
+      </div>
+    </div>
+
+    <!--
+      ═══ CARRUSEL ═══
+      Las fotos viven en la subcarpeta  fotos/  junto a este HTML.
+      Para añadir o quitar una, copia o borra un bloque <figure> entero:
+      los puntos de navegación se generan solos según cuántas haya.
+      Si una cara queda cortada, ajusta  object-position  de esa imagen
+      (primer valor = horizontal, segundo = vertical; 50% 50% es el centro).
+      Los pies de foto están marcados como editables: cámbialos o bórralos.
+    -->
+    <div class="carrusel" id="carrusel">
+      <div class="marco" id="marco">
+        <figure class="act">
+          <img src="fotos/foto-1.jpg" alt="Ricardo y Luisa sentados sobre un jeep Willys rojo en el Valle de Cocora"
+               style="object-position:50% 30%" width="900" height="1200">
+          <figcaption class="ph">Valle de Cocora, Colombia</figcaption>
+        </figure>
+        <figure>
+          <img src="fotos/foto-2.jpg" alt="Ricardo y Luisa en el mirador del parque nacional del Teide"
+               style="object-position:62% 50%" width="1200" height="900" loading="lazy">
+          <figcaption class="ph">Parque Nacional del Teide</figcaption>
+        </figure>
+        <figure>
+          <img src="fotos/foto-3.jpg" alt="Ricardo y Luisa con la camiseta de España frente al estadio olímpico de Berlín"
+               style="object-position:55% 50%" width="1200" height="900" loading="lazy">
+          <figcaption class="ph">Berlín, Eurocopa 2024</figcaption>
+        </figure>
+      </div>
+      <button class="car-nav car-prev" id="car-prev" aria-label="Foto anterior">&#8249;</button>
+      <button class="car-nav car-next" id="car-next" aria-label="Foto siguiente">&#8250;</button>
+      <div class="car-dots" id="car-dots" role="tablist" aria-label="Elegir foto"></div>
+    </div>
+
+   </div>
+  </div>
+</header>
+
+<!-- ═══════════ BIENVENIDA ═══════════ -->
+<section id="bienvenida">
+  <div class="wrap narrow rv" style="text-align:center">
+    <span class="eyebrow">Bienvenidos</span>
+    <p class="lead">Muchos de ustedes van a cruzar medio continente —o un océano— para acompañarnos. Esta página existe para que ese viaje sea lo más fácil posible: fechas, transporte, dónde dormir, qué empacar y todo lo que necesitan saber sobre Colombia.</p>
+    <p style="margin-top:1.6rem">Nos casamos en la sabana de Bogotá, a 2.660 metros de altura, entre montañas verdes y aire frío. Es un lugar precioso y también un poco inesperado para quien imagina Colombia como puro calor. Lean la sección de <a href="#codigo">clima y vestuario</a> antes de empacar. Hablamos en serio con lo del abrigo.</p>
+    <p style="margin-top:1.4rem"><em>Con cariño,</em><br><span style="font-family:var(--serif);font-size:1.5rem;color:var(--bosque)">Ricardo &amp; Luisa</span></p>
+  </div>
+</section>
+
+<!-- ═══════════ EL LUGAR ═══════════ -->
+<section id="lugar">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Cuándo y dónde</span>
+      <h2>Finca La Victoria</h2>
+      <p>Subachoque, Cundinamarca — a unos 45 km al noroccidente de Bogotá, en plena sabana.</p>
+    </div>
+
+    <div class="feature rv">
+      <div class="frame">
+        <svg viewBox="0 0 240 190" style="width:100%;max-width:280px" aria-hidden="true">
+          <g fill="none" stroke="#75834E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 152 C50 132 74 138 104 120 C132 104 158 110 188 96 C206 88 218 84 228 82" opacity=".65"/>
+            <path d="M14 168 C56 152 86 158 118 142 C148 128 178 132 228 116" opacity=".45"/>
+            <path d="M52 118 L96 84 L140 118" />
+            <path d="M64 118 V160 H128 V118"/>
+            <path d="M88 160 V134 H106 V160"/>
+            <path d="M74 128 h12 v11 h-12 z"/>
+            <path d="M110 128 h12 v11 h-12 z"/>
+            <path d="M96 84 V70"/>
+            <path d="M160 160 V116"/><path d="M160 128 l16-14"/><path d="M160 140 l-15-13"/>
+            <path d="M196 160 V126"/><path d="M196 136 l13-12"/>
+          </g>
+          <g fill="#C2C9A4" opacity=".8">
+            <ellipse cx="178" cy="110" rx="16" ry="9" transform="rotate(-28 178 110)"/>
+            <ellipse cx="143" cy="123" rx="14" ry="8" transform="rotate(28 143 123)"/>
+            <ellipse cx="210" cy="120" rx="13" ry="7.5" transform="rotate(-30 210 120)"/>
+            <circle cx="96" cy="66" r="4"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h3>Una finca de la sabana</h3>
+        <p>La ceremonia y la fiesta serán en el mismo lugar, así que no tendrán que moverse durante el día. Los jardines son extensos y el terreno es de <strong>pasto natural, con desniveles suaves</strong> — importante a la hora de escoger zapatos.</p>
+        <dl class="rows" style="margin-top:26px">
+          <div class="row"><dt>Dirección</dt><dd class="ph">Finca La Victoria, vereda [confirmar], vía Subachoque – El Rosal, Km [X], Subachoque, Cundinamarca</dd></div>
+          <div class="row"><dt>Mapa</dt><dd><a class="ph" href="https://www.google.com/maps/search/Subachoque+Cundinamarca" target="_blank" rel="noopener">Abrir ubicación exacta en Google Maps</a> <span style="font-size:.82rem;color:var(--salvia)">(pegar el enlace definitivo del pin)</span></dd></div>
+          <div class="row"><dt>Desde el aeropuerto</dt><dd>El Dorado (BOG) → Subachoque: <strong>≈ 45 km</strong>, entre <strong>1 h y 1 h 45 min</strong> según el tráfico de salida de Bogotá.</dd></div>
+          <div class="row"><dt>Altitud</dt><dd>2.663 m sobre el nivel del mar. Prácticamente la misma que Bogotá.</dd></div>
+          <div class="row"><dt>Parqueadero</dt><dd class="ph">Sí, gratuito dentro de la finca — capacidad aprox. [X] vehículos.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROGRAMA ═══════════ -->
+<section id="programa">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Tres días</span>
+      <h2>El programa</h2>
+      <p>La boda es el viernes, pero armamos un fin de semana completo. Vengan con calma: vale la pena llegar al menos un día antes para aclimatarse a la altura.</p>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Jueves 1 de abril</h3><span>Llegada &middot; Opcional</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">6:00 p.m.</span><span class="evento">Cóctel de bienvenida</span><p class="det ph">Lugar por confirmar (Subachoque pueblo / hotel sede). Informal, para saludarnos sin prisa antes del día grande. Vengan abrigados: a esa hora ya hace frío.</p></li>
+      </ul>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Viernes 2 de abril</h3><span>El día de la boda</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">1:30 p.m.</span><span class="evento">Transporte desde Bogotá</span><p class="det ph">Buses privados salen de [punto de encuentro: hotel sede / Zona T]. Puntualidad estricta — el trayecto es de más de una hora.</p></li>
+        <li><span class="hora ph">3:00 p.m.</span><span class="evento">Llegada a la finca</span><p class="det">Recepción, bebida de bienvenida y tiempo para instalarse.</p></li>
+        <li><span class="hora ph">4:00 p.m.</span><span class="evento">Ceremonia</span><p class="det ph">Al aire libre, en el jardín. Por favor estar sentados 20 minutos antes.</p></li>
+        <li><span class="hora ph">5:00 p.m.</span><span class="evento">Cóctel y fotos</span><p class="det">Pasabocas, música en vivo y el atardecer sobre la sabana.</p></li>
+        <li><span class="hora ph">7:30 p.m.</span><span class="evento">Cena</span><p class="det ph">Cena servida bajo carpa con calefacción. Menú de tres tiempos con opciones vegetarianas.</p></li>
+        <li><span class="hora ph">10:00 p.m.</span><span class="evento">Fiesta</span><p class="det">Hora loca, DJ y lo que resulte. Habrá bebidas calientes para los valientes que salgan al jardín.</p></li>
+        <li><span class="hora ph">3:00 a.m.</span><span class="evento">Último transporte de regreso</span><p class="det ph">Buses de vuelta a Bogotá a las [1:00 a.m.] y [3:00 a.m.].</p></li>
+      </ul>
+    </div>
+
+    <div class="day rv">
+      <div class="day-head"><h3>Sábado 3 de abril</h3><span>Despedida &middot; Opcional</span></div>
+      <ul class="tl">
+        <li><span class="hora ph">11:00 a.m.</span><span class="evento">Brunch de recuperación</span><p class="det ph">Lugar por confirmar. Vengan como puedan. Café colombiano en cantidades industriales, garantizado.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DRESS CODE Y CLIMA ═══════════ -->
+<section id="codigo">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Qué ponerse</span>
+      <h2>Vestuario y clima</h2>
+      <p>La regla de oro: <strong>elegante, pero preparado para el frío y para el pasto</strong>. La sabana de Bogotá engaña — sol fuerte al mediodía, 8 °C a medianoche.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">Código</span>
+        <h4>Formal de campo</h4>
+        <p>Traje o cóctel, sin ser de gala. Ellos: traje completo, corbata opcional. Ellas: vestido largo o midi.</p>
+        <p style="margin-top:.7rem"><strong>Por favor eviten el blanco y el marfil.</strong></p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Importante</span>
+        <h4>Zapatos</h4>
+        <p>La ceremonia es sobre pasto y el terreno tiene desniveles. Tacón ancho, plataforma o block heel. Los tacones de aguja se hunden — está comprobado.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Imprescindible</span>
+        <h4>Abrigo</h4>
+        <p>De día 18–20 °C; al caer el sol baja a 6–9 °C. Traigan pashmina, chal, blazer o abrigo de verdad. No es un detalle: van a usarlo.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Abril</span>
+        <h4>Temporada de lluvias</h4>
+        <p>Abril es de los meses más lluviosos en la sabana. Suelen ser aguaceros cortos de tarde. Hay plan B bajo carpa, pero un paraguas plegable en la maleta no sobra.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Sol andino</span>
+        <h4>Protector solar</h4>
+        <p>A 2.660 m el sol quema mucho más rápido aunque no haga calor. Bloqueador y gafas, incluso con cielo nublado.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Extra</span>
+        <h4>Cambio de zapatos</h4>
+        <p>Si quieren bailar hasta el final, traigan un par plano de repuesto en el carro o en el bus. Nadie los va a juzgar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIAJE ═══════════ -->
+<section id="viaje">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Cómo llegar</span>
+      <h2>El viaje a Colombia</h2>
+      <p>Todo pasa por Bogotá. Desde ahí son poco más de 60 minutos hasta Subachoque.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="ico">✈</span>
+        <h4>Vuelos</h4>
+        <p>El aeropuerto es <strong>El Dorado (BOG)</strong>, en Bogotá. Es el hub más grande de la región y tiene vuelos directos desde Madrid, Miami, Nueva York, Ciudad de México, São Paulo, Buenos Aires, Santiago, Lima, Panamá y varias ciudades más.</p>
+        <ul>
+          <li><strong>Reserven pronto:</strong> abril arranca con temporada alta en Colombia.</li>
+          <li>Semana Santa 2027 es del <strong>22 al 28 de marzo</strong>. Volar justo esos días cuesta bastante más; llegar del 29 en adelante suele ser más barato.</li>
+          <li>Si vienen de Europa, la mayoría de vuelos aterrizan de noche. Consideren dormir en Bogotá la primera noche.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🛂</span>
+        <h4>Entrada al país</h4>
+        <ul>
+          <li>Ciudadanos de la mayoría de países de Europa y América Latina, además de EE. UU., Canadá, Reino Unido y Australia, <strong>no necesitan visa</strong> para estancias turísticas de hasta 90 días.</li>
+          <li><strong>Check-Mig obligatorio para todos:</strong> formulario digital gratuito que se llena en línea dentro de las 24 horas previas al vuelo, en <a href="https://apps.migracioncolombia.gov.co/pre-registro/public/preregistro.jsf" target="_blank" rel="noopener">apps.migracioncolombia.gov.co</a>.</li>
+          <li>Pasaporte con <strong>vigencia mínima de 6 meses</strong> desde la fecha de salida.</li>
+          <li>Verifiquen su caso concreto en la web oficial de <a href="https://www.migracioncolombia.gov.co/" target="_blank" rel="noopener">Migración Colombia</a> — las reglas cambian.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚌</span>
+        <h4>Transporte a la finca</h4>
+        <p>El día de la boda habrá <strong>buses privados</strong> de ida y vuelta desde Bogotá. Es la opción más cómoda y la que recomendamos: pueden brindar sin preocuparse.</p>
+        <p class="ph" style="margin-top:.7rem">Punto de salida: [hotel sede / dirección]. Si van a usar el bus, indíquenlo al confirmar en el apartado <em>«¿Algo más que debamos saber?»</em>.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚗</span>
+        <h4>Si prefieren manejar</h4>
+        <ul>
+          <li>La ruta habitual desde Bogotá es por la <strong>Calle 80 (vía Medellín)</strong> hasta El Rosal y de ahí a Subachoque.</li>
+          <li>Alquiler de auto en el aeropuerto: hay agencias internacionales, pero manejar en Bogotá es exigente. Solo si tienen experiencia.</li>
+          <li>Bogotá aplica <strong>pico y placa</strong> (restricción vehicular por número de placa en días hábiles). Consúltenlo antes de moverse en semana.</li>
+          <li>Waze y Google Maps funcionan bien; la señal es irregular en algunos tramos rurales — descarguen el mapa sin conexión.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚕</span>
+        <h4>Taxis y apps</h4>
+        <p>En Bogotá funcionan Uber, DiDi, Cabify e InDrive, además de los taxis oficiales del aeropuerto. Un traslado El Dorado → norte de Bogotá cuesta aprox. <span class="ph">COP 45.000–80.000</span>.</p>
+        <p style="margin-top:.7rem">Hasta Subachoque, un taxi o traslado privado ronda los <span class="ph">COP 180.000–260.000</span>. Pídanlo con anticipación; en el pueblo no hay taxis esperando.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🕐</span>
+        <h4>Horario y jet lag</h4>
+        <ul>
+          <li>Colombia está en <strong>UTC−5</strong> todo el año, sin cambio de hora.</li>
+          <li>Desde España son <strong>7 horas menos</strong> (en horario de verano europeo).</li>
+          <li>Desde Ciudad de México, 1 hora más; desde Nueva York, la misma hora en verano.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOSPEDAJE ═══════════ -->
+<section id="hospedaje">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Dónde dormir</span>
+      <h2>Hospedaje</h2>
+      <p>Tres opciones según lo que busquen. Reserven pronto: Subachoque es un pueblo pequeño y la oferta cercana se agota rápido.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">Opción 1</span>
+        <h4>Subachoque y alrededores</h4>
+        <p>Hoteles boutique, hosterías y casas de campo en el pueblo o en la vereda. Lo más cerca de la finca (5–20 min) y lo más bonito, pero con pocas habitaciones.</p>
+        <p class="ph" style="margin-top:.8rem"><strong>Bloqueo de habitaciones:</strong> [nombre del hotel] — código <strong>BODARL2027</strong> — reservar antes del [fecha límite]. Tarifa aprox. [COP 350.000–550.000] por noche.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Opción 2</span>
+        <h4>Chía, Tabio y Tenjo</h4>
+        <p>Pueblos de la sabana a 25–45 minutos de la finca. Buena relación calidad-precio, restaurantes agradables y ambiente de campo. Ideal si alquilan carro.</p>
+        <p class="ph" style="margin-top:.8rem">Sugerencias: [hotel A], [hotel B]. Rango aprox. [COP 250.000–450.000] por noche.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Opción 3</span>
+        <h4>Bogotá</h4>
+        <p>Más lejos (1 h – 1 h 45) pero con toda la oferta de restaurantes, museos y vida de ciudad. Los buses de la boda salen desde aquí. Recomendamos las zonas de <strong>Usaquén</strong>, <strong>Zona G / Chicó</strong> o <strong>Parque de la 93</strong>: seguras, caminables y bien conectadas.</p>
+        <p class="ph" style="margin-top:.8rem"><strong>Hotel sede:</strong> [nombre] — punto de salida de los buses. Tarifa negociada [COP X] con el código [XXX].</p>
+      </div>
+    </div>
+
+    <div class="rv" style="margin-top:34px;padding:24px 26px;border-left:2px solid var(--p-vino);background:rgba(90,18,38,.05)">
+      <p style="font-size:.94rem"><strong>Consejo:</strong> si vienen en grupo o en familia, Airbnb funciona muy bien en la sabana — hay fincas completas por precios razonables. Y si se quedan en Bogotá, elijan hotel en el <em>norte</em> de la ciudad: acorta el trayecto a Subachoque y evita el peor tráfico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COLOMBIA PRÁCTICA ═══════════ -->
+<section id="colombia">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Antes de viajar</span>
+      <h2>Colombia práctica</h2>
+      <p>Lo que nos hubiera gustado saber en nuestro primer viaje.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="ico">⛰</span>
+        <h4>La altura</h4>
+        <p>Bogotá y Subachoque están a unos <strong>2.650 m</strong>. Algunas personas sienten <em>soroche</em>: dolor de cabeza, cansancio o falta de aire los primeros días.</p>
+        <ul>
+          <li>Lleguen 1–2 días antes si pueden.</li>
+          <li>Tomen mucha agua.</li>
+          <li>Vayan suave con el alcohol el primer día — pega el doble.</li>
+          <li>Un aguadepanela con limón o un té de coca ayudan.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">💵</span>
+        <h4>Dinero</h4>
+        <p>La moneda es el <strong>peso colombiano (COP)</strong>. En agosto de 2026 la tasa rondaba <strong>1 USD ≈ 3.150 COP</strong> y <strong>1 EUR ≈ 3.600 COP</strong>; confírmenlo cerca del viaje porque fluctúa.</p>
+        <ul>
+          <li>Tarjeta aceptada casi en todas partes en Bogotá.</li>
+          <li>Lleven algo de efectivo para pueblos, taxis y propinas.</li>
+          <li>Retiren en cajeros de bancos (Bancolombia, Davivienda, BBVA), no en los de la calle.</li>
+          <li>Eviten cambiar dinero en el aeropuerto: tasa mala.</li>
+        </ul>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🍽</span>
+        <h4>Propinas</h4>
+        <p>En restaurantes se acostumbra una <strong>propina voluntaria del 10 %</strong>. Se la sumarán a la cuenta y les preguntarán "¿desea incluir el servicio?". Pueden decir que no sin problema.</p>
+        <p style="margin-top:.7rem">A los taxistas no se les da propina; se redondea hacia arriba.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🔌</span>
+        <h4>Enchufes y voltaje</h4>
+        <p><strong>110 V, 60 Hz</strong>, con enchufe tipo A/B (el mismo de Estados Unidos, dos patas planas).</p>
+        <p style="margin-top:.7rem">Quienes vengan de Europa o Latinoamérica con enchufe redondo necesitan <strong>adaptador</strong>. Casi todos los cargadores modernos aceptan 110–240 V, pero revisen los aparatos de pelo antes de quemarlos.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">📱</span>
+        <h4>Teléfono e internet</h4>
+        <p>Los operadores son Claro, Movistar, Tigo y WOM. Una SIM prepago con datos cuesta poco y se consigue en el aeropuerto o en cualquier centro comercial (necesitan pasaporte).</p>
+        <p style="margin-top:.7rem">Alternativa más simple: una <strong>eSIM</strong> comprada antes de viajar. WhatsApp es el canal de comunicación por defecto en Colombia, para todo.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🚰</span>
+        <h4>Agua y comida</h4>
+        <p>El agua de la llave en Bogotá <strong>es potable</strong> y de muy buena calidad. En zonas rurales, mejor embotellada.</p>
+        <p style="margin-top:.7rem">Prueben sin miedo: ajiaco, changua, arepas de choclo, empanadas, lechona, y frutas que probablemente no conocen (lulo, feijoa, granadilla, mangostino).</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🛡</span>
+        <h4>Seguridad</h4>
+        <p>Bogotá se disfruta mucho con sentido común de ciudad grande. Subachoque y los pueblos de la sabana son tranquilos. Emergencias: <strong>123</strong>.</p>
+        <p style="margin-top:.7rem">Les dejamos <a href="#consejos">cuatro consejos concretos</a> más abajo — vale la pena leerlos antes de viajar.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">💊</span>
+        <h4>Salud y vacunas</h4>
+        <p>No se exige ninguna vacuna para entrar a Bogotá ni a la sabana. <strong>La fiebre amarilla sí se recomienda</strong> (y a veces se exige) si extienden el viaje a la Amazonía, el Tayrona o la Sierra Nevada — aplicar mínimo 10 días antes.</p>
+        <p style="margin-top:.7rem">Traigan seguro médico de viaje. Las farmacias (droguerías) son abundantes y baratas.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">🗣</span>
+        <h4>Idioma y trato</h4>
+        <p>Todo será en español, así que no hay barrera para ustedes. El español bogotano es claro y pausado — de los más fáciles de entender.</p>
+        <p style="margin-top:.7rem">Se usa mucho el <strong>usted</strong> incluso entre amigos, y "¿qué más?" significa "¿cómo estás?". Si les dicen "regáleme un tinto", les están pidiendo un café negro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CUATRO CONSEJOS (contenido del flyer impreso) ═══════════ -->
+<section id="consejos">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Tips básicos</span>
+      <h2>Cuatro cositas de nada</h2>
+      <p>Para que llegues tranquilo, te muevas como local y solo te lleves buenos recuerdos.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 16v-3.2l1.9-4.4A2 2 0 0 1 6.7 7h10.6a2 2 0 0 1 1.8 1.4L21 12.8V16"/><path d="M3 16h18"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/><path d="M9.5 4.6h5"/>
+          </svg>
+        </span>
+        <h4>Pide el carro, no lo pares</h4>
+        <p>Nada de taxis levantados en la calle: usa siempre tu app (Uber, DiDi o Cabify) y antes de subirte confirma que la placa y el modelo coincidan con los de la pantalla.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.6 5.4h2.8"/><path d="M11 18.4h2"/>
+          </svg>
+        </span>
+        <h4>El celular, en el bolsillo</h4>
+        <p>No camines con el teléfono en la mano. <em style="color:var(--oro)">Tenemos atletas de alto rendimiento</em> capaces de llevárselo sin que te des cuenta. Si tienes que mirar el mapa, presta atención.</p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9.2 18V5.6L19 3.4v12"/><path d="M9.2 9.4 19 7.2"/><circle cx="6.4" cy="18.4" r="2.8"/><circle cx="16.2" cy="15.8" r="2.8"/>
+          </svg>
+        </span>
+        <h4>De fiesta, siempre en manada</h4>
+        <p>Sal y regresa con tu grupo, y no dejes tu trago solo. Ojo con los desconocidos demasiado encantadores: <em style="color:var(--oro)">alguno querrá robarte algo más que el corazón…</em></p>
+      </div>
+
+      <div class="card rv">
+        <span class="ico">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12.4 3H20a1 1 0 0 1 1 1v7.6a1 1 0 0 1-.3.7l-8.4 8.4a1 1 0 0 1-1.4 0l-7.6-7.6a1 1 0 0 1 0-1.4l8.4-8.4a1 1 0 0 1 .7-.3Z"/><circle cx="16.8" cy="7.2" r="1.3"/>
+          </svg>
+        </span>
+        <h4>Pregunta el precio primero</h4>
+        <p>En tiendas, mercados y puestos de comida, pregunta cuánto cuesta antes de pedir o comprar. Así no hay sorpresas y todos quedamos contentos.</p>
+      </div>
+    </div>
+
+    <div class="dicho rv">
+      <p class="previa">Y como decimos por aquí</p>
+      <strong>No dar papaya</strong>
+      <em>Es decir: no ponérselo fácil a nadie.</em>
+    </div>
+
+    <p class="despedida rv">Te esperamos allá para bailar al son de una cumbia, comernos un buen chicharroncito con patacón y, claro, brindar con un aguardientico.</p>
+
+    <p class="rv" style="text-align:center;margin-top:26px">
+      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost">Ver la versión imprimible</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ EXTENDER EL VIAJE ═══════════ -->
+<section id="extender">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Ya que están acá</span>
+      <h2>Extiendan el viaje</h2>
+      <p>Volaron muchas horas. Sería una lástima ver solo la sabana.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card rv">
+        <span class="tag">1 día</span>
+        <h4>Cerca de Bogotá</h4>
+        <ul>
+          <li><strong>Catedral de Sal de Zipaquirá</strong> — una catedral dentro de una mina de sal, a 40 min de Subachoque.</li>
+          <li><strong>Laguna de Guatavita</strong> — el origen de la leyenda de El Dorado.</li>
+          <li><strong>Monserrate</strong> — Bogotá entera a 3.150 m.</li>
+          <li><strong>La Candelaria y el Museo del Oro</strong> — el centro histórico.</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="tag">2–3 días</span>
+        <h4>Escapadas</h4>
+        <ul>
+          <li><strong>Villa de Leyva</strong> — pueblo colonial de piedra blanca, 4 h en carro.</li>
+          <li><strong>Barichara</strong> — probablemente el pueblo más bonito de Colombia.</li>
+          <li><strong>Eje Cafetero</strong> — fincas de café y el valle de palmas de Cocora.</li>
+          <li><strong>Medellín y Guatapé</strong> — 1 h de vuelo.</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="tag">4+ días</span>
+        <h4>Al calor</h4>
+        <ul>
+          <li><strong>Cartagena</strong> — ciudad amurallada en el Caribe, 1 h 30 de vuelo.</li>
+          <li><strong>Santa Marta y el Tayrona</strong> — selva y playa.</li>
+          <li><strong>San Andrés</strong> — el mar de los siete colores.</li>
+          <li><strong>Amazonas (Leticia)</strong> — otro planeta.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rv" style="text-align:center;margin-top:30px;font-size:.94rem;color:var(--salvia)">Si quieren, escríbannos y les damos recomendaciones concretas según lo que les guste.</p>
+  </div>
+</section>
+
+<!-- ═══════════ REGALOS ═══════════ -->
+<section id="regalos">
+  <div class="wrap narrow rv" style="text-align:center">
+    <span class="eyebrow">Con cariño</span>
+    <h2>Regalos</h2>
+    <svg class="sprig" viewBox="0 0 120 40" style="margin:22px auto" aria-hidden="true">
+      <path d="M10 20 H110"/>
+      <ellipse cx="35" cy="12" rx="10" ry="5.5" transform="rotate(-22 35 12)"/>
+      <ellipse cx="35" cy="28" rx="10" ry="5.5" transform="rotate(22 35 28)"/>
+      <ellipse cx="60" cy="10" rx="11" ry="6" transform="rotate(-20 60 10)"/>
+      <ellipse cx="60" cy="30" rx="11" ry="6" transform="rotate(20 60 30)"/>
+      <ellipse cx="85" cy="12" rx="10" ry="5.5" transform="rotate(-22 85 12)"/>
+      <ellipse cx="85" cy="28" rx="10" ry="5.5" transform="rotate(22 85 28)"/>
+    </svg>
+    <p class="lead">Que vengan desde tan lejos ya es el regalo. En serio.</p>
+    <p style="margin-top:1.2rem">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que dejamos estas opciones:</p>
+    <div class="grid g2" style="margin-top:30px;text-align:left">
+      <div class="card">
+        <h4>Aporte a la luna de miel</h4>
+        <p class="ph">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
+      </div>
+      <div class="card">
+        <h4>Lista de regalos</h4>
+        <p class="ph">Disponible en [enlace a la mesa de regalos]. Enviamos todo a una dirección en Colombia, así no cargan nada en el vuelo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Dudas</span>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+
+    <div class="faq rv">
+      <details>
+        <summary>¿Puedo llevar acompañante?</summary>
+        <div class="ans">La invitación indica el número de puestos reservados a su nombre. Si su invitación incluye acompañante, aparecerá especificado. Por temas de aforo no podemos añadir puestos adicionales — gracias por entenderlo.</div>
+      </details>
+      <details>
+        <summary>¿Habrá niños?</summary>
+        <div class="ans ph">[Elegir una opción] Sí, los niños son bienvenidos y tendremos zona de juegos con cuidadoras a partir de las 6:00 p.m. / La celebración es solo para adultos; con gusto les ayudamos a contactar una niñera de confianza en Bogotá.</div>
+      </details>
+      <details>
+        <summary>Tengo alergias o dieta especial. ¿Qué hago?</summary>
+        <div class="ans">Indíquenlo en el formulario de confirmación. Habrá opciones vegetarianas y podemos gestionar menús sin gluten, veganos o sin lactosa si lo sabemos con anticipación.</div>
+      </details>
+      <details>
+        <summary>¿Cuándo debo confirmar?</summary>
+        <div class="ans ph">Antes del <strong>[2 de enero de 2027]</strong>. Como muchos vienen de fuera, entre más pronto confirmen, mejor podemos organizar transporte y hospedaje.</div>
+      </details>
+      <details>
+        <summary>¿Hace tanto frío como dicen?</summary>
+        <div class="ans">Sí. Es la duda que más nos han preguntado. Subachoque está a 2.663 m y de noche baja a 6–9 °C. No es frío extremo, pero si vienen esperando el Caribe la van a pasar mal. Abrigo, siempre.</div>
+      </details>
+      <details>
+        <summary>¿Puedo tomar fotos durante la ceremonia?</summary>
+        <div class="ans ph">Les pedimos guardar los celulares durante la ceremonia — queremos verles la cara, no las pantallas. Tenemos fotógrafo profesional y compartiremos todas las fotos después. En la fiesta, fotografíen todo lo que quieran y súbanlo con <strong>#RicardoYLuisa2027</strong>.</div>
+      </details>
+      <details>
+        <summary>¿Cómo funciona el transporte de regreso si me quedo hasta el final?</summary>
+        <div class="ans ph">Habrá dos buses de vuelta a Bogotá, a la [1:00 a.m.] y a las [3:00 a.m.]. Si quieren reservar puesto, díganlo al confirmar en el apartado <em>«¿Algo más que debamos saber?»</em> y lo apuntamos.</div>
+      </details>
+      <details>
+        <summary>¿Necesito hablar inglés en Colombia?</summary>
+        <div class="ans">No hace falta — y como todos ustedes hablan español, no habrá ninguna barrera. Fuera de hoteles y zonas turísticas, el inglés no es común, pero para ustedes eso es irrelevante.</div>
+      </details>
+      <details>
+        <summary>¿A quién escribo si tengo una duda que no está acá?</summary>
+        <div class="ans ph">A nuestra wedding planner, <strong>[Nombre]</strong>: WhatsApp <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">+57 XXX XXX XXXX</a> · <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a>. Responde en horario de Colombia (UTC−5).</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RSVP ═══════════ -->
+<section id="rsvp">
+  <div class="wrap narrow">
+    <div class="rsvp-box rv">
+      <div style="text-align:center">
+        <span class="eyebrow">Los esperamos</span>
+        <h2 style="margin-bottom:.6rem">Confirma tu asistencia</h2>
+        <p class="ph" style="color:var(--salvia-claro)">Por favor confirma antes del <strong style="color:#E3B08A">2 de enero de 2027</strong>.</p>
+      </div>
+
+      <!--
+        Las respuestas se envían a un Google Form oculto y caen en su hoja de
+        cálculo. La configuración está al final del archivo, en el bloque
+        "ENVÍO DEL RSVP": ahí van la URL del formulario y los identificadores
+        de cada campo. Hasta que se rellenen, el formulario avisa de que
+        todavía no está conectado en lugar de fingir que ha enviado.
+      -->
+      <form id="rsvp-form" class="form-grid" novalidate>
+        <!-- trampa antispam: invisible para las personas, la rellenan los robots -->
+        <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off"
+               aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <div class="field">
+          <label for="f-nombre">Nombre y apellido</label>
+          <input id="f-nombre" name="nombre" type="text" placeholder="Como aparece en la invitación" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Correo electrónico</label>
+          <input id="f-email" name="email" type="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="field">
+          <label for="f-asiste">¿Nos acompañas?</label>
+          <select id="f-asiste" name="asiste" required>
+            <option value="">Selecciona…</option>
+            <option>Sí, allí estaré</option>
+            <option>Sí, con acompañante</option>
+            <option>Lamentablemente no puedo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-personas">Número de personas</label>
+          <select id="f-personas" name="personas">
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-pais">¿Desde dónde viajas?</label>
+          <input id="f-pais" name="pais" type="text" placeholder="Ciudad y país">
+        </div>
+        <div class="field">
+          <label for="f-dieta">Alergias o restricciones alimentarias</label>
+          <input id="f-dieta" name="dieta" type="text" placeholder="Vegetariano, sin gluten, alergias…">
+        </div>
+        <div class="field full">
+          <label for="f-nota">¿Algo más que debamos saber?</label>
+          <textarea id="f-nota" name="nota" placeholder="Canción que no puede faltar, movilidad reducida, fecha de llegada…"></textarea>
+        </div>
+        <div class="field full" style="align-items:center;margin-top:8px">
+          <button type="submit" class="btn btn-light">Enviar confirmación</button>
+          <p class="note ph" style="text-align:center">¿Prefieres escribirnos? <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
+        </div>
+      </form>
+      <div id="rsvp-msg" role="status"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="paleta" aria-hidden="true">
+    <i style="background:var(--p-terracota)"></i>
+    <i style="background:var(--p-naranja)"></i>
+    <i style="background:var(--p-ladrillo)"></i>
+    <i style="background:var(--p-oliva)"></i>
+    <i style="background:var(--p-bosque)"></i>
+    <i style="background:var(--p-vino)"></i>
+  </div>
+  <div class="wrap">
+    <div class="mono">R &amp; L</div>
+    <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)">2 de abril de 2027</p>
+    <p>Finca La Victoria &middot; Subachoque, Cundinamarca &middot; Colombia</p>
+    <p class="ph" style="margin-top:20px">Organización: <strong style="color:#E3B08A">[Nombre de la wedding planner]</strong><br>
+      <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp +57 XXX XXX XXXX</a> &middot;
+      <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a></p>
+    <p class="fine">#RicardoYLuisa2027</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ═══════════════════════ MÚSICA ═══════════════════════
+     «Asilo» — Jorge Drexler & Mon Laferte, vía el reproductor de Spotify.
+     Para cambiar de canción, sustituye el ID de abajo por el de la nueva
+     (está en su URL de Spotify, justo después de /track/).              */
+
+  var SPOTIFY = '5r0yIwEKbqZL96FRmOLYkG';
+
+  var ctrl    = document.getElementById('musica');
+  var panel   = document.getElementById('panel-musica');
+  var pmMarco = document.getElementById('pm-marco');
+  var spot = null;          /* controlador de Spotify, cuando esté listo */
+  var pendiente = false;    /* alguien pulsó antes de que estuviera listo */
+
+  /* Spotify llama a esta función cuando su script termina de cargar. */
+  window.onSpotifyIframeApiReady = function(IFrameAPI){
+    IFrameAPI.createController(
+      pmMarco,
+      { uri: 'spotify:track:' + SPOTIFY, width:'100%', height:152 },
+      function(EmbedController){
+        spot = EmbedController;
+        ctrl.classList.remove('cargando');
+
+        /* Spotify nos avisa de cada cambio: así el botón siempre refleja
+           lo que de verdad está pasando, aunque el visitante le dé al play
+           dentro del propio reproductor. */
+        spot.addListener('playback_update', function(e){
+          var suena = e && e.data && e.data.isPaused === false;
+          ctrl.classList.toggle('sonando', suena);
+          ctrl.setAttribute('aria-pressed', suena ? 'true' : 'false');
+          ctrl.setAttribute('data-tip', suena ? 'Pausar' : 'Nuestra canción');
+          ctrl.setAttribute('aria-label', suena ? 'Pausar la canción' : 'Reproducir nuestra canción');
+        });
+
+        if(pendiente){ pendiente = false; abrirPanel(); spot.play(); }
+      }
+    );
+  };
+
+  function abrirPanel(){
+    if(panel.hidden){
+      panel.hidden = false;
+      requestAnimationFrame(function(){ panel.classList.add('abierto'); });
+    }
+  }
+  function cerrarPanel(){
+    panel.classList.remove('abierto');
+    if(spot) spot.pause();
+    setTimeout(function(){ if(!panel.classList.contains('abierto')) panel.hidden = true; }, 380);
+  }
+
+  /* Un clic en la clave de sol: suena. Otro clic: pausa. */
+  ctrl.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(!spot){                       /* aún cargando: lo dejamos encargado */
+      pendiente = true;
+      ctrl.classList.add('cargando');
+      return;
+    }
+    abrirPanel();
+    spot.togglePlay();
+  });
+
+  document.getElementById('pm-cerrar').addEventListener('click', cerrarPanel);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !panel.hidden) cerrarPanel();
+  });
+
+  /* ═══════════════════ CARRUSEL DE LA PORTADA ═══════════════════ */
+  var CAR_MS = 3200;   /* milisegundos entre foto y foto (3200 = 3,2 s) */
+
+  var marco = document.getElementById('marco');
+  var fotos = marco ? [].slice.call(marco.querySelectorAll('figure')) : [];
+
+  if(fotos.length > 1){
+    var dots  = document.getElementById('car-dots');
+    var carru = document.getElementById('carrusel');
+    var i = 0, reloj = null;
+
+    fotos.forEach(function(f, n){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-label','Foto ' + (n+1) + ' de ' + fotos.length);
+      b.addEventListener('click', function(){ ir(n); reiniciar(); });
+      dots.appendChild(b);
+    });
+    var puntos = [].slice.call(dots.children);
+
+    function ir(n){
+      i = (n + fotos.length) % fotos.length;
+      fotos.forEach(function(f, k){ f.classList.toggle('act', k === i); });
+      puntos.forEach(function(p, k){ p.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    }
+    function siguiente(){ ir(i + 1); }
+    function arrancar(){ if(!reloj) reloj = setInterval(siguiente, CAR_MS); }
+    function parar(){ clearInterval(reloj); reloj = null; }
+    function reiniciar(){ parar(); arrancar(); }
+
+    document.getElementById('car-prev').addEventListener('click', function(){ ir(i-1); reiniciar(); });
+    document.getElementById('car-next').addEventListener('click', function(){ ir(i+1); reiniciar(); });
+
+    /* Las fotos pasan solas SIEMPRE, sin que nadie tenga que tocar nada.
+       Solo se detiene mientras alguien navega con el teclado (para no
+       moverle la foto bajo el foco) y cuando la pestaña está oculta.
+       No se pausa al pasar el ratón: así siempre se ve en movimiento. */
+    carru.addEventListener('focusin',  parar);
+    carru.addEventListener('focusout', arrancar);
+
+    /* deslizar con el dedo en el móvil */
+    var x0 = null;
+    marco.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; parar(); }, {passive:true});
+    marco.addEventListener('touchend', function(e){
+      if(x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if(Math.abs(dx) > 45) ir(dx < 0 ? i+1 : i-1);
+      x0 = null; arrancar();
+    }, {passive:true});
+
+    /* flechas del teclado cuando el carrusel tiene el foco */
+    carru.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ ir(i-1); reiniciar(); }
+      if(e.key === 'ArrowRight'){ ir(i+1); reiniciar(); }
+    });
+
+    /* no gasta recursos en una pestaña oculta */
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) parar(); else arrancar();
+    });
+
+    ir(0);
+    arrancar();
+  }
+
+  /* ── Nav ── */
+  var nav=document.getElementById('nav'),burger=document.getElementById('burger'),links=document.getElementById('links');
+  function onScroll(){ nav.classList.toggle('solid', window.scrollY>28); }
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  burger.addEventListener('click',function(){
+    var open=links.classList.toggle('show');
+    burger.classList.toggle('open',open);
+    burger.setAttribute('aria-expanded',open);
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){links.classList.remove('show');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');}
+  });
+
+  /* ── Cuenta regresiva ── */
+  /* Cambia esta fecha/hora si la ceremonia se mueve. Formato ISO con zona UTC-5. */
+  var target=new Date('2027-04-02T16:00:00-05:00').getTime();
+  var el={d:document.getElementById('c-d'),h:document.getElementById('c-h'),m:document.getElementById('c-m'),s:document.getElementById('c-s')};
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){
+    var diff=target-Date.now();
+    if(diff<=0){
+      document.getElementById('count').innerHTML='<div style="min-width:auto"><b style="font-style:italic">¡Hoy es el día!</b></div>';
+      clearInterval(timer); return;
+    }
+    var s=Math.floor(diff/1000);
+    el.d.textContent=Math.floor(s/86400);
+    el.h.textContent=pad(Math.floor(s%86400/3600));
+    el.m.textContent=pad(Math.floor(s%3600/60));
+    el.s.textContent=pad(s%60);
+  }
+  tick(); var timer=setInterval(tick,1000);
+
+  /* ── Reveal al hacer scroll ── */
+  var items=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });
+    },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+    items.forEach(function(i){io.observe(i);});
+  }else{
+    items.forEach(function(i){i.classList.add('in');});
+  }
+
+  /* ── FAQ: abrir una a la vez ── */
+  var faqs=document.querySelectorAll('.faq details');
+  faqs.forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open) faqs.forEach(function(o){ if(o!==d) o.open=false; });
+    });
+  });
+
+  /* ═══════════════════ ENVÍO DEL RSVP ═══════════════════
+     Las respuestas van a un Google Form oculto y aparecen en su hoja de
+     cálculo. Hay que rellenar estas dos cosas UNA sola vez:
+
+     1) GFORM  → la URL de envío de tu formulario. Se obtiene cogiendo el
+        enlace de tu Google Form y cambiando el final:
+           .../viewform      ✗
+           .../formResponse  ✓
+
+     2) CAMPOS → el identificador de cada pregunta. Para obtenerlos:
+        abre tu Google Form → menú de los tres puntos → "Obtener enlace
+        con relleno previo" → escribe cualquier cosa en cada pregunta →
+        "Obtener enlace". El enlace copiado contiene pares del tipo
+        entry.1234567=loQueEscribiste. Ese número es el identificador.
+
+     CONSEJO: crea TODAS las preguntas del Google Form como "Respuesta
+     corta" (o "Párrafo" para la última), incluso las que aquí son menús
+     desplegables. Si en Google las pones como opción múltiple, rechaza
+     cualquier texto que no coincida palabra por palabra y perderías
+     respuestas sin enterarte.                                          */
+
+  var GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeYCoLkLaXqyQebYiHb3t4sX258TVIJRtztlNuXqxD0Klxdlg/formResponse';
+
+  /* Cada campo de la web con su pregunta en el Google Form: */
+  var CAMPOS = {
+    nombre:   'entry.1840880673',   /* Nombre y Apellido                     */
+    email:    'entry.367322812',    /* Correo electronico                    */
+    asiste:   'entry.1638771570',   /* Nos acompañas?                        */
+    personas: 'entry.1168910758',   /* Numero de personas                    */
+    pais:     'entry.358605638',    /* Desde donde viajas?                   */
+    dieta:    'entry.290537219',    /* Alergias o restricciones alimentarias?*/
+    nota:     'entry.1391673311'    /* Algo mas que debamos saber?           */
+  };
+
+  var form = document.getElementById('rsvp-form');
+  var msg  = document.getElementById('rsvp-msg');
+  var val  = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+
+  function aviso(texto, tono){
+    msg.innerHTML = texto;
+    msg.style.display = 'block';
+    msg.style.borderColor = tono === 'ok' ? '#E3B08A' : '#E8A08A';
+    msg.style.color       = tono === 'ok' ? '#E3B08A' : '#E8A08A';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    /* si un robot rellenó el campo trampa, fingimos normalidad y no enviamos */
+    if(val('f-web')){ aviso('¡Gracias! Hemos recibido tu confirmación.','ok'); return; }
+
+    var datos = {
+      nombre:val('f-nombre'), email:val('f-email'),   asiste:val('f-asiste'),
+      personas:val('f-personas'), pais:val('f-pais'),
+      dieta:val('f-dieta'),       nota:val('f-nota')
+    };
+
+    if(!datos.nombre || !datos.email || !datos.asiste){
+      aviso('Por favor completa tu nombre, tu correo y si nos acompañas.');
+      return;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(datos.email)){
+      aviso('Revisa el correo electrónico, parece que tiene una errata.');
+      return;
+    }
+
+    if(!GFORM || !CAMPOS.nombre){
+      aviso('<strong>Aún no está conectado.</strong> Falta configurar GFORM y CAMPOS ' +
+            'en el JavaScript de este archivo. Nadie recibiría esta respuesta todavía.');
+      return;
+    }
+
+    var boton = form.querySelector('button[type="submit"]');
+    boton.disabled = true;
+    boton.textContent = 'Enviando…';
+
+    var fd = new FormData();
+    Object.keys(CAMPOS).forEach(function(k){
+      if(CAMPOS[k]) fd.append(CAMPOS[k], datos[k]);
+    });
+
+    /* Google no permite leer su respuesta desde otro dominio (CORS), así que
+       enviamos "a ciegas": si la petición sale, damos la confirmación. */
+    fetch(GFORM, { method:'POST', mode:'no-cors', body:fd })
+      .then(function(){
+        form.style.display = 'none';
+        aviso('<strong>¡Gracias, ' + datos.nombre.split(' ')[0] + '!</strong><br>' +
+              'Hemos recibido tu confirmación. Nos vemos el 2 de abril en Subachoque.','ok');
+        msg.scrollIntoView({behavior:'smooth', block:'center'});
+      })
+      .catch(function(){
+        boton.disabled = false;
+        boton.textContent = 'Enviar confirmación';
+        aviso('No hemos podido enviar la confirmación. Revisa tu conexión e inténtalo de nuevo, ' +
+              'o escríbenos por WhatsApp y lo apuntamos a mano.');
+      });
+  });
+})();
+</script>
+
+<!--
+  API de embeds de Spotify: es lo que permite arrancar la canción desde el
+  botón. Va DESPUÉS del script de arriba a propósito: ese script define la
+  función  window.onSpotifyIframeApiReady  que Spotify llama al cargarse.
+  Si se pusiera antes, Spotify podría llamarla antes de que exista.
+-->
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+</body>
+</html>

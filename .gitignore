@@ -1,0 +1,15 @@
+# Basura del sistema
+.DS_Store
+Thumbs.db
+._*
+
+# Archivos temporales de editores
+*.swp
+*~
+.vscode/
+.idea/
+
+# Originales pesados de las fotos (guardadlos en Drive, no aquí)
+originales/
+*.HEIC
+*.heic
