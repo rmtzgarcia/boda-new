@@ -93,6 +93,9 @@ nav.solid{border-bottom-color:rgba(117,131,78,.28);box-shadow:0 2px 24px rgba(29
 .nav-links a::after{content:'';position:absolute;left:0;bottom:2px;width:0;height:1px;background:var(--oro);transition:.3s}
 .nav-links a:hover{color:var(--bosque)}
 .nav-links a:hover::after{width:100%}
+/* flechita de "abre en otra pestaña" */
+.nav-links .ext{font-size:.85em;opacity:.6;margin-left:1px;letter-spacing:0}
+.nav-links a:hover .ext{opacity:1;color:var(--oro)}
 .nav-cta{
   font-size:.7rem!important;letter-spacing:.19em;padding:9px 20px!important;
   border:1px solid var(--salvia)!important;border-radius:2px;color:var(--bosque)!important;

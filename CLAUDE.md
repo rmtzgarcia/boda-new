@@ -24,7 +24,7 @@ Si los dos vais a tocar la web el mismo día, decíroslo — así nadie pierde t
 | `estilo.css` | Colores, tipografías, espacios | Con más cuidado |
 | `guion.js` | Carrusel, cuenta atrás, música, envío del RSVP | Con más cuidado |
 | `fotos/` | Las 3 fotos del carrusel de portada | — |
-| `tips-colombia-luisa-ricardo-v2.html` | Flyer imprimible, se enlaza desde la web | — |
+| `tips-colombia-luisa-ricardo-v2.html` | **Guía del invitado**: consejos, programa, vestuario y dudas | Cualquiera |
 
 `index.html` no funciona solo: necesita `estilo.css`, `guion.js` y `fotos/`
 en la misma carpeta.
@@ -49,6 +49,14 @@ en la misma carpeta.
 - **Consejos de seguridad**: la sección "Cuatro cositas de nada" viene del
   flyer impreso. La tarjeta de "Seguridad" en Colombia práctica se recortó
   a propósito para no repetir lo mismo dos veces.
+- **Reparto de contenido entre web y guía** (decisión de agosto de 2026):
+  la web quedó como invitación y guía de viaje; **el programa, el vestuario
+  y las preguntas frecuentes se movieron a la guía del invitado**, que es
+  el archivo `tips-colombia-luisa-ricardo-v2.html`. Esas tres secciones ya
+  no existen en `index.html` ni en su menú. Si hay que actualizar un horario
+  o el código de vestimenta, se edita la guía, no la web.
+  La guía se enlaza desde dos sitios de la web: el párrafo de bienvenida y
+  el botón del final de "Cuatro cositas de nada".
 
 ---
 
@@ -90,6 +98,9 @@ de prueba y comprueba que la fila aparece en la hoja.
 - [ ] Fecha límite de confirmación (ahora puesta como 2 de enero de 2027).
 - [ ] Datos para los regalos y enlace de la mesa de regalos.
 - [ ] Borrar el aviso "Versión borrador" antes de publicar (`div.draft-banner`).
+- [ ] **Quitar el bloqueo a buscadores** cuando la web esté lista: la etiqueta
+      `<meta name="robots" content="noindex, nofollow">` de `index.html` y el
+      archivo `robots.txt` entero. Si no, la web no aparecerá nunca en Google.
 - [ ] Unificar el orden de los nombres: la web dice "Ricardo & Luisa" y el
       flyer "Luisa y Ricardo".
 

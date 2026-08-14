@@ -1,0 +1,6 @@
+# Web en construcción: pedimos a los buscadores que no la indexen todavía.
+# ⚠ BORRAR ESTE ARCHIVO (y la etiqueta noindex de index.html) antes de
+#   publicar la web de verdad, o no aparecerá nunca en Google.
+
+User-agent: *
+Disallow: /

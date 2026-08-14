@@ -40,6 +40,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ricardo &amp; Luisa · 2 de abril de 2027 · Subachoque, Colombia</title>
 <meta name="description" content="Nos casamos el 2 de abril de 2027 en la Finca La Victoria, Subachoque, Colombia. Toda la información para organizar tu viaje.">
+<!--
+  MIENTRAS LA WEB ESTÁ EN CONSTRUCCIÓN: esta línea pide a Google y demás
+  buscadores que no la indexen ni la muestren en resultados.
+  ⚠ BÓRRALA (y también el archivo robots.txt) cuando la web esté lista,
+  o la boda nunca aparecerá al buscarla.
+-->
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -97,12 +104,11 @@
     <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="links">
       <li><a href="#lugar">El lugar</a></li>
-      <li><a href="#programa">Programa</a></li>
-      <li><a href="#codigo">Vestuario</a></li>
       <li><a href="#viaje">Cómo llegar</a></li>
       <li><a href="#hospedaje">Hospedaje</a></li>
       <li><a href="#colombia">Colombia</a></li>
-      <li><a href="#faq">Preguntas</a></li>
+      <!-- Esta lleva a la guía del invitado, que es otra página: por eso abre en pestaña nueva -->
+      <li><a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener">Tips básicos <span class="ext" aria-hidden="true">&#8599;</span></a></li>
       <li><a href="#rsvp" class="nav-cta">Confirmar</a></li>
     </ul>
   </div>
@@ -197,7 +203,7 @@
   <div class="wrap narrow rv" style="text-align:center">
     <span class="eyebrow">Bienvenidos</span>
     <p class="lead">Muchos de ustedes van a cruzar medio continente —o un océano— para acompañarnos. Esta página existe para que ese viaje sea lo más fácil posible: fechas, transporte, dónde dormir, qué empacar y todo lo que necesitan saber sobre Colombia.</p>
-    <p style="margin-top:1.6rem">Nos casamos en la sabana de Bogotá, a 2.660 metros de altura, entre montañas verdes y aire frío. Es un lugar precioso y también un poco inesperado para quien imagina Colombia como puro calor. Lean la sección de <a href="#codigo">clima y vestuario</a> antes de empacar. Hablamos en serio con lo del abrigo.</p>
+    <p style="margin-top:1.6rem">Nos casamos en la sabana de Bogotá, a 2.660 metros de altura, entre montañas verdes y aire frío. Es un lugar precioso y también un poco inesperado para quien imagina Colombia como puro calor. Lean la <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener">guía del invitado</a> antes de empacar — ahí está el programa, el vestuario y las dudas más frecuentes. Hablamos en serio con lo del abrigo.</p>
     <p style="margin-top:1.4rem"><em>Con cariño,</em><br><span style="font-family:var(--serif);font-size:1.5rem;color:var(--bosque)">Ricardo &amp; Luisa</span></p>
   </div>
 </section>
@@ -249,88 +255,7 @@
   </div>
 </section>
 
-<!-- ═══════════ PROGRAMA ═══════════ -->
-<section id="programa">
-  <div class="wrap narrow">
-    <div class="sec-head rv">
-      <span class="eyebrow">Tres días</span>
-      <h2>El programa</h2>
-      <p>La boda es el viernes, pero armamos un fin de semana completo. Vengan con calma: vale la pena llegar al menos un día antes para aclimatarse a la altura.</p>
-    </div>
 
-    <div class="day rv">
-      <div class="day-head"><h3>Jueves 1 de abril</h3><span>Llegada &middot; Opcional</span></div>
-      <ul class="tl">
-        <li><span class="hora ph">6:00 p.m.</span><span class="evento">Cóctel de bienvenida</span><p class="det ph">Lugar por confirmar (Subachoque pueblo / hotel sede). Informal, para saludarnos sin prisa antes del día grande. Vengan abrigados: a esa hora ya hace frío.</p></li>
-      </ul>
-    </div>
-
-    <div class="day rv">
-      <div class="day-head"><h3>Viernes 2 de abril</h3><span>El día de la boda</span></div>
-      <ul class="tl">
-        <li><span class="hora ph">1:30 p.m.</span><span class="evento">Transporte desde Bogotá</span><p class="det ph">Buses privados salen de [punto de encuentro: hotel sede / Zona T]. Puntualidad estricta — el trayecto es de más de una hora.</p></li>
-        <li><span class="hora ph">3:00 p.m.</span><span class="evento">Llegada a la finca</span><p class="det">Recepción, bebida de bienvenida y tiempo para instalarse.</p></li>
-        <li><span class="hora ph">4:00 p.m.</span><span class="evento">Ceremonia</span><p class="det ph">Al aire libre, en el jardín. Por favor estar sentados 20 minutos antes.</p></li>
-        <li><span class="hora ph">5:00 p.m.</span><span class="evento">Cóctel y fotos</span><p class="det">Pasabocas, música en vivo y el atardecer sobre la sabana.</p></li>
-        <li><span class="hora ph">7:30 p.m.</span><span class="evento">Cena</span><p class="det ph">Cena servida bajo carpa con calefacción. Menú de tres tiempos con opciones vegetarianas.</p></li>
-        <li><span class="hora ph">10:00 p.m.</span><span class="evento">Fiesta</span><p class="det">Hora loca, DJ y lo que resulte. Habrá bebidas calientes para los valientes que salgan al jardín.</p></li>
-        <li><span class="hora ph">3:00 a.m.</span><span class="evento">Último transporte de regreso</span><p class="det ph">Buses de vuelta a Bogotá a las [1:00 a.m.] y [3:00 a.m.].</p></li>
-      </ul>
-    </div>
-
-    <div class="day rv">
-      <div class="day-head"><h3>Sábado 3 de abril</h3><span>Despedida &middot; Opcional</span></div>
-      <ul class="tl">
-        <li><span class="hora ph">11:00 a.m.</span><span class="evento">Brunch de recuperación</span><p class="det ph">Lugar por confirmar. Vengan como puedan. Café colombiano en cantidades industriales, garantizado.</p></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ DRESS CODE Y CLIMA ═══════════ -->
-<section id="codigo">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">Qué ponerse</span>
-      <h2>Vestuario y clima</h2>
-      <p>La regla de oro: <strong>elegante, pero preparado para el frío y para el pasto</strong>. La sabana de Bogotá engaña — sol fuerte al mediodía, 8 °C a medianoche.</p>
-    </div>
-
-    <div class="grid g3">
-      <div class="card rv">
-        <span class="tag">Código</span>
-        <h4>Formal de campo</h4>
-        <p>Traje o cóctel, sin ser de gala. Ellos: traje completo, corbata opcional. Ellas: vestido largo o midi.</p>
-        <p style="margin-top:.7rem"><strong>Por favor eviten el blanco y el marfil.</strong></p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Importante</span>
-        <h4>Zapatos</h4>
-        <p>La ceremonia es sobre pasto y el terreno tiene desniveles. Tacón ancho, plataforma o block heel. Los tacones de aguja se hunden — está comprobado.</p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Imprescindible</span>
-        <h4>Abrigo</h4>
-        <p>De día 18–20 °C; al caer el sol baja a 6–9 °C. Traigan pashmina, chal, blazer o abrigo de verdad. No es un detalle: van a usarlo.</p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Abril</span>
-        <h4>Temporada de lluvias</h4>
-        <p>Abril es de los meses más lluviosos en la sabana. Suelen ser aguaceros cortos de tarde. Hay plan B bajo carpa, pero un paraguas plegable en la maleta no sobra.</p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Sol andino</span>
-        <h4>Protector solar</h4>
-        <p>A 2.660 m el sol quema mucho más rápido aunque no haga calor. Bloqueador y gafas, incluso con cielo nublado.</p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Extra</span>
-        <h4>Cambio de zapatos</h4>
-        <p>Si quieren bailar hasta el final, traigan un par plano de repuesto en el carro o en el bus. Nadie los va a juzgar.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════ VIAJE ═══════════ -->
 <section id="viaje">
@@ -584,7 +509,7 @@
     <p class="despedida rv">Te esperamos allá para bailar al son de una cumbia, comernos un buen chicharroncito con patacón y, claro, brindar con un aguardientico.</p>
 
     <p class="rv" style="text-align:center;margin-top:26px">
-      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost">Ver la versión imprimible</a>
+      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost">Abrir la guía del invitado</a>
     </p>
   </div>
 </section>
@@ -663,54 +588,6 @@
   </div>
 </section>
 
-<!-- ═══════════ FAQ ═══════════ -->
-<section id="faq">
-  <div class="wrap narrow">
-    <div class="sec-head rv">
-      <span class="eyebrow">Dudas</span>
-      <h2>Preguntas frecuentes</h2>
-    </div>
-
-    <div class="faq rv">
-      <details>
-        <summary>¿Puedo llevar acompañante?</summary>
-        <div class="ans">La invitación indica el número de puestos reservados a su nombre. Si su invitación incluye acompañante, aparecerá especificado. Por temas de aforo no podemos añadir puestos adicionales — gracias por entenderlo.</div>
-      </details>
-      <details>
-        <summary>¿Habrá niños?</summary>
-        <div class="ans ph">[Elegir una opción] Sí, los niños son bienvenidos y tendremos zona de juegos con cuidadoras a partir de las 6:00 p.m. / La celebración es solo para adultos; con gusto les ayudamos a contactar una niñera de confianza en Bogotá.</div>
-      </details>
-      <details>
-        <summary>Tengo alergias o dieta especial. ¿Qué hago?</summary>
-        <div class="ans">Indíquenlo en el formulario de confirmación. Habrá opciones vegetarianas y podemos gestionar menús sin gluten, veganos o sin lactosa si lo sabemos con anticipación.</div>
-      </details>
-      <details>
-        <summary>¿Cuándo debo confirmar?</summary>
-        <div class="ans ph">Antes del <strong>[2 de enero de 2027]</strong>. Como muchos vienen de fuera, entre más pronto confirmen, mejor podemos organizar transporte y hospedaje.</div>
-      </details>
-      <details>
-        <summary>¿Hace tanto frío como dicen?</summary>
-        <div class="ans">Sí. Es la duda que más nos han preguntado. Subachoque está a 2.663 m y de noche baja a 6–9 °C. No es frío extremo, pero si vienen esperando el Caribe la van a pasar mal. Abrigo, siempre.</div>
-      </details>
-      <details>
-        <summary>¿Puedo tomar fotos durante la ceremonia?</summary>
-        <div class="ans ph">Les pedimos guardar los celulares durante la ceremonia — queremos verles la cara, no las pantallas. Tenemos fotógrafo profesional y compartiremos todas las fotos después. En la fiesta, fotografíen todo lo que quieran y súbanlo con <strong>#RicardoYLuisa2027</strong>.</div>
-      </details>
-      <details>
-        <summary>¿Cómo funciona el transporte de regreso si me quedo hasta el final?</summary>
-        <div class="ans ph">Habrá dos buses de vuelta a Bogotá, a la [1:00 a.m.] y a las [3:00 a.m.]. Si quieren reservar puesto, díganlo al confirmar en el apartado <em>«¿Algo más que debamos saber?»</em> y lo apuntamos.</div>
-      </details>
-      <details>
-        <summary>¿Necesito hablar inglés en Colombia?</summary>
-        <div class="ans">No hace falta — y como todos ustedes hablan español, no habrá ninguna barrera. Fuera de hoteles y zonas turísticas, el inglés no es común, pero para ustedes eso es irrelevante.</div>
-      </details>
-      <details>
-        <summary>¿A quién escribo si tengo una duda que no está acá?</summary>
-        <div class="ans ph">A nuestra wedding planner, <strong>[Nombre]</strong>: WhatsApp <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">+57 XXX XXX XXXX</a> · <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a>. Responde en horario de Colombia (UTC−5).</div>
-      </details>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════ RSVP ═══════════ -->
 <section id="rsvp">
