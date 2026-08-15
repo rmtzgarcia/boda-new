@@ -49,14 +49,15 @@ en la misma carpeta.
 - **Consejos de seguridad**: la sección "Cuatro cositas de nada" viene del
   flyer impreso. La tarjeta de "Seguridad" en Colombia práctica se recortó
   a propósito para no repetir lo mismo dos veces.
-- **Reparto de contenido entre web y guía** (decisión de agosto de 2026):
-  la web quedó como invitación y guía de viaje; **el programa, el vestuario
-  y las preguntas frecuentes se movieron a la guía del invitado**, que es
-  el archivo `tips-colombia-luisa-ricardo-v2.html`. Esas tres secciones ya
-  no existen en `index.html` ni en su menú. Si hay que actualizar un horario
-  o el código de vestimenta, se edita la guía, no la web.
-  La guía se enlaza desde dos sitios de la web: el párrafo de bienvenida y
-  el botón del final de "Cuatro cositas de nada".
+- **Programa, vestuario y preguntas frecuentes: eliminados** (decisión de
+  agosto de 2026). Esas tres secciones ya no existen en ningún sitio — ni en
+  la web ni en el flyer. Se borraron también sus estilos del CSS.
+  **El flyer `tips-colombia-luisa-ricardo-v2.html` no se toca:** es una hoja
+  suelta imprimible con los cuatro consejos de seguridad y nada más.
+  Se enlaza desde dos sitios de la web: la entrada "Tips básicos" del menú
+  y el botón del final de "Cuatro cositas de nada".
+  Si algún día hace falta publicar horarios o código de vestimenta, habrá que
+  crear una página nueva, no reutilizar el flyer.
 
 ---
 
