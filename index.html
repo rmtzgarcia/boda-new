@@ -218,27 +218,20 @@
     </div>
 
     <div class="feature rv">
-      <div class="frame">
-        <svg viewBox="0 0 240 190" style="width:100%;max-width:280px" aria-hidden="true">
-          <g fill="none" stroke="#75834E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 152 C50 132 74 138 104 120 C132 104 158 110 188 96 C206 88 218 84 228 82" opacity=".65"/>
-            <path d="M14 168 C56 152 86 158 118 142 C148 128 178 132 228 116" opacity=".45"/>
-            <path d="M52 118 L96 84 L140 118" />
-            <path d="M64 118 V160 H128 V118"/>
-            <path d="M88 160 V134 H106 V160"/>
-            <path d="M74 128 h12 v11 h-12 z"/>
-            <path d="M110 128 h12 v11 h-12 z"/>
-            <path d="M96 84 V70"/>
-            <path d="M160 160 V116"/><path d="M160 128 l16-14"/><path d="M160 140 l-15-13"/>
-            <path d="M196 160 V126"/><path d="M196 136 l13-12"/>
-          </g>
-          <g fill="#C2C9A4" opacity=".8">
-            <ellipse cx="178" cy="110" rx="16" ry="9" transform="rotate(-28 178 110)"/>
-            <ellipse cx="143" cy="123" rx="14" ry="8" transform="rotate(28 143 123)"/>
-            <ellipse cx="210" cy="120" rx="13" ry="7.5" transform="rotate(-30 210 120)"/>
-            <circle cx="96" cy="66" r="4"/>
-          </g>
-        </svg>
+      <!--
+        MAPA. Muestra el pin exacto de la finca.
+        Si algún día cambia la ubicación, sustituye las coordenadas en la URL
+        de abajo (van en el parámetro  q= , primero latitud y luego longitud)
+        y también en el enlace "Abrir en Google Maps" de la fila del mapa.
+        El atributo loading="lazy" hace que el mapa solo se cargue cuando el
+        visitante llega a esta altura de la página, no al abrirla.
+      -->
+      <div class="mapa">
+        <iframe
+          src="https://maps.google.com/maps?q=4.899453,-74.182835&amp;z=14&amp;output=embed"
+          title="Mapa con la ubicación de la Finca La Victoria, Subachoque"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
       </div>
       <div>
         <h3>Una finca de la sabana</h3>
@@ -248,7 +241,7 @@
           <div class="row"><dt>Mapa</dt><dd><a href="https://maps.app.goo.gl/8ABQBgbFaFGZKbLc6" target="_blank" rel="noopener">Abrir la ubicación exacta en Google Maps</a><br><span style="font-size:.82rem;color:var(--salvia)">Coordenadas: 4.899453, −74.182835 — útiles si van en carro y se les pierde la señal.</span></dd></div>
           <div class="row"><dt>Desde el aeropuerto</dt><dd>El Dorado (BOG) → la finca: unos <strong>40 km</strong> por carretera, entre <strong>1 h y 1 h 30 min</strong> según el tráfico de salida de Bogotá.</dd></div>
           <div class="row"><dt>Altitud</dt><dd>2.663 m sobre el nivel del mar. Prácticamente la misma que Bogotá.</dd></div>
-          <div class="row"><dt>Parqueadero</dt><dd class="ph">Sí, gratuito dentro de la finca — capacidad aprox. [X] vehículos.</dd></div>
+          <div class="row"><dt>Parqueadero</dt><dd>Sí, gratuito dentro de la finca y con espacio de sobra para todos.</dd></div>
         </dl>
       </div>
     </div>
@@ -509,34 +502,6 @@
 </section>
 
 
-<!-- ═══════════ REGALOS ═══════════ -->
-<section id="regalos">
-  <div class="wrap narrow rv" style="text-align:center">
-    <span class="eyebrow">Con cariño</span>
-    <h2>Regalos</h2>
-    <svg class="sprig" viewBox="0 0 120 40" style="margin:22px auto" aria-hidden="true">
-      <path d="M10 20 H110"/>
-      <ellipse cx="35" cy="12" rx="10" ry="5.5" transform="rotate(-22 35 12)"/>
-      <ellipse cx="35" cy="28" rx="10" ry="5.5" transform="rotate(22 35 28)"/>
-      <ellipse cx="60" cy="10" rx="11" ry="6" transform="rotate(-20 60 10)"/>
-      <ellipse cx="60" cy="30" rx="11" ry="6" transform="rotate(20 60 30)"/>
-      <ellipse cx="85" cy="12" rx="10" ry="5.5" transform="rotate(-22 85 12)"/>
-      <ellipse cx="85" cy="28" rx="10" ry="5.5" transform="rotate(22 85 28)"/>
-    </svg>
-    <p class="lead">Que vengan desde tan lejos ya es el regalo. En serio.</p>
-    <p style="margin-top:1.2rem">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que dejamos estas opciones:</p>
-    <div class="grid g2" style="margin-top:30px;text-align:left">
-      <div class="card">
-        <h4>Aporte a la luna de miel</h4>
-        <p class="ph">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
-      </div>
-      <div class="card">
-        <h4>Lista de regalos</h4>
-        <p class="ph">Disponible en [enlace a la mesa de regalos]. Enviamos todo a una dirección en Colombia, así no cargan nada en el vuelo.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ═══════════ RSVP ═══════════ -->
@@ -597,10 +562,34 @@
         </div>
         <div class="field full" style="align-items:center;margin-top:8px">
           <button type="submit" class="btn btn-light">Enviar confirmación</button>
-          <p class="note ph" style="text-align:center">¿Prefieres escribirnos? <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
+          <p class="note" style="text-align:center">¿Prefieres escribirnos? <a href="https://wa.me/573012884694" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
         </div>
       </form>
       <div id="rsvp-msg" role="status"></div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════ REGALOS ═══════════ -->
+<section id="regalos">
+  <div class="wrap narrow rv" style="text-align:center">
+    <span class="eyebrow">Con cariño</span>
+    <h2>Regalos</h2>
+    <svg class="sprig" viewBox="0 0 120 40" style="margin:22px auto" aria-hidden="true">
+      <path d="M10 20 H110"/>
+      <ellipse cx="35" cy="12" rx="10" ry="5.5" transform="rotate(-22 35 12)"/>
+      <ellipse cx="35" cy="28" rx="10" ry="5.5" transform="rotate(22 35 28)"/>
+      <ellipse cx="60" cy="10" rx="11" ry="6" transform="rotate(-20 60 10)"/>
+      <ellipse cx="60" cy="30" rx="11" ry="6" transform="rotate(20 60 30)"/>
+      <ellipse cx="85" cy="12" rx="10" ry="5.5" transform="rotate(-22 85 12)"/>
+      <ellipse cx="85" cy="28" rx="10" ry="5.5" transform="rotate(22 85 28)"/>
+    </svg>
+    <p class="lead">Que vengan desde tan lejos ya es el regalo. En serio.</p>
+    <p style="margin-top:1.2rem">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que lo más fácil es esto:</p>
+    <div class="grid" style="margin-top:30px;text-align:left;max-width:520px;margin-left:auto;margin-right:auto">
+      <div class="card">
+        <h4>Aporte a la luna de miel</h4>
+        <p class="ph">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -619,10 +608,8 @@
     <div class="mono">R &amp; L</div>
     <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)">2 de abril de 2027</p>
     <p>Finca La Victoria &middot; Subachoque, Cundinamarca &middot; Colombia</p>
-    <p class="ph" style="margin-top:20px">Organización: <strong style="color:#E3B08A">[Nombre de la wedding planner]</strong><br>
-      <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp +57 XXX XXX XXXX</a> &middot;
-      <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a></p>
-    <p class="fine">#RicardoYLuisa2027</p>
+    <p style="margin-top:20px">Organización: <strong style="color:#E3B08A">Julieth Bravo</strong><br>
+      <a href="https://wa.me/573012884694" target="_blank" rel="noopener">WhatsApp +57 301 288 4694</a></p>
   </div>
 </footer>
 
