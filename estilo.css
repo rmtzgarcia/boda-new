@@ -487,7 +487,7 @@ body[data-idioma="es"] [lang="en"]{display:none}
 body[data-idioma="en"] [lang="es"]{display:none}
 
 /* ── Selector ES | EN ── */
-.idiomas{display:flex;align-items:center;gap:7px}
+.idiomas{display:flex;align-items:center;gap:7px;position:relative;flex-wrap:wrap;justify-content:center}
 .idioma{
   background:none;border:none;cursor:pointer;padding:6px 0;
   font-family:inherit;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;
@@ -517,9 +517,30 @@ body[data-idioma="en"] [lang="es"]{display:none}
 .idioma:hover .bandera,
 .idioma.actual .bandera{filter:none;opacity:1}
 
+/* El español lleva las DOS banderas, la de ella y la de él.
+   Un pelín más juntas para que el botón no se ensanche. */
+.bandera-doble{letter-spacing:-.16em;padding-right:.16em}
+
+/* ── El chiste de las dos banderas ──
+   Asoma al pasar el ratón por el selector (o al enfocarlo con el teclado).
+   En móvil no hay ratón, así que se muestra siempre bajo el selector. */
+.chiste{
+  position:absolute;top:100%;left:50%;transform:translate(-50%,-4px);
+  white-space:nowrap;margin-top:2px;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--oro);opacity:0;pointer-events:none;transition:.3s;
+}
+.idiomas:hover .chiste,
+.idiomas:focus-within .chiste{opacity:.85;transform:translate(-50%,0)}
+
 @media(max-width:940px){
   .bandera{font-size:1.05rem}
+  .chiste{
+    position:static;transform:none;opacity:.8;
+    display:block;width:100%;text-align:center;margin-top:7px;
+  }
 }
+@media(prefers-reduced-motion:reduce){.chiste{transition:none}}
 
 /* ── El selector de idioma, visible sin abrir el menú ──
    En pantalla ancha manda el que está dentro del menú.
