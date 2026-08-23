@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   BODA RICARDO & LUISA — DISEÑO
+   BODA LUISA & RICARDO — DISEÑO
    Este archivo controla el ASPECTO: colores, tipografías, espacios.
    Si solo quieres cambiar TEXTOS, no toques esto: ve a index.html
    La paleta entera está en el bloque :root de aquí abajo.
@@ -449,7 +449,7 @@ body.pestanas .vista.activa{display:block}
 
 /* ═══════════ PORTADA REDUCIDA EN LAS DEMÁS PESTAÑAS ═══════════
    En la pestaña de Inicio la portada se ve entera. En el resto se queda
-   solo la firma —"Nos casamos · Ricardo & Luisa" y la ramita— y debajo
+   solo la firma —"Nos casamos · Luisa & Ricardo" y la ramita— y debajo
    arranca el contenido de la pestaña. Las fotos, la cuenta regresiva,
    la fecha y los botones son exclusivos de la portada.
    El JS marca el <body> con .en-inicio cuando la pestaña activa es esa. */

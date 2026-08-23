@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   BODA RICARDO & LUISA — COMPORTAMIENTO
+   BODA LUISA & RICARDO — COMPORTAMIENTO
    Carrusel, cuenta regresiva, música y envío del RSVP.
    La configuración que se toca de vez en cuando está al principio
    de cada bloque: CAR_MS (velocidad del carrusel), SPOTIFY (canción),
@@ -392,8 +392,8 @@
   if(botonesIdioma.length){
 
     var TITULOS = {
-      es: 'Ricardo & Luisa · 2 de abril de 2027 · Subachoque, Colombia',
-      en: 'Ricardo & Luisa · April 2, 2027 · Subachoque, Colombia'
+      es: 'Luisa & Ricardo · 2 de abril de 2027 · Subachoque, Colombia',
+      en: 'Luisa & Ricardo · April 2, 2027 · Subachoque, Colombia'
     };
 
     var ponerIdioma = function(idioma, recordar){

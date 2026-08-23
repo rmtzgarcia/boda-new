@@ -145,8 +145,11 @@ de prueba y comprueba que la fila aparece en la hoja.
 - [ ] **Quitar el bloqueo a buscadores** cuando la web esté lista: la etiqueta
       `<meta name="robots" content="noindex, nofollow">` de `index.html` y el
       archivo `robots.txt` entero. Si no, la web no aparecerá nunca en Google.
-- [ ] Unificar el orden de los nombres: la web dice "Ricardo & Luisa" y el
-      flyer "Luisa y Ricardo".
+- [x] ~~Unificar el orden de los nombres.~~ Resuelto en agosto de 2026:
+      **el orden oficial es "Luisa & Ricardo"**, como ya venía en el flyer.
+      Cambiado en la web (título, portada, firma, textos alternativos),
+      en el monograma (ahora "L & R") y en las invitaciones digitales.
+      Si se añade cualquier material nuevo, respetar ese orden.
 
 Los datos pendientes están marcados en la web con `class="ph"` y se ven en
 pantalla con un subrayado punteado dorado. Para encontrarlos: buscar `class="ph"`.
