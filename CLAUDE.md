@@ -52,12 +52,55 @@ en la misma carpeta.
 - **Programa, vestuario y preguntas frecuentes: eliminados** (decisión de
   agosto de 2026). Esas tres secciones ya no existen en ningún sitio — ni en
   la web ni en el flyer. Se borraron también sus estilos del CSS.
-  **El flyer `tips-colombia-luisa-ricardo-v2.html` no se toca:** es una hoja
-  suelta imprimible con los cuatro consejos de seguridad y nada más.
+  **El flyer `tips-colombia-luisa-ricardo-v2.html`** es una hoja suelta
+  imprimible con los cuatro consejos de seguridad y nada más. En agosto de
+  2026 dejó de ser intocable: ahora está también en inglés (ver más abajo).
+  Su contenido sigue sin ampliarse: solo los cuatro consejos.
   Se enlaza desde dos sitios de la web: la entrada "Tips básicos" del menú
   y el botón del final de "Cuatro cositas de nada".
   Si algún día hace falta publicar horarios o código de vestimenta, habrá que
   crear una página nueva, no reutilizar el flyer.
+
+- **La web va por pestañas, no por scroll** (agosto de 2026). Cada sección
+  vive dentro de un `<div class="vista">` y el menú cambia de una a otra.
+  El bloque **VISTAS** de `guion.js` hace el cambio, guiándose por el hash de
+  la URL, así que `#rsvp`, `#hospedaje`… siguen funcionando y los botones
+  atrás/adelante del navegador también.
+  **Si el JavaScript falla, se ven todas las secciones seguidas** y la web
+  vuelve a ser de scroll: el `<body>` solo recibe la clase `pestanas` cuando
+  el JS llega hasta el final. Es una red de seguridad, no un descuido.
+  La portada completa (fotos, cuenta regresiva, fecha y botones) solo se ve
+  en la pestaña de Inicio; en las demás queda la firma con los nombres.
+
+- **Español e inglés en la misma página** (agosto de 2026). Cada texto está
+  escrito **dos veces**, con `lang="es"` y `lang="en"` uno al lado del otro,
+  y el CSS esconde el que no toca. Al editar un texto **hay que cambiar las
+  dos versiones**: están pegadas justo para que no se olvide.
+  El español es siempre lo que se ve primero. La elección se guarda en el
+  navegador del invitado y **se comparte con el flyer**: quien pone la web en
+  inglés abre la hoja de consejos también en inglés.
+  ⚠ Los botones del selector ES|EN **no llevan `lang`**: si lo llevaran, se
+  esconderían a sí mismos al cambiar de idioma.
+  ⚠ Las opciones del desplegable "¿Nos acompañas?" van **en los dos idiomas
+  a la vez** ("Sí, allí estaré / Yes, I will be there") y con `value=` fijo en
+  español. Si cambiaran según el idioma, las respuestas en inglés no
+  coincidirían con el Google Form y **se perderían sin aviso**.
+
+- **Caché: `?v=N` en el CSS y el JS.** `index.html` enlaza
+  `estilo.css?v=7` y `guion.js?v=7`. Netlify cachea esos archivos con fuerza,
+  así que **si cambias uno de los dos y no ves el cambio, sube el número**.
+  Sin eso, hay invitados que seguirían viendo la versión anterior.
+
+- **No hay buses** (agosto de 2026). La sección de hospedaje prometía
+  "los buses de la boda" desde Bogotá; se quitó porque no va a haber.
+  No queda ninguna mención en la web ni en el flyer.
+
+- **El teléfono de la wedding planner no es público.** En el pie solo aparece
+  su nombre y que ella contactará a los invitados. El WhatsApp que sigue en
+  la web (sección RSVP) hay que revisarlo: es el mismo número.
+
+- **Apps de transporte: Uber, DiDi, Yango e InDrive.** Cabify se eliminó de
+  todas partes por estar desactualizada.
 
 ---
 
@@ -91,11 +134,11 @@ de prueba y comprueba que la fila aparece en la hoja.
 
 - [ ] **Número de WhatsApp**: sigue el relleno `+57 XXX XXX XXXX` en tres
       sitios de `index.html`. Es lo más urgente.
-- [ ] Datos de la wedding planner (nombre y correo).
+- [ ] **Decidir el WhatsApp del RSVP**: hoy es el número de Julieth. Cambiarlo
+      por el vuestro, quitarlo, o dejarlo si es el canal oficial.
+- [ ] Traducir al inglés los datos que faltan cuando se rellenen los `ph`
+      (los textos ya están duplicados; falta el dato en sí).
 - [ ] Dirección exacta de la finca y enlace real del pin de Google Maps.
-- [ ] Horarios definitivos del programa de los tres días.
-- [ ] Hoteles con bloqueo de habitaciones y fecha límite de reserva.
-- [ ] Decidir la política de niños (hay dos redacciones alternativas en el FAQ).
 - [ ] Fecha límite de confirmación (ahora puesta como 2 de enero de 2027).
 - [ ] Datos para los regalos y enlace de la mesa de regalos.
 - [ ] Borrar el aviso "Versión borrador" antes de publicar (`div.draft-banner`).

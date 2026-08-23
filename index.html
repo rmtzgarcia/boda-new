@@ -51,9 +51,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
-<link rel="stylesheet" href="estilo.css">
+<!--
+  El ?v=2 del final obliga al navegador a bajar la hoja de estilos de nuevo
+  en vez de reutilizar la que tiene guardada. Si cambias estilo.css y no ves
+  el cambio en pantalla, sube el número: v=3, v=4...
+-->
+<link rel="stylesheet" href="estilo.css?v=7">
 </head>
-<body>
+<body data-idioma="es">
 
 <!--
   ═══════════════════════ MÚSICA: «ASILO» ═══════════════════════
@@ -73,7 +78,7 @@
   variable SPOTIFY del JavaScript. El ID está en la URL de cualquier
   canción de Spotify, después de  /track/
 -->
-<button id="musica" data-tip="Nuestra canción" aria-label="Reproducir nuestra canción" aria-pressed="false">
+<button id="musica" data-tip="Nuestra canción / Our song" aria-label="Reproducir nuestra canción / Play our song" aria-pressed="false">
   <svg class="ic-nota" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
     <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
   </svg>
@@ -84,7 +89,7 @@
 
 <div id="panel-musica" hidden>
   <div class="pm-cab">
-    <span>Nuestra canción</span>
+    <span><span lang="es">Nuestra canción</span><span lang="en">Our song</span></span>
     <button id="pm-cerrar" aria-label="Cerrar el reproductor">&times;</button>
   </div>
   <div id="pm-caja"><div id="pm-marco"></div></div>
@@ -94,22 +99,43 @@
 <!-- ═══════════ AVISO EDITABLE (bórralo cuando publiques) ═══════════ -->
 <div class="draft-banner" id="draft">
   <button onclick="document.getElementById('draft').remove()" aria-label="Cerrar">&times;</button>
-  <b>Versión borrador.</b> Los datos por confirmar están <span style="border-bottom:1.5px dotted #E3B08A">subrayados en punteado</span>. Instrucciones de edición en el comentario al inicio del archivo HTML.
+  <b>Versión borrador.</b> Los datos por confirmar están <span style="border-bottom:1.5px dotted #E3B08A">subrayados en punteado</span>. Instrucciones de edición en el comentario al inicio del archivo HTML. <em>(Este aviso es solo para vosotros: se borra antes de publicar.)</em>
 </div>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="nav">
   <div class="nav-in">
     <a href="#inicio" class="nav-mono">R &amp; L</a>
+    <!--
+      SEGUNDO SELECTOR DE IDIOMA, solo para móvil: va junto a las tres rayitas
+      para que se pueda cambiar de idioma sin abrir el menú. En pantalla ancha
+      se esconde y manda el que está dentro del menú.
+
+      Son los mismos botones repetidos a propósito: el JavaScript recoge TODOS
+      los .idioma de la página, así que los dos selectores se mantienen
+      sincronizados solos. Si cambias uno, cambia el otro igual.
+    -->
+    <div class="idiomas idiomas-movil"><button type="button" class="idioma" data-ir="es" aria-label="Ver la web en español"><span class="bandera" aria-hidden="true">🇨🇴</span>ES</button><span class="idioma-sep" aria-hidden="true">|</span><button type="button" class="idioma" data-ir="en" aria-label="View this site in English"><span class="bandera" aria-hidden="true">🇬🇧</span>EN</button></div>
     <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="links">
-      <li><a href="#lugar">El lugar</a></li>
-      <li><a href="#viaje">Cómo llegar</a></li>
-      <li><a href="#hospedaje">Hospedaje</a></li>
-      <li><a href="#colombia">Colombia</a></li>
+      <li><a href="#inicio"><span lang="es">Inicio</span><span lang="en">Home</span></a></li>
+      <li><a href="#lugar"><span lang="es">El lugar</span><span lang="en">The venue</span></a></li>
+      <li><a href="#viaje"><span lang="es">Cómo llegar</span><span lang="en">Getting here</span></a></li>
+      <li><a href="#hospedaje"><span lang="es">Hospedaje</span><span lang="en">Where to stay</span></a></li>
+      <li><a href="#colombia"><span lang="es">Colombia</span><span lang="en">Colombia</span></a></li>
+      <li><a href="#consejos"><span lang="es">Consejos</span><span lang="en">Good to know</span></a></li>
+      <li><a href="#regalos"><span lang="es">Regalos</span><span lang="en">Gifts</span></a></li>
       <!-- Esta lleva al flyer de tips, que es otra página: por eso abre en pestaña nueva -->
-      <li><a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener">Tips básicos <span class="ext" aria-hidden="true">&#8599;</span></a></li>
-      <li><a href="#rsvp" class="nav-cta">Confirmar</a></li>
+      <li><a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener"><span lang="es">Tips básicos</span><span lang="en">Safety tips</span> <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+      <li><a href="#rsvp" class="nav-cta"><span lang="es">Confirmar</span><span lang="en">RSVP</span></a></li>
+      <!--
+        SELECTOR DE IDIOMA. Ojo: estos botones NO llevan atributo lang,
+        porque el CSS esconde por idioma justamente con ese atributo y
+        se ocultarían a sí mismos.
+      -->
+      <li class="idiomas">
+        <button type="button" class="idioma" data-ir="es" aria-label="Ver la web en español"><span class="bandera" aria-hidden="true">🇨🇴</span>ES</button><span class="idioma-sep" aria-hidden="true">|</span><button type="button" class="idioma" data-ir="en" aria-label="View this site in English"><span class="bandera" aria-hidden="true">🇬🇧</span>EN</button>
+      </li>
     </ul>
   </div>
 </nav>
@@ -120,7 +146,7 @@
    <div class="hero-grid">
 
     <div class="hero-texto">
-      <span class="eyebrow">Nos casamos</span>
+      <span class="eyebrow"><span lang="es">Nos casamos</span><span lang="en">We're getting married</span></span>
       <h1 class="names">Ricardo<span class="amp">&amp;</span>Luisa</h1>
       <div class="franja" aria-hidden="true">
         <i style="background:var(--p-terracota)"></i>
@@ -145,20 +171,20 @@
       </div>
 
       <div class="hero-meta">
-        <span>Viernes 2 de abril de 2027</span>
-        <span class="hero-place">Finca La Victoria &middot; Subachoque, Colombia</span>
+        <span><span lang="es">Viernes 2 de abril de 2027</span><span lang="en">Friday, April 2, 2027</span></span>
+        <span class="hero-place"><span lang="es">Finca La Victoria &middot; Subachoque, Colombia</span><span lang="en">Finca La Victoria &middot; Subachoque, Colombia</span></span>
       </div>
 
       <div class="count" id="count" aria-label="Cuenta regresiva">
-        <div><b id="c-d">—</b><small>Días</small></div>
-        <div><b id="c-h">—</b><small>Horas</small></div>
-        <div><b id="c-m">—</b><small>Minutos</small></div>
-        <div><b id="c-s">—</b><small>Segundos</small></div>
+        <div><b id="c-d">—</b><small><span lang="es">Días</span><span lang="en">Days</span></small></div>
+        <div><b id="c-h">—</b><small><span lang="es">Horas</span><span lang="en">Hours</span></small></div>
+        <div><b id="c-m">—</b><small><span lang="es">Minutos</span><span lang="en">Minutes</span></small></div>
+        <div><b id="c-s">—</b><small><span lang="es">Segundos</span><span lang="en">Seconds</span></small></div>
       </div>
 
       <div class="btn-row">
-        <a href="#rsvp" class="btn">Confirmar asistencia</a>
-        <a href="#viaje" class="btn btn-ghost">Planear mi viaje</a>
+        <a href="#rsvp" class="btn"><span lang="es">Confirmar asistencia</span><span lang="en">RSVP</span></a>
+        <a href="#viaje" class="btn btn-ghost"><span lang="es">Planear mi viaje</span><span lang="en">Plan my trip</span></a>
       </div>
     </div>
 
@@ -176,17 +202,17 @@
         <figure class="act">
           <img src="fotos/foto-1.jpg" alt="Ricardo y Luisa sentados sobre un jeep Willys rojo en el Valle de Cocora"
                style="object-position:50% 30%" width="900" height="1200">
-          <figcaption class="ph">Valle de Cocora, Colombia</figcaption>
+          <figcaption class="ph"><span lang="es">Valle de Cocora, Colombia</span><span lang="en">Cocora Valley, Colombia</span></figcaption>
         </figure>
         <figure>
           <img src="fotos/foto-2.jpg" alt="Ricardo y Luisa en el mirador del parque nacional del Teide"
                style="object-position:62% 50%" width="1200" height="900" loading="lazy">
-          <figcaption class="ph">Parque Nacional del Teide</figcaption>
+          <figcaption class="ph"><span lang="es">Parque Nacional del Teide</span><span lang="en">Teide National Park</span></figcaption>
         </figure>
         <figure>
           <img src="fotos/foto-3.jpg" alt="Ricardo y Luisa con la camiseta de España frente al estadio olímpico de Berlín"
                style="object-position:55% 50%" width="1200" height="900" loading="lazy">
-          <figcaption class="ph">Berlín, Eurocopa 2024</figcaption>
+          <figcaption class="ph"><span lang="es">Berlín, Eurocopa 2024</span><span lang="en">Berlin, Euro 2024</span></figcaption>
         </figure>
       </div>
       <button class="car-nav car-prev" id="car-prev" aria-label="Foto anterior">&#8249;</button>
@@ -198,23 +224,42 @@
   </div>
 </header>
 
+<!--
+  ═══════════════════ VISTAS (PESTAÑAS) ═══════════════════
+  Cada <div class="vista"> es una pestaña. El menú de arriba muestra una
+  y esconde las demás; el bloque "VISTAS" de guion.js hace el cambio.
+
+  SI EL JAVASCRIPT NO CARGA, todas las vistas se ven seguidas y la web
+  vuelve a funcionar como una sola página con scroll. Es a propósito.
+
+  Para mover una sección de pestaña, cámbiala de <div class="vista">.
+  Para crear una pestaña nueva: un <div class="vista" id="v-loquesea">
+  más una entrada en el menú que apunte a una sección de dentro.
+-->
+<div class="vista" id="v-inicio">
 <!-- ═══════════ BIENVENIDA ═══════════ -->
 <section id="bienvenida">
   <div class="wrap narrow rv" style="text-align:center">
-    <span class="eyebrow">Bienvenidos</span>
-    <p class="lead">Muchos de ustedes van a cruzar medio continente —o un océano— para acompañarnos. Esta página existe para que ese viaje sea lo más fácil posible: fechas, transporte, dónde dormir, qué empacar y todo lo que necesitan saber sobre Colombia.</p>
-    <p style="margin-top:1.6rem">Nos casamos en la sabana de Bogotá, a 2.660 metros de altura, entre montañas verdes y aire frío. Es un lugar precioso y también un poco inesperado para quien imagina Colombia como puro calor. De día ronda los 18 °C, pero al caer el sol baja a 8 °C. Metan un abrigo de verdad en la maleta: hablamos en serio.</p>
-    <p style="margin-top:1.4rem"><em>Con cariño,</em><br><span style="font-family:var(--serif);font-size:1.5rem;color:var(--bosque)">Ricardo &amp; Luisa</span></p>
+    <span class="eyebrow"><span lang="es">Bienvenidos</span><span lang="en">Welcome</span></span>
+    <p class="lead" lang="es">¡Nos casamos! Y lo hacemos en la sabana de Bogotá, entre montañas verdes y aire frío. En esta página encontrarán todo lo que necesitan: los detalles del día, cómo llegar a la finca, dónde dormir si quieren quedarse y el formulario para confirmarnos su asistencia.</p>
+    <p class="lead" lang="en">We're getting married! And we're doing it on the savanna outside Bogotá, among green mountains and cool air. This page has everything you need: the details of the day, how to reach the farm, where to stay if you'd like to, and the form to let us know you're coming.</p>
+    <p style="margin-top:1.6rem" lang="es">Muchos de ustedes van a cruzar medio continente —o un océano— para acompañarnos. Para ustedes hay unas secciones extra más abajo, con todo lo práctico de Colombia: vuelos, entrada al país, hospedaje y qué empacar. Empiecen por el abrigo: es un lugar un poco inesperado para quien imagina Colombia como puro calor. De día ronda los 18 °C, pero al caer el sol baja a 8 °C. Hablamos en serio.</p>
+    <p style="margin-top:1.6rem" lang="en">Many of you will cross half a continent — or an ocean — to be with us. There are extra sections here for you, with the practical side of Colombia: flights, entry requirements, where to stay and what to pack. Start with a coat: this is a surprising place for anyone who pictures Colombia as nothing but heat. Days hover around 18 °C, but once the sun goes down it drops to 8 °C. We mean it.</p>
+    <p style="margin-top:1.4rem"><em><span lang="es">Con cariño,</span><span lang="en">With love,</span></em><br><span style="font-family:var(--serif);font-size:1.5rem;color:var(--bosque)">Ricardo &amp; Luisa</span></p>
   </div>
 </section>
 
+</div>
+
+<div class="vista" id="v-lugar">
 <!-- ═══════════ EL LUGAR ═══════════ -->
 <section id="lugar">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Cuándo y dónde</span>
+      <span class="eyebrow"><span lang="es">Cuándo y dónde</span><span lang="en">When and where</span></span>
       <h2>Finca La Victoria</h2>
-      <p>Subachoque, Cundinamarca, en plena sabana. La ceremonia y la fiesta son en el mismo lugar, así que no tendrán que moverse en todo el día. Los jardines son extensos y el terreno es de <strong>pasto natural, con desniveles suaves</strong> — importante a la hora de escoger zapatos.</p>
+      <p lang="es">Subachoque, Cundinamarca, en plena sabana. La ceremonia y la fiesta son en el mismo lugar, así que no tendrán que moverse en todo el día.</p>
+    <p lang="en">Subachoque, Cundinamarca, out on the savanna. The ceremony and the party are in the same place, so you will not have to move all day.</p>
     </div>
 
     <div class="feature rv">
@@ -229,16 +274,16 @@
       <div class="mapa">
         <iframe
           src="https://maps.google.com/maps?q=4.899453,-74.182835&amp;z=14&amp;output=embed"
-          title="Mapa con la ubicación de la Finca La Victoria, Subachoque"
+          title="Finca La Victoria, Subachoque"
           loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen></iframe>
       </div>
       <div>
         <dl class="rows">
-          <div class="row"><dt>Dónde es</dt><dd>En la vereda, a unos <strong>3,5 km del casco urbano</strong> de Subachoque.<br>
-            <a href="https://maps.app.goo.gl/8ABQBgbFaFGZKbLc6" target="_blank" rel="noopener">Abrir la ubicación exacta en Google Maps</a><br>
-            <span style="font-size:.82rem;color:var(--salvia)">Coordenadas: 4.899453, −74.182835 — útiles si van en carro y se les pierde la señal.</span></dd></div>
-          <div class="row"><dt>Parqueadero</dt><dd>Sí, gratuito dentro de la finca y con espacio de sobra para todos.</dd></div>
+          <div class="row"><dt><span lang="es">Dónde es</span><span lang="en">Where</span></dt><dd><span lang="es">En la vereda, a unos <strong>3,5 km del casco urbano</strong> de Subachoque.</span><span lang="en">Out in the countryside, about <strong>3.5 km from the town</strong> of Subachoque.</span><br>
+            <a href="https://maps.app.goo.gl/8ABQBgbFaFGZKbLc6" target="_blank" rel="noopener"><span lang="es">Abrir la ubicación exacta en Google Maps</span><span lang="en">Open the exact location in Google Maps</span></a><br>
+            <span style="font-size:.82rem;color:var(--salvia)"><span lang="es">Coordenadas: 4.899453, −74.182835 — útiles si van en carro y se les pierde la señal.</span><span lang="en">Coordinates: 4.899453, −74.182835 — worth saving if you drive and lose signal.</span></span></dd></div>
+          <div class="row"><dt><span lang="es">Parqueadero</span><span lang="en">Parking</span></dt><dd><span lang="es">Sí, gratuito dentro de la finca y con espacio de sobra para todos.</span><span lang="en">Yes — free, inside the property, and with room to spare.</span></dd></div>
         </dl>
       </div>
     </div>
@@ -247,35 +292,42 @@
 
 
 
+</div>
+
+<div class="vista" id="v-viaje">
 <!-- ═══════════ VIAJE ═══════════ -->
 <section id="viaje">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Cómo llegar</span>
-      <h2>El viaje a Colombia</h2>
-      <p>Todo pasa por Bogotá. Desde ahí son poco más de 60 minutos hasta Subachoque.</p>
+      <span class="eyebrow"><span lang="es">Cómo llegar</span><span lang="en">Getting here</span></span>
+      <h2 lang="es">El viaje a Colombia</h2>
+      <h2 lang="en">Travelling to Colombia</h2>
+      <p lang="es">Todo pasa por Bogotá. Desde ahí son poco más de 60 minutos hasta Subachoque.</p>
+      <p lang="en">Everything goes through Bogotá. From there it is a little over 60 minutes to Subachoque.</p>
     </div>
 
     <div class="grid g2">
       <div class="card rv">
         <span class="ico">✈</span>
-        <h4>Vuelos</h4>
-        <p>El aeropuerto es <strong>El Dorado (BOG)</strong>, en Bogotá. Es el hub más grande de la región y tiene vuelos directos desde Madrid, Miami, Nueva York, Ciudad de México, São Paulo, Buenos Aires, Santiago, Lima, Panamá y varias ciudades más.</p>
+        <h4 lang="es">Vuelos</h4>
+        <h4 lang="en">Flights</h4>
+        <p lang="es">El aeropuerto es <strong>El Dorado (BOG)</strong>, en Bogotá. Es el hub más grande de la región y tiene vuelos directos desde Madrid, Miami, Nueva York, Ciudad de México, São Paulo, Buenos Aires, Santiago, Lima, Panamá y varias ciudades más.</p>
+        <p lang="en">The airport is <strong>El Dorado (BOG)</strong>, in Bogotá. It is the largest hub in the region, with direct flights from Madrid, Miami, New York, Mexico City, São Paulo, Buenos Aires, Santiago, Lima, Panama City and several more.</p>
         <ul>
-          <li><strong>Reserven pronto:</strong> abril arranca con temporada alta en Colombia.</li>
-          <li>Semana Santa 2027 es del <strong>22 al 28 de marzo</strong>. Volar justo esos días cuesta bastante más; llegar del 29 en adelante suele ser más barato.</li>
-          <li>Si vienen de Europa, la mayoría de vuelos aterrizan de noche. Consideren dormir en Bogotá la primera noche.</li>
+          <li lang="es"><strong>Reserven pronto:</strong> abril arranca con temporada alta en Colombia. Semana Santa 2027 es del <strong>22 al 28 de marzo</strong>, así que planeen con tiempo.</li>
+          <li lang="en"><strong>Book early:</strong> April opens the high season in Colombia. Holy Week in 2027 runs from <strong>March 22 to 28</strong>, so plan ahead.</li>
         </ul>
       </div>
 
       <div class="card rv">
         <span class="ico">🛂</span>
-        <h4>Entrada al país</h4>
+        <h4 lang="es">Entrada al país</h4>
+        <h4 lang="en">Entering the country</h4>
         <ul>
-          <li>Ciudadanos de la mayoría de países de Europa y América Latina, además de EE. UU., Canadá, Reino Unido y Australia, <strong>no necesitan visa</strong> para estancias turísticas de hasta 90 días.</li>
-          <li><strong>Check-Mig obligatorio para todos:</strong> formulario digital gratuito que se llena en línea dentro de las 24 horas previas al vuelo, en <a href="https://apps.migracioncolombia.gov.co/pre-registro/public/preregistro.jsf" target="_blank" rel="noopener">apps.migracioncolombia.gov.co</a>.</li>
-          <li>Pasaporte con <strong>vigencia mínima de 6 meses</strong> desde la fecha de salida.</li>
-          <li>Verifiquen su caso concreto en la web oficial de <a href="https://www.migracioncolombia.gov.co/" target="_blank" rel="noopener">Migración Colombia</a> — las reglas cambian.</li>
+          <li lang="es">Ciudadanos de la mayoría de países de Europa y América Latina, además de EE. UU. y Australia, <strong>no necesitan visa</strong> para estancias turísticas de hasta 90 días. Verifiquen su caso concreto en la web oficial de <a href="https://www.migracioncolombia.gov.co/" target="_blank" rel="noopener">Migración Colombia</a> — las reglas cambian.</li>
+          <li lang="en">Citizens of most European and Latin American countries, as well as the US and Australia, <strong>do not need a visa</strong> for tourist stays of up to 90 days. Check your own case on the official <a href="https://www.migracioncolombia.gov.co/" target="_blank" rel="noopener">Migración Colombia</a> site — the rules change.</li>
+          <li lang="es"><strong>Check-Mig obligatorio para todos:</strong> formulario digital gratuito que se llena en línea dentro de las 24 horas previas al vuelo, en <a href="https://apps.migracioncolombia.gov.co/pre-registro/public/preregistro.jsf" target="_blank" rel="noopener">apps.migracioncolombia.gov.co</a>.</li>
+          <li lang="en"><strong>Check-Mig is required for everyone:</strong> a free online form to be filled in within the 24 hours before your flight, at <a href="https://apps.migracioncolombia.gov.co/pre-registro/public/preregistro.jsf" target="_blank" rel="noopener">apps.migracioncolombia.gov.co</a>.</li>
         </ul>
       </div>
 
@@ -283,108 +335,125 @@
 
       <div class="card rv">
         <span class="ico">🚕</span>
-        <h4>Taxis y apps</h4>
-        <p>En Bogotá funcionan Uber, DiDi, Cabify e InDrive, además de los taxis oficiales del aeropuerto. Un traslado El Dorado → norte de Bogotá cuesta aprox. <span class="ph">COP 45.000–80.000</span>.</p>
-        <p style="margin-top:.7rem">Hasta Subachoque, un taxi o traslado privado ronda los <span class="ph">COP 180.000–260.000</span>. Pídanlo con anticipación; en el pueblo no hay taxis esperando.</p>
+        <h4 lang="es">Taxis y apps</h4>
+        <h4 lang="en">Taxis and apps</h4>
+        <p lang="es">En Bogotá funcionan Uber, DiDi, Yango e InDrive, además de los taxis oficiales del aeropuerto.</p>
+        <p lang="en">Uber, DiDi, Yango and InDrive all work in Bogotá, alongside the official airport taxis.</p>
+        <p style="margin-top:.7rem" lang="es">Nada de taxis levantados en la calle: usen siempre la app y, antes de subirse, confirmen que la placa y el modelo coincidan con los de la pantalla.</p>
+        <p style="margin-top:.7rem" lang="en">Never flag down a taxi in the street: always use the app, and before getting in, check that the plate and the model match what is on your screen.</p>
       </div>
 
     </div>
   </div>
 </section>
 
+</div>
+
+<div class="vista" id="v-hospedaje">
 <!-- ═══════════ HOSPEDAJE ═══════════ -->
 <section id="hospedaje">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Dónde dormir</span>
-      <h2>Hospedaje</h2>
-      <p>Tres opciones según lo que busquen. Reserven pronto: Subachoque es un pueblo pequeño y la oferta cercana se agota rápido.</p>
+      <span class="eyebrow"><span lang="es">Dónde dormir</span><span lang="en">Where to stay</span></span>
+      <h2 lang="es">Hospedaje</h2>
+      <h2 lang="en">Where to stay</h2>
+      <p lang="es">Dos opciones según lo que busquen. Reserven pronto: Subachoque es un pueblo pequeño y la oferta cercana se agota rápido.</p>
+      <p lang="en">Two options, depending on what you are after. Book early: Subachoque is a small town and the places nearby fill up fast.</p>
     </div>
 
-    <div class="grid g3">
+    <div class="grid g2">
       <div class="card rv">
-        <span class="tag">Opción 1</span>
-        <h4>Subachoque y alrededores</h4>
-        <p>Hoteles boutique, hosterías y casas de campo en el pueblo o en la vereda. Lo más cerca de la finca (5–20 min) y lo más bonito, pero con pocas habitaciones.</p>
+        <span class="tag"><span lang="es">Opción 1</span><span lang="en">Option 1</span></span>
+        <h4>Subachoque, Chía &amp; Tabio</h4>
+        <p lang="es">Hoteles boutique, hosterías y casas de campo. <strong>Chía y Tabio</strong> quedan a 25–45 minutos, con buena relación calidad-precio, restaurantes agradables y ambiente de sabana. Ideal si alquilan carro. <strong>Subachoque</strong> es más cerca pero tiene menos opciones; si lo prefieren, busquen habitación con tiempo.</p>
+        <p lang="en">Boutique hotels, country inns and farmhouses. <strong>Chía and Tabio</strong> are 25–45 minutes away, good value, with pleasant restaurants and open savanna around them. Ideal if you rent a car. <strong>Subachoque</strong> is closer but has fewer places; if you prefer it, book a room well in advance.</p>
       </div>
       <div class="card rv">
-        <span class="tag">Opción 2</span>
-        <h4>Chía, Tabio y Tenjo</h4>
-        <p>Pueblos de la sabana a 25–45 minutos de la finca. Buena relación calidad-precio, restaurantes agradables y ambiente de campo. Ideal si alquilan carro.</p>
-      </div>
-      <div class="card rv">
-        <span class="tag">Opción 3</span>
+        <span class="tag"><span lang="es">Opción 2</span><span lang="en">Option 2</span></span>
         <h4>Bogotá</h4>
-        <p>Más lejos (1 h – 1 h 45) pero con toda la oferta de restaurantes, museos y vida de ciudad. Los buses de la boda salen desde aquí. Recomendamos las zonas de <strong>Usaquén</strong>, <strong>Zona G / Chicó</strong> o <strong>Parque de la 93</strong>: seguras, caminables y bien conectadas.</p>
+        <p lang="es">Más lejos (1 h – 1 h 45) pero con toda la oferta de restaurantes, museos y vida de ciudad. Recomendamos las zonas de <strong>Usaquén</strong>, <strong>Zona G / Chicó</strong> o <strong>Parque de la 93</strong>: seguras, caminables y bien conectadas.</p>
+        <p lang="en">Further out (1 h – 1 h 45) but with all the restaurants, museums and city life. We recommend <strong>Usaquén</strong>, <strong>Zona G / Chicó</strong> or <strong>Parque de la 93</strong>: safe, walkable and well connected.</p>
       </div>
     </div>
 
     <div class="rv" style="margin-top:34px;padding:24px 26px;border-left:2px solid var(--p-vino);background:rgba(90,18,38,.05)">
-      <p style="font-size:.94rem"><strong>Consejo:</strong> si vienen en grupo o en familia, Airbnb funciona muy bien en la sabana — hay fincas completas por precios razonables. Y si se quedan en Bogotá, elijan hotel en el <em>norte</em> de la ciudad: acorta el trayecto a Subachoque y evita el peor tráfico.</p>
+      <p style="font-size:.94rem" lang="es"><strong>Consejo:</strong> si vienen en grupo o en familia, Airbnb funciona muy bien en la sabana — hay fincas completas por precios razonables. Y si se quedan en Bogotá, elijan hotel en el <em>norte</em> de la ciudad: acorta el trayecto a Subachoque y evita el peor tráfico.</p>
+      <p style="font-size:.94rem" lang="en"><strong>A tip:</strong> if you are coming as a group or a family, Airbnb works very well on the savanna — whole farmhouses at reasonable prices. And if you stay in Bogotá, pick a hotel in the <em>north</em> of the city: it shortens the drive to Subachoque and avoids the worst traffic.</p>
     </div>
   </div>
 </section>
 
+</div>
+
+<div class="vista" id="v-colombia">
 <!-- ═══════════ COLOMBIA PRÁCTICA ═══════════ -->
 <section id="colombia">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">Antes de viajar</span>
-      <h2>Colombia práctica</h2>
-      <p>Lo que nos hubiera gustado saber en nuestro primer viaje.</p>
+      <span class="eyebrow"><span lang="es">Antes de viajar</span><span lang="en">Before you travel</span></span>
+      <h2 lang="es">Colombia práctica</h2>
+      <h2 lang="en">Colombia, practically</h2>
+      <p lang="es">Alguna información si es tu primera vez en Colombia.</p>
+      <p lang="en">A few things worth knowing if it is your first time in Colombia.</p>
     </div>
 
     <div class="grid g3">
       <div class="card rv">
         <span class="ico">⛰</span>
-        <h4>La altura</h4>
-        <p>Bogotá y Subachoque están a unos <strong>2.650 m</strong>. Algunas personas sienten <em>soroche</em>: dolor de cabeza, cansancio o falta de aire los primeros días.</p>
+        <h4 lang="es">La altura</h4>
+        <h4 lang="en">The altitude</h4>
+        <p lang="es">Bogotá y Subachoque están a unos <strong>2.650 m</strong>. Algunas personas sienten <em>soroche</em>: dolor de cabeza, cansancio o falta de aire los primeros días.</p>
+        <p lang="en">Bogotá and Subachoque sit at about <strong>2,650 m</strong>. Some people feel <em>soroche</em>: headaches, tiredness or shortness of breath for the first few days.</p>
         <ul>
-          <li>Lleguen 1–2 días antes si pueden.</li>
-          <li>Tomen mucha agua.</li>
-          <li>Vayan suave con el alcohol el primer día — pega el doble.</li>
-          <li>Un aguadepanela con limón o un té de coca ayudan.</li>
+          <li lang="es">Tomen mucha agua; un aguadepanela con limón también ayuda.</li>
+          <li lang="en">Drink plenty of water; <em>aguapanela</em> with lime helps too.</li>
+          <li lang="es">Vayan suave con el alcohol el primer día — pega el doble.</li>
+          <li lang="en">Go easy on the alcohol the first day — it hits twice as hard.</li>
         </ul>
       </div>
 
       <div class="card rv">
         <span class="ico">💵</span>
-        <h4>Dinero</h4>
-        <p>La moneda es el <strong>peso colombiano (COP)</strong>. En agosto de 2026 la tasa rondaba <strong>1 USD ≈ 3.150 COP</strong> y <strong>1 EUR ≈ 3.600 COP</strong>; confírmenlo cerca del viaje porque fluctúa.</p>
+        <h4 lang="es">Dinero</h4>
+        <h4 lang="en">Money</h4>
+        <p lang="es">La moneda es el <strong>peso colombiano (COP)</strong>.</p>
+        <p lang="en">The currency is the <strong>Colombian peso (COP)</strong>.</p>
         <ul>
-          <li>Tarjeta aceptada casi en todas partes en Bogotá.</li>
-          <li>Lleven algo de efectivo para pueblos, taxis y propinas.</li>
-          <li>Retiren en cajeros de bancos (Bancolombia, Davivienda, BBVA), no en los de la calle.</li>
-          <li>Eviten cambiar dinero en el aeropuerto: tasa mala.</li>
+          <li lang="es">Tarjeta aceptada casi en todas partes en Bogotá.</li>
+          <li lang="en">Cards are accepted almost everywhere in Bogotá.</li>
+          <li lang="es">Lleven algo de dinero en efectivo para pueblos, taxis y propinas; retírenlo en cajeros de bancos (Bancolombia, Davivienda, BBVA) y eviten los de la calle.</li>
+          <li lang="en">Carry some cash for small towns, taxis and tips; withdraw it from bank ATMs (Bancolombia, Davivienda, BBVA) and avoid the ones out on the street.</li>
         </ul>
       </div>
 
       <div class="card rv">
         <span class="ico">🍽</span>
-        <h4>Propinas</h4>
-        <p>En restaurantes se acostumbra una <strong>propina voluntaria del 10 %</strong>. Se la sumarán a la cuenta y les preguntarán "¿desea incluir el servicio?". Pueden decir que no sin problema.</p>
-        <p style="margin-top:.7rem">A los taxistas no se les da propina; se redondea hacia arriba.</p>
-      </div>
-
-      <div class="card rv">
-        <span class="ico">🔌</span>
-        <h4>Enchufes y voltaje</h4>
-        <p><strong>110 V, 60 Hz</strong>, con enchufe tipo A/B (el mismo de Estados Unidos, dos patas planas).</p>
-        <p style="margin-top:.7rem">Quienes vengan de Europa o Latinoamérica con enchufe redondo necesitan <strong>adaptador</strong>. Casi todos los cargadores modernos aceptan 110–240 V, pero revisen los aparatos de pelo antes de quemarlos.</p>
+        <h4 lang="es">Propinas</h4>
+        <h4 lang="en">Tipping</h4>
+        <p lang="es">En restaurantes se acostumbra una <strong>propina voluntaria del 10 %</strong>. Se la sumarán a la cuenta y les preguntarán "¿desea incluir el servicio?". Pueden decir que no sin problema.</p>
+        <p lang="en">Restaurants add a <strong>voluntary 10 % tip</strong>. It appears on the bill and they will ask whether you want to include the service. Saying no is perfectly normal.</p>
+        <p style="margin-top:.7rem" lang="es">A los taxistas no se les da propina; se redondea hacia arriba.</p>
+        <p style="margin-top:.7rem" lang="en">Taxi drivers are not tipped; you just round up.</p>
       </div>
 
       <div class="card rv">
         <span class="ico">📱</span>
-        <h4>Teléfono e internet</h4>
-        <p>Los operadores son Claro, Movistar, Tigo y WOM. Una SIM prepago con datos cuesta poco y se consigue en el aeropuerto o en cualquier centro comercial (necesitan pasaporte).</p>
-        <p style="margin-top:.7rem">Alternativa más simple: una <strong>eSIM</strong> comprada antes de viajar. WhatsApp es el canal de comunicación por defecto en Colombia, para todo.</p>
+        <h4 lang="es">Teléfono e internet</h4>
+        <h4 lang="en">Phone and internet</h4>
+        <p lang="es">Una <strong>eSIM</strong> comprada antes de viajar es la mejor opción para mantenerse comunicados desde que lleguen a Colombia.</p>
+        <p lang="en">An <strong>eSIM</strong> bought before you travel is the easiest way to stay connected from the moment you land.</p>
+        <p style="margin-top:.7rem" lang="es">Tengan en cuenta que el enchufe en Colombia es <strong>tipo A/B</strong> (el mismo de Estados Unidos).</p>
+        <p style="margin-top:.7rem" lang="en">Note that Colombian sockets are <strong>type A/B</strong> — the same as in the United States.</p>
       </div>
 
       <div class="card rv">
         <span class="ico">🚰</span>
-        <h4>Agua y comida</h4>
-        <p>El agua de la llave en Bogotá <strong>es potable</strong> y de muy buena calidad. En zonas rurales, mejor embotellada.</p>
-        <p style="margin-top:.7rem">Prueben sin miedo: ajiaco, changua, arepas de choclo, empanadas, lechona, y frutas que probablemente no conocen (lulo, feijoa, granadilla, mangostino).</p>
+        <h4 lang="es">Agua y comida</h4>
+        <h4 lang="en">Food and water</h4>
+        <p lang="es">El agua de la llave en Bogotá <strong>es potable</strong> y de muy buena calidad. En zonas rurales, mejor embotellada.</p>
+        <p lang="en">Tap water in Bogotá <strong>is safe to drink</strong> and very good. In rural areas, stick to bottled.</p>
+        <p style="margin-top:.7rem" lang="es">Prueben sin miedo: ajiaco, changua, arepas de choclo, empanadas, lechona, y frutas que probablemente no conocen (lulo, feijoa, granadilla, mangostino).</p>
+        <p style="margin-top:.7rem" lang="en">Try everything: ajiaco, changua, sweetcorn arepas, empanadas, lechona, and fruit you have probably never seen (lulo, feijoa, granadilla, mangosteen).</p>
       </div>
 
 
@@ -392,54 +461,77 @@
     </div>
 
     <div class="sub-head rv">
-      <span class="eyebrow">Ya que están acá</span>
-      <h3>Extiendan el viaje</h3>
-      <p>Volaron muchas horas. Sería una lástima ver solo la sabana.</p>
+      <span class="eyebrow"><span lang="es">Ya que están acá</span><span lang="en">While you are here</span></span>
+      <h3 lang="es">Extiendan el viaje</h3>
+      <h3 lang="en">Make a trip of it</h3>
+      <p lang="es">Sería una lástima ver solo la sabana.</p>
+      <p lang="en">It would be a shame to see only the savanna.</p>
     </div>
 
     <div class="grid g3">
       <div class="card rv">
-        <span class="tag">1 día</span>
-        <h4>Cerca de Bogotá</h4>
+        <span class="tag"><span lang="es">1 día</span><span lang="en">1 day</span></span>
+        <h4 lang="es">Cerca de Bogotá</h4>
+        <h4 lang="en">Near Bogotá</h4>
         <ul>
-          <li><strong>Catedral de Sal de Zipaquirá</strong> — una catedral dentro de una mina de sal, a 40 min de Subachoque.</li>
-          <li><strong>Laguna de Guatavita</strong> — el origen de la leyenda de El Dorado.</li>
-          <li><strong>Monserrate</strong> — Bogotá entera a 3.150 m.</li>
-          <li><strong>La Candelaria y el Museo del Oro</strong> — el centro histórico.</li>
+          <li lang="es"><strong>Catedral de Sal de Zipaquirá</strong> — una catedral dentro de una mina de sal, a 40 min de Subachoque.</li>
+          <li lang="en"><strong>Zipaquirá Salt Cathedral</strong> — a cathedral carved inside a salt mine, 40 min from Subachoque.</li>
+          <li lang="es"><strong>Laguna de Guatavita</strong> — el origen de la leyenda de El Dorado.</li>
+          <li lang="en"><strong>Lake Guatavita</strong> — where the legend of El Dorado began.</li>
+          <li lang="es"><strong>Monserrate</strong> — Bogotá entera a 3.150 m.</li>
+          <li lang="en"><strong>Monserrate</strong> — the whole city seen from 3,150 m.</li>
+          <li lang="es"><strong>La Candelaria y el Museo del Oro</strong> — el centro histórico.</li>
+          <li lang="en"><strong>La Candelaria and the Gold Museum</strong> — the historic centre.</li>
         </ul>
       </div>
       <div class="card rv">
-        <span class="tag">2–3 días</span>
-        <h4>Escapadas</h4>
+        <span class="tag"><span lang="es">2–3 días</span><span lang="en">2–3 days</span></span>
+        <h4 lang="es">Escapadas</h4>
+        <h4 lang="en">Short escapes</h4>
         <ul>
-          <li><strong>Villa de Leyva</strong> — pueblo colonial de piedra blanca, 4 h en carro.</li>
-          <li><strong>Barichara</strong> — probablemente el pueblo más bonito de Colombia.</li>
-          <li><strong>Eje Cafetero</strong> — fincas de café y el valle de palmas de Cocora.</li>
-          <li><strong>Medellín y Guatapé</strong> — 1 h de vuelo.</li>
+          <li lang="es"><strong>Villa de Leyva</strong> — pueblo colonial de piedra blanca, 4 h en carro.</li>
+          <li lang="en"><strong>Villa de Leyva</strong> — a white-stone colonial town, 4 h by car.</li>
+          <li lang="es"><strong>Barichara</strong> — probablemente el pueblo más bonito de Colombia.</li>
+          <li lang="en"><strong>Barichara</strong> — probably the prettiest town in Colombia.</li>
+          <li lang="es"><strong>Eje Cafetero</strong> — fincas de café y el valle de palmas de Cocora.</li>
+          <li lang="en"><strong>The Coffee Region</strong> — coffee farms and the wax palms of the Cocora valley.</li>
+          <li lang="es"><strong>Medellín y Guatapé</strong> — la ciudad de la eterna primavera y un pueblo de fachadas de colores.</li>
+          <li lang="en"><strong>Medellín and Guatapé</strong> — the city of eternal spring, and a town of brightly painted façades.</li>
         </ul>
       </div>
       <div class="card rv">
-        <span class="tag">4+ días</span>
-        <h4>Al calor</h4>
+        <span class="tag"><span lang="es">4+ días</span><span lang="en">4+ days</span></span>
+        <h4 lang="es">Al calor</h4>
+        <h4 lang="en">Somewhere warm</h4>
         <ul>
-          <li><strong>Cartagena</strong> — ciudad amurallada en el Caribe, 1 h 30 de vuelo.</li>
-          <li><strong>Santa Marta y el Tayrona</strong> — selva y playa.</li>
-          <li><strong>San Andrés</strong> — el mar de los siete colores.</li>
-          <li><strong>Amazonas (Leticia)</strong> — otro planeta.</li>
+          <li lang="es"><strong>Cartagena</strong> — ciudad amurallada en el Caribe.</li>
+          <li lang="en"><strong>Cartagena</strong> — the walled city on the Caribbean.</li>
+          <li lang="es"><strong>Santa Marta y el Tayrona</strong> — selva y playa.</li>
+          <li lang="en"><strong>Santa Marta and Tayrona</strong> — jungle meeting the sea.</li>
+          <li lang="es"><strong>San Andrés</strong> — el mar de los siete colores.</li>
+          <li lang="en"><strong>San Andrés</strong> — the sea of seven colours.</li>
+          <li lang="es"><strong>Amazonas (Leticia)</strong> — otro planeta.</li>
+          <li lang="en"><strong>The Amazon (Leticia)</strong> — another planet altogether.</li>
         </ul>
       </div>
     </div>
-    <p class="rv" style="text-align:center;margin-top:30px;font-size:.94rem;color:var(--salvia)">Si quieren, escríbannos y les damos recomendaciones concretas según lo que les guste.</p>
+    <p class="rv" style="text-align:center;margin-top:30px;font-size:.94rem;color:var(--salvia)" lang="es">Si quieren, escríbannos y les damos recomendaciones concretas según lo que les guste.</p>
+    <p class="rv" style="text-align:center;margin-top:30px;font-size:.94rem;color:var(--salvia)" lang="en">Write to us and we will happily suggest something specific, depending on what you enjoy.</p>
   </div>
 </section>
 
+</div>
+
+<div class="vista" id="v-consejos">
 <!-- ═══════════ CUATRO CONSEJOS (contenido del flyer impreso) ═══════════ -->
 <section id="consejos">
   <div class="wrap narrow">
     <div class="sec-head rv">
-      <span class="eyebrow">Tips básicos</span>
-      <h2>Cuatro cositas de nada</h2>
-      <p>Para que llegues tranquilo, te muevas como local y solo te lleves buenos recuerdos.</p>
+      <span class="eyebrow"><span lang="es">Tips básicos</span><span lang="en">Good to know</span></span>
+      <h2 lang="es">Cuatro cositas de nada</h2>
+      <h2 lang="en">Four small things</h2>
+      <p lang="es">Para que llegues tranquilo, te muevas como local y solo te lleves buenos recuerdos.</p>
+      <p lang="en">So you arrive relaxed, get around like a local, and take home nothing but good memories.</p>
     </div>
 
     <div class="grid g2">
@@ -449,8 +541,10 @@
             <path d="M3 16v-3.2l1.9-4.4A2 2 0 0 1 6.7 7h10.6a2 2 0 0 1 1.8 1.4L21 12.8V16"/><path d="M3 16h18"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/><path d="M9.5 4.6h5"/>
           </svg>
         </span>
-        <h4>Pide el carro, no lo pares</h4>
-        <p>Nada de taxis levantados en la calle: usa siempre tu app (Uber, DiDi o Cabify) y antes de subirte confirma que la placa y el modelo coincidan con los de la pantalla.</p>
+        <h4 lang="es">Pide el carro, no lo pares</h4>
+        <h4 lang="en">Order the car, do not hail it</h4>
+        <p lang="es">Nada de taxis levantados en la calle: usa siempre tu app (Uber, DiDi o Yango) y antes de subirte confirma que la placa y el modelo coincidan con los de la pantalla.</p>
+        <p lang="en">Never flag down a taxi in the street: always use an app (Uber, DiDi or Yango), and before getting in, check that the plate and model match your screen.</p>
       </div>
 
       <div class="card rv">
@@ -459,8 +553,10 @@
             <rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.6 5.4h2.8"/><path d="M11 18.4h2"/>
           </svg>
         </span>
-        <h4>El celular, en el bolsillo</h4>
-        <p>No camines con el teléfono en la mano. <em style="color:var(--oro)">Tenemos atletas de alto rendimiento</em> capaces de llevárselo sin que te des cuenta. Si tienes que mirar el mapa, presta atención.</p>
+        <h4 lang="es">El celular, en el bolsillo</h4>
+        <h4 lang="en">Keep your phone in your pocket</h4>
+        <p lang="es">No camines con el teléfono en la mano. <em style="color:var(--oro)">Tenemos atletas de alto rendimiento</em> capaces de llevárselo sin que te des cuenta. Si tienes que mirar el mapa, presta atención.</p>
+        <p lang="en">Do not walk with your phone in your hand. <em style="color:var(--oro)">We have some world-class athletes</em> who can take it without you noticing. If you need the map, stop and pay attention.</p>
       </div>
 
       <div class="card rv">
@@ -469,8 +565,10 @@
             <path d="M9.2 18V5.6L19 3.4v12"/><path d="M9.2 9.4 19 7.2"/><circle cx="6.4" cy="18.4" r="2.8"/><circle cx="16.2" cy="15.8" r="2.8"/>
           </svg>
         </span>
-        <h4>De fiesta, siempre en manada</h4>
-        <p>Sal y regresa con tu grupo, y no dejes tu trago solo. Ojo con los desconocidos demasiado encantadores: <em style="color:var(--oro)">alguno querrá robarte algo más que el corazón…</em></p>
+        <h4 lang="es">De fiesta, siempre en manada</h4>
+        <h4 lang="en">Go out as a pack</h4>
+        <p lang="es">Sal y regresa con tu grupo, y no dejes tu trago solo. Ojo con los desconocidos demasiado encantadores: <em style="color:var(--oro)">alguno querrá robarte algo más que el corazón…</em></p>
+        <p lang="en">Leave and come back with your group, and never leave your drink unattended. Be wary of strangers who are a little too charming: <em style="color:var(--oro)">one of them may be after more than your heart…</em></p>
       </div>
 
       <div class="card rv">
@@ -479,21 +577,25 @@
             <path d="M12.4 3H20a1 1 0 0 1 1 1v7.6a1 1 0 0 1-.3.7l-8.4 8.4a1 1 0 0 1-1.4 0l-7.6-7.6a1 1 0 0 1 0-1.4l8.4-8.4a1 1 0 0 1 .7-.3Z"/><circle cx="16.8" cy="7.2" r="1.3"/>
           </svg>
         </span>
-        <h4>Pregunta el precio primero</h4>
-        <p>En tiendas, mercados y puestos de comida, pregunta cuánto cuesta antes de pedir o comprar. Así no hay sorpresas y todos quedamos contentos.</p>
+        <h4 lang="es">Pregunta el precio primero</h4>
+        <h4 lang="en">Ask the price first</h4>
+        <p lang="es">En tiendas, mercados y puestos de comida, pregunta cuánto cuesta antes de pedir o comprar. Así no hay sorpresas y todos quedamos contentos.</p>
+        <p lang="en">In shops, markets and food stalls, ask what it costs before you order or buy. No surprises, and everyone goes home happy.</p>
       </div>
     </div>
 
     <div class="dicho rv">
-      <p class="previa">Y como decimos por aquí</p>
+      <p class="previa" lang="es">Y como decimos por aquí</p>
+      <p class="previa" lang="en">And as we say around here</p>
       <strong>No dar papaya</strong>
-      <em>Es decir: no ponérselo fácil a nadie.</em>
+      <em><span lang="es">Es decir: no ponérselo fácil a nadie.</span><span lang="en">Roughly: do not make it easy for anyone.</span></em>
     </div>
 
-    <p class="despedida rv">Te esperamos allá para bailar al son de una cumbia, comernos un buen chicharroncito con patacón y, claro, brindar con un aguardientico.</p>
+    <p class="despedida rv" lang="es">Te esperamos allá para bailar al son de una cumbia, comernos un buen chicharroncito con patacón y, claro, brindar con un aguardientico.</p>
+    <p class="despedida rv" lang="en">We will be waiting for you — to dance a cumbia, share a good chicharrón with patacón and, of course, raise a glass of aguardiente.</p>
 
     <p class="rv" style="text-align:center;margin-top:26px">
-      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost">Ver la versión imprimible</a>
+      <a href="tips-colombia-luisa-ricardo-v2.html" target="_blank" rel="noopener" class="btn btn-ghost"><span lang="es">Ver la versión imprimible</span><span lang="en">See the printable version</span></a>
     </p>
   </div>
 </section>
@@ -501,14 +603,19 @@
 
 
 
+</div>
+
+<div class="vista" id="v-rsvp">
 <!-- ═══════════ RSVP ═══════════ -->
 <section id="rsvp">
   <div class="wrap narrow">
     <div class="rsvp-box rv">
       <div style="text-align:center">
-        <span class="eyebrow">Los esperamos</span>
-        <h2 style="margin-bottom:.6rem">Confirma tu asistencia</h2>
-        <p class="ph" style="color:var(--salvia-claro)">Por favor confirma antes del <strong style="color:#E3B08A">2 de enero de 2027</strong>.</p>
+        <span class="eyebrow"><span lang="es">Los esperamos</span><span lang="en">We hope to see you</span></span>
+        <h2 style="margin-bottom:.6rem" lang="es">Confirma tu asistencia</h2>
+        <h2 style="margin-bottom:.6rem" lang="en">Let us know you are coming</h2>
+        <p class="ph" style="color:var(--salvia-claro)" lang="es">Por favor confirma antes del <strong style="color:#E3B08A">2 de enero de 2027</strong>.</p>
+        <p class="ph" style="color:var(--salvia-claro)" lang="en">Please reply before <strong style="color:#E3B08A">January 2, 2027</strong>.</p>
       </div>
 
       <!--
@@ -523,54 +630,59 @@
         <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off"
                aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="field">
-          <label for="f-nombre">Nombre y apellido</label>
+          <label for="f-nombre"><span lang="es">Nombre y apellido</span><span lang="en">Full name</span></label>
           <input id="f-nombre" name="nombre" type="text" placeholder="Como aparece en la invitación" required>
         </div>
         <div class="field">
-          <label for="f-email">Correo electrónico</label>
+          <label for="f-email"><span lang="es">Correo electrónico</span><span lang="en">Email</span></label>
           <input id="f-email" name="email" type="email" placeholder="tu@correo.com" required>
         </div>
         <div class="field">
-          <label for="f-asiste">¿Nos acompañas?</label>
+          <label for="f-asiste"><span lang="es">¿Nos acompañas?</span><span lang="en">Will you join us?</span></label>
           <select id="f-asiste" name="asiste" required>
-            <option value="">Selecciona…</option>
-            <option>Sí, allí estaré</option>
-            <option>Sí, con acompañante</option>
-            <option>Lamentablemente no puedo</option>
+            <option value="">Selecciona… / Select…</option>
+            <option value="Sí, allí estaré">Sí, allí estaré / Yes, I will be there</option>
+            <option value="Sí, con acompañante">Sí, con acompañante / Yes, with a plus one</option>
+            <option value="Lamentablemente no puedo">Lamentablemente no puedo / Sadly I cannot make it</option>
           </select>
         </div>
         <div class="field">
-          <label for="f-personas">Número de personas</label>
+          <label for="f-personas"><span lang="es">Número de personas</span><span lang="en">Number of people</span></label>
           <select id="f-personas" name="personas">
             <option>1</option><option>2</option><option>3</option><option>4</option>
           </select>
         </div>
         <div class="field">
-          <label for="f-pais">¿Desde dónde viajas?</label>
+          <label for="f-pais"><span lang="es">¿Desde dónde viajas?</span><span lang="en">Where are you travelling from?</span></label>
           <input id="f-pais" name="pais" type="text" placeholder="Ciudad y país">
         </div>
         <div class="field">
-          <label for="f-dieta">Alergias o restricciones alimentarias</label>
+          <label for="f-dieta"><span lang="es">Alergias o restricciones alimentarias</span><span lang="en">Allergies or dietary needs</span></label>
           <input id="f-dieta" name="dieta" type="text" placeholder="Vegetariano, sin gluten, alergias…">
         </div>
         <div class="field full">
-          <label for="f-nota">¿Algo más que debamos saber?</label>
+          <label for="f-nota"><span lang="es">¿Algo más que debamos saber?</span><span lang="en">Anything else we should know?</span></label>
           <textarea id="f-nota" name="nota" placeholder="Canción que no puede faltar, movilidad reducida, fecha de llegada…"></textarea>
         </div>
         <div class="field full" style="align-items:center;margin-top:8px">
-          <button type="submit" class="btn btn-light">Enviar confirmación</button>
-          <p class="note" style="text-align:center">¿Prefieres escribirnos? <a href="https://wa.me/573012884694" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
+          <button type="submit" class="btn btn-light"><span lang="es">Enviar confirmación</span><span lang="en">Send</span></button>
+          <p class="note" style="text-align:center" lang="es">¿Prefieres escribirnos? <a href="https://wa.me/573012884694" target="_blank" rel="noopener">Confirmar por WhatsApp</a></p>
+          <p class="note" style="text-align:center" lang="en">Prefer to write to us? <a href="https://wa.me/573012884694" target="_blank" rel="noopener">Reply on WhatsApp</a></p>
         </div>
       </form>
       <div id="rsvp-msg" role="status"></div>
     </div>
   </div>
 </section>
+</div>
+
+<div class="vista" id="v-regalos">
 <!-- ═══════════ REGALOS ═══════════ -->
 <section id="regalos">
   <div class="wrap narrow rv" style="text-align:center">
-    <span class="eyebrow">Con cariño</span>
-    <h2>Regalos</h2>
+    <span class="eyebrow"><span lang="es">Con cariño</span><span lang="en">With love</span></span>
+    <h2 lang="es">Regalos</h2>
+    <h2 lang="en">Gifts</h2>
     <svg class="sprig" viewBox="0 0 120 40" style="margin:22px auto" aria-hidden="true">
       <path d="M10 20 H110"/>
       <ellipse cx="35" cy="12" rx="10" ry="5.5" transform="rotate(-22 35 12)"/>
@@ -580,16 +692,22 @@
       <ellipse cx="85" cy="12" rx="10" ry="5.5" transform="rotate(-22 85 12)"/>
       <ellipse cx="85" cy="28" rx="10" ry="5.5" transform="rotate(22 85 28)"/>
     </svg>
-    <p class="lead">Que vengan desde tan lejos ya es el regalo. En serio.</p>
-    <p style="margin-top:1.2rem">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que lo más fácil es esto:</p>
+    <p class="lead" lang="es">Que vengan desde tan lejos ya es el regalo. En serio.</p>
+    <p class="lead" lang="en">That you would come all this way is the gift. Truly.</p>
+    <p style="margin-top:1.2rem" lang="es">Si además quieren tener un detalle con nosotros, lo agradecemos de corazón. Sabemos que traer algo en la maleta es incómodo, así que lo más fácil es esto:</p>
+    <p style="margin-top:1.2rem" lang="en">If you would also like to give us something, we are grateful from the heart. We know fitting a present into a suitcase is awkward, so the simplest way is this:</p>
     <div class="grid" style="margin-top:30px;text-align:left;max-width:520px;margin-left:auto;margin-right:auto">
       <div class="card">
-        <h4>Aporte a la luna de miel</h4>
-        <p class="ph">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
+        <h4 lang="es">Aporte a la luna de miel</h4>
+        <h4 lang="en">A contribution to the honeymoon</h4>
+        <p class="ph" lang="es">Transferencia a: [banco / número de cuenta / Nequi / Bizum / PayPal / Wise]. También habrá un buzón discreto en la recepción de la finca.</p>
+        <p class="ph" lang="en">Bank transfer to: [bank / account number / Nequi / Bizum / PayPal / Wise]. There will also be a discreet box at the entrance to the farm.</p>
       </div>
     </div>
   </div>
 </section>
+
+</div>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
@@ -603,14 +721,17 @@
   </div>
   <div class="wrap">
     <div class="mono">R &amp; L</div>
-    <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)">2 de abril de 2027</p>
+    <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)" lang="es">2 de abril de 2027</p>
+    <p style="font-family:var(--serif);font-size:1.2rem;color:var(--crema)" lang="en">April 2, 2027</p>
     <p>Finca La Victoria &middot; Subachoque, Cundinamarca &middot; Colombia</p>
-    <p style="margin-top:20px">Organización: <strong style="color:#E3B08A">Julieth Bravo</strong><br>
-      <a href="https://wa.me/573012884694" target="_blank" rel="noopener">WhatsApp +57 301 288 4694</a></p>
+    <!-- Sin número de teléfono a propósito: el contacto de Julieth no es público. -->
+    <p style="margin-top:20px" lang="es">Nuestra planeadora es <strong style="color:#E3B08A">Julieth Bravo</strong>. Ella los contactará más adelante.</p>
+    <p style="margin-top:20px" lang="en">Our wedding planner is <strong style="color:#E3B08A">Julieth Bravo</strong>. She will be in touch closer to the date.</p>
   </div>
 </footer>
 
-<script src="guion.js"></script>
+<!-- Mismo truco que con el CSS: sube el número al cambiar guion.js -->
+<script src="guion.js?v=7"></script>
 
 <!--
   API de embeds de Spotify: es lo que permite arrancar la canción desde el

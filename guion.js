@@ -241,11 +241,44 @@
     msg.style.color       = tono === 'ok' ? '#E3B08A' : '#E8A08A';
   }
 
+  /* Los mensajes del formulario también cambian de idioma. Se leen en el
+     momento de mostrarlos, así que siguen el idioma que el invitado tenga
+     elegido en ese instante. */
+  var MSG = {
+    es: {
+      gracias:  '¡Gracias! Hemos recibido tu confirmación.',
+      faltan:   'Por favor completa tu nombre, tu correo y si nos acompañas.',
+      correo:   'Revisa el correo electrónico, parece que tiene una errata.',
+      sinform:  '<strong>Aún no está conectado.</strong> Falta configurar GFORM y CAMPOS ' +
+                'en el JavaScript de este archivo. Nadie recibiría esta respuesta todavía.',
+      enviando: 'Enviando…',
+      enviar:   'Enviar confirmación',
+      hecho:    function(nombre){ return '<strong>¡Gracias, ' + nombre + '!</strong><br>' +
+                'Hemos recibido tu confirmación. Nos vemos el 2 de abril en Subachoque.'; },
+      fallo:    'No hemos podido enviar la confirmación. Revisa tu conexión e inténtalo de nuevo, ' +
+                'o escríbenos por WhatsApp y lo apuntamos a mano.'
+    },
+    en: {
+      gracias:  'Thank you! We have your reply.',
+      faltan:   'Please fill in your name, your email and whether you can join us.',
+      correo:   'That email address looks like it has a typo.',
+      sinform:  '<strong>Not connected yet.</strong> GFORM and CAMPOS still need to be set ' +
+                'in the JavaScript of this file. Nobody would receive this reply yet.',
+      enviando: 'Sending…',
+      enviar:   'Send',
+      hecho:    function(nombre){ return '<strong>Thank you, ' + nombre + '!</strong><br>' +
+                'We have your reply. See you on April 2 in Subachoque.'; },
+      fallo:    'We could not send your reply. Check your connection and try again, ' +
+                'or write to us on WhatsApp and we will note it down by hand.'
+    }
+  };
+  var t = function(){ return MSG[document.body.getAttribute('data-idioma') === 'en' ? 'en' : 'es']; };
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
 
     /* si un robot rellenó el campo trampa, fingimos normalidad y no enviamos */
-    if(val('f-web')){ aviso('¡Gracias! Hemos recibido tu confirmación.','ok'); return; }
+    if(val('f-web')){ aviso(t().gracias,'ok'); return; }
 
     var datos = {
       nombre:val('f-nombre'), email:val('f-email'),   asiste:val('f-asiste'),
@@ -254,23 +287,22 @@
     };
 
     if(!datos.nombre || !datos.email || !datos.asiste){
-      aviso('Por favor completa tu nombre, tu correo y si nos acompañas.');
+      aviso(t().faltan);
       return;
     }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(datos.email)){
-      aviso('Revisa el correo electrónico, parece que tiene una errata.');
+      aviso(t().correo);
       return;
     }
 
     if(!GFORM || !CAMPOS.nombre){
-      aviso('<strong>Aún no está conectado.</strong> Falta configurar GFORM y CAMPOS ' +
-            'en el JavaScript de este archivo. Nadie recibiría esta respuesta todavía.');
+      aviso(t().sinform);
       return;
     }
 
     var boton = form.querySelector('button[type="submit"]');
     boton.disabled = true;
-    boton.textContent = 'Enviando…';
+    boton.textContent = t().enviando;
 
     var fd = new FormData();
     Object.keys(CAMPOS).forEach(function(k){
@@ -282,15 +314,118 @@
     fetch(GFORM, { method:'POST', mode:'no-cors', body:fd })
       .then(function(){
         form.style.display = 'none';
-        aviso('<strong>¡Gracias, ' + datos.nombre.split(' ')[0] + '!</strong><br>' +
-              'Hemos recibido tu confirmación. Nos vemos el 2 de abril en Subachoque.','ok');
+        aviso(t().hecho(datos.nombre.split(' ')[0]),'ok');
         msg.scrollIntoView({behavior:'smooth', block:'center'});
       })
       .catch(function(){
         boton.disabled = false;
-        boton.textContent = 'Enviar confirmación';
-        aviso('No hemos podido enviar la confirmación. Revisa tu conexión e inténtalo de nuevo, ' +
-              'o escríbenos por WhatsApp y lo apuntamos a mano.');
+        boton.textContent = t().enviar;
+        aviso(t().fallo);
       });
   });
+
+  /* ═══════════════════ VISTAS (PESTAÑAS) ═══════════════════
+     El menú ya no hace scroll: cambia de vista, mostrando una sección y
+     escondiendo las demás. Se guía por el hash de la URL, así que los
+     enlaces internos (#rsvp, #hospedaje…) siguen funcionando igual que
+     antes y los botones atrás/adelante del navegador también.
+
+     Si algo de aquí fallara, el <body> nunca recibe la clase 'pestanas'
+     y la web se ve entera con scroll, como estaba. */
+  var vistas = [].slice.call(document.querySelectorAll('.vista'));
+  if(vistas.length){
+
+    var vistaDe = function(hash){
+      var id = (hash || '').replace('#','');
+      if(!id || id === 'inicio') return document.getElementById('v-inicio');
+      var destino = document.getElementById(id);
+      var v = (destino && destino.closest) ? destino.closest('.vista') : null;
+      return v || document.getElementById('v-inicio');
+    };
+
+    var enlacesNav = [].slice.call(links.querySelectorAll('a'));
+
+    var mostrar = function(vista, subir){
+      if(!vista) return;
+      vistas.forEach(function(v){ v.classList.toggle('activa', v === vista); });
+
+      /* La portada entera (fotos, cuenta regresiva, fecha y botones) es
+         exclusiva de la pestaña de Inicio. En las demás, el CSS deja solo
+         los nombres y la ramita a modo de firma. */
+      document.body.classList.toggle('en-inicio', vista.id === 'v-inicio');
+
+      /* La aparición gradual se dispara al hacer scroll (IntersectionObserver).
+         Una vista escondida nunca llega a cruzar la pantalla, así que al abrirla
+         hay que marcar sus elementos a mano o se quedarían invisibles. */
+      [].slice.call(vista.querySelectorAll('.rv')).forEach(function(el){
+        el.classList.add('in');
+      });
+
+      enlacesNav.forEach(function(a){
+        var h = a.getAttribute('href') || '';
+        a.classList.toggle('actual', h.charAt(0) === '#' && vistaDe(h) === vista);
+      });
+
+      if(subir) window.scrollTo(0, 0);
+    };
+
+    /* Primero se activa una vista y solo después se esconden las demás:
+       así la página no puede quedarse en blanco en ningún momento. */
+    mostrar(vistaDe(location.hash), false);
+    document.body.classList.add('pestanas');
+
+    window.addEventListener('hashchange', function(){
+      mostrar(vistaDe(location.hash), true);
+    });
+  }
+
+  /* ═══════════════════ IDIOMA (ES / EN) ═══════════════════
+     Cada texto de la web está escrito dos veces, con lang="es" y lang="en".
+     Aquí solo se cambia el atributo data-idioma del <body>: el CSS se encarga
+     de esconder el idioma que no toca. Por eso no hay que tocar ningún texto
+     desde JavaScript y los enlaces y negritas se mantienen intactos.
+
+     El español es siempre la opción por defecto. La elección se recuerda en
+     el navegador de cada invitado, así que al volver a entrar sigue en el
+     idioma que eligió.                                                    */
+  var botonesIdioma = [].slice.call(document.querySelectorAll('.idioma'));
+  if(botonesIdioma.length){
+
+    var TITULOS = {
+      es: 'Ricardo & Luisa · 2 de abril de 2027 · Subachoque, Colombia',
+      en: 'Ricardo & Luisa · April 2, 2027 · Subachoque, Colombia'
+    };
+
+    var ponerIdioma = function(idioma, recordar){
+      if(idioma !== 'en') idioma = 'es';
+      document.body.setAttribute('data-idioma', idioma);
+      document.documentElement.setAttribute('lang', idioma);
+      document.title = TITULOS[idioma];
+      botonesIdioma.forEach(function(b){
+        b.classList.toggle('actual', b.getAttribute('data-ir') === idioma);
+      });
+      if(recordar){
+        /* Si el navegador tiene el almacenamiento bloqueado (modo privado,
+           cookies desactivadas), esto falla: no pasa nada, simplemente no
+           se recuerda la elección. */
+        try{ localStorage.setItem('idioma', idioma); }catch(e){}
+      }
+    };
+
+    var guardado = null;
+    try{ guardado = localStorage.getItem('idioma'); }catch(e){}
+    ponerIdioma(guardado || 'es', false);
+
+    botonesIdioma.forEach(function(b){
+      b.addEventListener('click', function(){
+        ponerIdioma(b.getAttribute('data-ir'), true);
+        /* El menú desplegable del móvil se cierra al elegir, igual que
+           cuando se pulsa una pestaña. */
+        links.classList.remove('show');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+
 })();
