@@ -49,6 +49,16 @@ en la misma carpeta.
 - **Consejos de seguridad**: la sección "Cuatro cositas de nada" viene del
   flyer impreso. La tarjeta de "Seguridad" en Colombia práctica se recortó
   a propósito para no repetir lo mismo dos veces.
+- **El sitio se llama «Hacienda La Victoria»**, no Finca (corregido en agosto
+  de 2026). Ojo al escribir textos nuevos.
+- **La sección «Detalles del evento»** (id `lugar` en el HTML) concentra ahora
+  ceremonia, ubicación, parqueadero, transporte y vestuario. La ceremonia es
+  **religiosa**; la hora, 4:00 p.m., sigue siendo tentativa y está marcada
+  como dato por confirmar.
+- **Transporte**: no hay buses de la boda. Quien quiera puede contratarlo por
+  su cuenta con **TransRubio** (cotizaciones@transrubio.com.co). Es una
+  gestión independiente, y así está redactado en la web para que nadie
+  entienda que lo organizamos nosotros.
 - **Programa, vestuario y preguntas frecuentes: eliminados** (decisión de
   agosto de 2026). Esas tres secciones ya no existen en ningún sitio — ni en
   la web ni en el flyer. Se borraron también sus estilos del CSS.
