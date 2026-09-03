@@ -55,6 +55,10 @@ en la misma carpeta.
   ceremonia, ubicación, parqueadero, transporte y vestuario. La ceremonia es
   **religiosa**; la hora, 4:00 p.m., sigue siendo tentativa y está marcada
   como dato por confirmar.
+  Va en **cuatro tarjetas, rejilla de 2×2**. Se quitó el mapa incrustado de
+  Google porque descuadraba la sección; queda el enlace a Google Maps y las
+  coordenadas dentro de la tarjeta «Dónde es». Si añadís una quinta tarjeta,
+  la fila de abajo queda coja: mejor fusionarla con otra o añadir dos.
 - **Transporte**: no hay buses de la boda. Quien quiera puede contratarlo por
   su cuenta con **TransRubio** (cotizaciones@transrubio.com.co). Es una
   gestión independiente, y así está redactado en la web para que nadie
