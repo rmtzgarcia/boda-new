@@ -261,6 +261,22 @@ nav.solid{border-bottom-color:rgba(117,131,78,.28);box-shadow:0 2px 24px rgba(29
 /* ═══════════════ CARDS / GRID ═══════════════ */
 .grid{display:grid;gap:22px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+/* ⚠ OJO: .g2 NO significa "dos columnas". Usa auto-fit con un mínimo de
+   300 px, así que en pantalla ancha caben TRES tarjetas por fila. Sirve
+   para 2 o 3 tarjetas; con 4 la última se queda sola y descuadra.
+   Para una rejilla de 2×2 de verdad, usa .g2x2 (columnas fijas). */
+.g2x2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g2x2{grid-template-columns:1fr}}
+
+/* ── Rejilla que CENTRA la última fila cuando queda incompleta ──
+   Con `grid`, las tarjetas sobrantes se pegan a la izquierda y dejan un
+   hueco a la derecha. Con flex + justify-content:center quedan centradas,
+   que es lo que queremos en «Colombia práctica» (5 tarjetas: 3 y 2).
+   Funciona con cualquier número de tarjetas, no solo con cinco. */
+.rejilla-centrada{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
+.rejilla-centrada > *{flex:0 1 calc((100% - 44px)/3)}
+@media(max-width:900px){.rejilla-centrada > *{flex:0 1 calc((100% - 22px)/2)}}
+@media(max-width:640px){.rejilla-centrada > *{flex:1 1 100%}}
 .g3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
 .card{
   background:var(--crema);border:1px solid rgba(117,131,78,.28);
