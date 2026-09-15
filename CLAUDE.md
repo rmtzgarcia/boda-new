@@ -154,7 +154,11 @@ de prueba y comprueba que la fila aparece en la hoja.
       (los textos ya están duplicados; falta el dato en sí).
 - [ ] Dirección exacta de la finca y enlace real del pin de Google Maps.
 - [ ] Fecha límite de confirmación (ahora puesta como 2 de enero de 2027).
-- [ ] Datos para los regalos y enlace de la mesa de regalos.
+- [ ] **Regalos**: decidido en septiembre de 2026 no publicar datos bancarios
+      ni mesa de regalos en la web. La sección solo dice que los detalles se
+      compartirán más adelante y que habrá un buzón en la recepción. Queda
+      pendiente decidir **por qué canal** se comunicarán esos datos (correo
+      a quienes confirmen, WhatsApp, o la propia Julieth).
 - [ ] Borrar el aviso "Versión borrador" antes de publicar (`div.draft-banner`).
 - [ ] **Quitar el bloqueo a buscadores** cuando la web esté lista: la etiqueta
       `<meta name="robots" content="noindex, nofollow">` de `index.html` y el
