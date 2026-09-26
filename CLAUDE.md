@@ -196,5 +196,16 @@ Cuando un dato sea definitivo, quitar el `ph` de esa etiqueta.
 
 - Antes de publicar, repasar que no queda ningún `ph` sin resolver.
 - Una semana antes de la fecha límite del RSVP, repetir la prueba de envío.
-- La web se despliega en Netlify desde este repositorio: al hacer `push`,
-  el sitio se actualiza solo en un minuto.
+- **Alojamiento: GitHub Pages** (desde septiembre de 2026; antes Netlify).
+  Dirección: `https://rmtzgarcia.github.io/boda-new/`. Al hacer `push` a
+  `main`, la web se actualiza sola en uno o dos minutos. Se dejó Netlify
+  porque su plan gratuito cobra créditos por cada despliegue y, con la
+  frecuencia con la que editamos, la web podía quedar pausada hasta fin de
+  mes. GitHub Pages no tiene ese límite.
+  ⚠ Todas las rutas del código deben ser **relativas** (`fotos/foto-1.jpg`,
+  nunca `/fotos/...`): la web vive en la subcarpeta `/boda-new/` y una ruta
+  que empiece por `/` se rompería.
+  El archivo vacío `.nojekyll` es necesario: impide que GitHub procese la
+  web con Jekyll. No borrarlo.
+  El `robots.txt` no tiene efecto en una subcarpeta; lo que impide que
+  Google indexe la web es la etiqueta `noindex` de `index.html`.
