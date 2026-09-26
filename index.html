@@ -17,8 +17,8 @@
   3. Para quitar el resaltado cuando ya tengas los datos finales, borra la
      palabra  ph  de la etiqueta, o busca en el CSS la regla  .ph  y ponle
      border-bottom: none;
-  4. El aviso "Versión borrador" de arriba se elimina borrando el bloque
-     <div class="draft-banner"> ... </div>
+  4. El aviso "Versión borrador" ya se ha quitado. Si hiciera falta
+     recuperarlo, la regla .draft-banner sigue en estilo.css.
   5. FORMULARIO RSVP — ⚠ FALTA CONECTARLO. Las respuestas van a un Google
      Form oculto, pero hay que rellenar antes las variables GFORM y CAMPOS
      en el bloque "ENVÍO DEL RSVP" del JavaScript, al final del archivo.
@@ -94,12 +94,6 @@
   </div>
   <div id="pm-caja"><div id="pm-marco"></div></div>
   <p class="pm-pie">«Asilo» · Jorge Drexler &amp; Mon Laferte</p>
-</div>
-
-<!-- ═══════════ AVISO EDITABLE (bórralo cuando publiques) ═══════════ -->
-<div class="draft-banner" id="draft">
-  <button onclick="document.getElementById('draft').remove()" aria-label="Cerrar">&times;</button>
-  <b>Versión borrador.</b> Los datos por confirmar están <span style="border-bottom:1.5px dotted #E3B08A">subrayados en punteado</span>. Instrucciones de edición en el comentario al inicio del archivo HTML. <em>(Este aviso es solo para vosotros: se borra antes de publicar.)</em>
 </div>
 
 <!-- ═══════════ NAV ═══════════ -->
