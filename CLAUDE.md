@@ -86,6 +86,23 @@ en la misma carpeta.
   La portada completa (fotos, cuenta regresiva, fecha y botones) solo se ve
   en la pestaña de Inicio; en las demás queda la firma con los nombres.
 
+  **Las siete pestañas, en orden** (septiembre de 2026):
+  Inicio · Detalles del Evento · Hospedaje · Colombia · Consejos · Regalos ·
+  Confirmar.
+
+  ⚠ **«Cómo llegar» ya no es una pestaña propia.** Se fusionó dentro de
+  **Colombia**, que ahora contiene dos secciones seguidas: primero
+  `#viaje` («El viaje a Colombia»: vuelos, entrada al país, taxis y apps) y
+  debajo `#colombia` («Colombia práctica»). El CSS alterna el fondo entre
+  secciones hermanas, así que la primera sale en marfil y la segunda en
+  crema: esa franja es la separación entre ambos bloques, no un fallo.
+
+  Los enlaces antiguos a `#viaje` **siguen funcionando** sin tocar nada: el
+  JS busca la sección por su id y sube hasta la `.vista` que la contiene.
+  Por eso el botón «Planear mi viaje» de la portada sigue apuntando ahí.
+  Esa es la regla general: **para enlazar a algo, usa el id de la sección,
+  nunca el de la vista** — así los enlaces sobreviven a las mudanzas.
+
 - **Español e inglés en la misma página** (agosto de 2026). Cada texto está
   escrito **dos veces**, con `lang="es"` y `lang="en"` uno al lado del otro,
   y el CSS esconde el que no toca. Al editar un texto **hay que cambiar las
